@@ -1,0 +1,36 @@
+{
+    "texturePack": [
+        [
+            {
+                "name": "name",
+                "required": true
+            },
+            {
+                "name": "dev",
+                "required": false,
+                "hidden": true
+            },
+            {
+                "name": "description",
+                "required": false,
+                "hidden": false
+            },
+            {
+                "name": "hamster",
+                "required": false
+            },
+            {
+                "name": "snail",
+                "required": false
+            },
+            {
+                "name": "items",
+                "required": false
+            },
+            {
+                "name": "tavenProps",
+                "required": false
+            }
+        ]
+    ]
+}
