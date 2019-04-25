@@ -1,4 +1,4 @@
-var RESET_ON_RELOAD = true;
+var RESET_ON_RELOAD = false;
 var data = {
     currentTP: -1,
     texturePacks: [],

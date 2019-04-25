@@ -1,6 +1,6 @@
 {
     "manifest_version":2,
-    "name": "Box Critters Texture Pack Selector",
+    "name": "Box Critters Texture Pack Manager",
     "version":"0.1",
     "content_scripts": [
         {
@@ -12,10 +12,10 @@
     ],
     "browser_action": {
         "default_popup": "popup.html",
-        "default_title": "Texture Pack Selector"
+        "default_title": "BC Texture Pack Manager"
     },
     "permissions": [
-        "webRequest", "webRequestBlocking","storage","<all_urls>","tabs"
+        "webRequest", "webRequestBlocking","storage","https://boxcritters.com/*","tabs"
     ],
     "background": {
         "scripts": ["background.js"]
