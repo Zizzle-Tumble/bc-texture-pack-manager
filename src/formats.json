@@ -3,33 +3,40 @@
         [
             {
                 "name": "name",
-                "required": true
+                "required": true,
+				"label": "Name: "
             },
             {
                 "name": "dev",
                 "required": false,
-                "hidden": true
+                "hidden": true,
+				"label": "Developer: "
             },
             {
                 "name": "description",
                 "required": false,
-                "hidden": false
+                "hidden": false,
+				"label": "Description: "
             },
             {
                 "name": "hamster",
-                "required": false
+                "required": false,
+				"label": "Hamster: "
             },
             {
                 "name": "snail",
-                "required": false
+                "required": false,
+				"label": "Snail: "
             },
             {
                 "name": "items",
-                "required": false
+                "required": false,
+				"label": "Items: "
             },
             {
                 "name": "tavenProps",
-                "required": false
+                "required": false,
+				"label": "Tavern Props: "
             }
         ]
     ]

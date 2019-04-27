@@ -137,11 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
         sendMessage("gettexturepacks", {}, (texturepacks) => {
             tplist.innerHTML = "";
             if (isNullOrUndefined(texturepacks)) {
-                tplist.innerHTML = 'Please goto the box critters website';
+                tplist.innerHTML = 'Please enter Box Critters.';
                 return;
             }
             if (texturepacks instanceof Array && texturepacks.length === 0) {
-                tplist.innerHTML = 'There are no themes. Please <a href="addtheme.html">Add a theme</a>';
+                tplist.innerHTML = 'There are no themes. Please <a href="addtheme.html">add a theme</a>.';
                 return;
             }
             texturepacks.forEach((tp,i)=>{
@@ -180,15 +180,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 var formItemLabel = document.createElement('span');
                 var formItemValue = document.createElement('input');
 
-                formItemLabel.innerHTML = f.name;
+                formItemLabel.innerHTML = f.label;
                 formItemValue.name = f.name;
-                formItemValue.class = "form-control px-2"
+                formItemValue.classList = "form-control px-2"
 
                 formItem.appendChild(formItemLabel);
                 formItem.appendChild(formItemValue);
                 createtpform.appendChild(formItem);
             });
             var button = document.createElement('button');
+			button.classList = "btn btn-primary"
+			button.attributeName = "style.css"
             button.innerHTML = "Create Texture Pack";
             button.type = "submit";
             createtpform.appendChild(button);
