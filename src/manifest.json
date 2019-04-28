@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "manifest_version":2,
     "name": "Box Critters Texture Pack Manager",
@@ -20,4 +21,28 @@
     "background": {
         "scripts": ["background.js"]
     }
+=======
+{
+    "manifest_version":2,
+    "name": "Box Critters Texture Pack Manager",
+    "version":"0.1",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://boxcritters.com/*"
+            ],
+            "js": ["content.js"]
+        }
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "BC Texture Pack Manager"
+    },
+    "permissions": [
+        "webRequest", "webRequestBlocking","storage","https://boxcritters.com/*","tabs"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    }
+>>>>>>> edecfe6dd399f85f9beed3677f1ae6ec237c250c
 }

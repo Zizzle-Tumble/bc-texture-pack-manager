@@ -141,4 +141,5 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
             sendResponse();
             break;
     }
+>>>>>>> edecfe6dd399f85f9beed3677f1ae6ec237c250c
 });

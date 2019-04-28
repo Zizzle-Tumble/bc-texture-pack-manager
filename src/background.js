@@ -1,7 +1,6 @@
 var chrome = chrome||browser;
 var rules = new Array();
 
-
 function sendMessage(type,content,response) {
     console.log("Sending message:",{type,content});
     chrome.tabs.query({currentWindow:true,active:true},
@@ -50,12 +49,12 @@ function clone(obj) {
 
 function genrules() {
     return new Promise((resolve,reject)=>{
-        load().then((data)=>{        
+        load().then((data)=>{
             if(data===undefined || data === {}){
                 reject("no data was found");
                 return;
             }
-            
+
             //get current texture pack
             if(data.currentTP<0){
                 reject("no texture pack was selected");
@@ -63,13 +62,13 @@ function genrules() {
             }
             var currentTP = data.texturePacks[data.currentTP];
             console.log("current tp",data.currentTP);
-            
+
             //Get Deafult texture pack
             var defaultTP = clone(data.from)
             var keys = Object.keys(defaultTP);
             keys.map(function(key) {
                 defaultTP[key] = data.bc + defaultTP[key];
-            });         
+            });
 
             //get texture pack attributes
             keys = Object.keys(defaultTP);
@@ -78,31 +77,31 @@ function genrules() {
                 return;
             }
             console.log("keys",keys);
-           /* rules = keys.reduce((result,key)=>{
+            rules = keys.reduce((result,key)=>{
                 console.log(key);
                 console.log(typeof result !== "object")
                 console.log(result);
-                
-                
+
+
                 if(typeof result !== "object") {
                     result = {};
                 }
-                if(currentTP[key] !== ""&&currentTP[key] !== defaultTP[key]){
+                if(currentTP[key] !== ""){
                     result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
                 }
                 return result;
-            });*/
+            });
             rules = keys.map((key)=>{
                 var rule = {};
 
                 console.log("key",key);
+
 
                 rule.from = defaultTP[key];
                 rule.to = currentTP[key]||defaultTP[key];
                 console.log("rule",rule);
                 return rule;
             });
-            rules = rules.filter(rule=>rule.from!=rule.to);
             console.log("rules",rules);
             resolve(rules);
         }).catch(reject);
@@ -121,7 +120,7 @@ function redirect(request) {
     //console.log("\n\n")
     //console.log("REQUEST",request.url);
     //console.log("rules",rules);
-    
+
     var rule = rules.find((rule)=>{
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
@@ -132,8 +131,8 @@ function redirect(request) {
 
     if(rule){
         //console.log("rule",rule);
-        //console.log("Redirecting...");            
-        
+        //console.log("Redirecting...");
+
         lastRequestId = request.requestId;
         return {
             //redirectUrl : request.url.replace(rule.from, rule.to)
@@ -160,9 +159,9 @@ chrome.runtime.onMessage.addListener(({type,content}, sender, sendResponse)=> {
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
         return redirect(details);
-    }, 
+    },
     {
         urls : ["https://boxcritters.com/media/*"]
-    }, 
+    },
     ["blocking"]
 );
