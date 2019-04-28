@@ -1,3 +1,4 @@
+var chrome = chrome||browser;
 var rules = new Array();
 
 
@@ -77,7 +78,7 @@ function genrules() {
                 return;
             }
             console.log("keys",keys);
-            rules = keys.reduce((result,key)=>{
+           /* rules = keys.reduce((result,key)=>{
                 console.log(key);
                 console.log(typeof result !== "object")
                 console.log(result);
@@ -86,22 +87,22 @@ function genrules() {
                 if(typeof result !== "object") {
                     result = {};
                 }
-                if(currentTP[key] !== ""){
+                if(currentTP[key] !== ""&&currentTP[key] !== defaultTP[key]){
                     result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
                 }
                 return result;
-            });
+            });*/
             rules = keys.map((key)=>{
                 var rule = {};
 
                 console.log("key",key);
-                                
 
                 rule.from = defaultTP[key];
                 rule.to = currentTP[key]||defaultTP[key];
                 console.log("rule",rule);
                 return rule;
             });
+            rules = rules.filter(rule=>rule.from!=rule.to);
             console.log("rules",rules);
             resolve(rules);
         }).catch(reject);

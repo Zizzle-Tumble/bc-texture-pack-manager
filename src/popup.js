@@ -1,3 +1,4 @@
+var chrome = chrome||browser;
 document.addEventListener('DOMContentLoaded', () => {
     var addtpbutton = document.querySelector("button#addtheme");
     var tplist = document.querySelector("ul#tplist")
