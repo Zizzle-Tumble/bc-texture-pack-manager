@@ -1,8 +1,9 @@
 var chrome = chrome||browser;
 document.addEventListener('DOMContentLoaded', () => {
     var addtpbutton = document.querySelector("button#addtheme");
-    var tplist = document.querySelector("ul#tplist")
+    var tplist = document.querySelector("div#tplist")
     var createtpform = document.querySelector("form#createtpform")
+    var resetbutton = document.querySelector('button#reset');
 
     function isNullOrUndefined(obj) {
         return obj === null ||
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function refreshPage() {
+        location.reload();
         chrome.tabs.reload();
     }
 
@@ -103,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function enableTP(id){
-        console.log("hello")
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
         sendMessage("settp",{id},(msg)=>{
@@ -115,6 +116,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 successmessage.style.display = "none";
             },500)
         });
+    }
+
+    function getDefault(data) {
+        let tp = {};
+        for (key in data.from) {
+            tp[key] = data.bc + data.from[key]; // copies each property to the objCopy object
+        }
+        tp.name = "BoxCritters";
+
+        var des = [
+            //Description by Eribetra
+            "The default, vanilla texture pack.",
+            //Description by Blackout03
+            "Wanna go retro? Use this pack!"
+        ]
+
+        tp.description = des[Math.round(Math.random()*des.length)];
+        tp.version = 0;
+        return tp;
     }
 
     //Add Texture Pack Button
@@ -132,10 +152,83 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }, false);
     }
+    /*
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">List group item heading</h5>
+            <small>3 days ago</small>
+        </div>
+        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+        <small>Donec id elit non mi porta.</small>
+        <span class="pull-right button-group">
+        <a href="/admin/userA" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+        </span>
+    </a>
+    */
+
+    function genTPItem(tp) {
+        //link
+        var link = document.createElement('a');
+        link.classList = "list-group-item list-group-item d-flex flex-row justify-content-between align-items-center";
+        link.href = "#";
+        //left
+        var left = document.createElement("span");
+        //header
+        var header = document.createElement('div');
+        header.classList = "d-flex w-100 justify-content-between";
+        //title
+        var title = document.createElement('h5');
+        title.classList = "mb-1";
+        title.innerHTML = tp.name;
+        header.appendChild(title);
+        //date created
+
+        //description
+        if(tp.description) {
+            var description = document.createElement('p');
+            description.classList = "mb-1";
+            description.innerHTML = tp.description;
+        }
+        //author
+
+
+        
+        left.appendChild(header);
+        if(description) {
+            left.appendChild(description);
+        }
+        link.appendChild(left);
+
+         //button group
+         var bgroup = document.createElement('span');
+         bgroup.classList = "btn-group";
+         var btn;
+         // edit button
+         btn = document.createElement('a');
+         btn.href = "#";
+         btn.classList = "btn btn-warning";
+         btn.innerHTML = "Edit";
+         bgroup.appendChild(btn);
+         // delete button
+         btn = document.createElement('a');
+         btn.href = "#";
+         btn.classList = "btn btn-danger";
+         btn.innerHTML = "Delete";
+         bgroup.appendChild(btn);
+
+
+        link.appendChild(bgroup);
+        return link;
+    }
 
     //List Texture Packs
     if (!isNullOrUndefined(tplist)) {
-        sendMessage("gettexturepacks", {}, (texturepacks) => {
+        sendMessage("getdata", {}, (data) => {
+            var texturepacks = data.texturePacks;
+            console.log(texturepacks);
+            
+            tplist.classList = "list-group"
             tplist.innerHTML = "";
             if (isNullOrUndefined(texturepacks)) {
                 tplist.innerHTML = 'Please enter Box Critters.';
@@ -145,8 +238,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 tplist.innerHTML = 'There are no themes. Please <a href="addtheme.html">add a theme</a>.';
                 return;
             }
+
+            //default
+            var defaulttp = genTPItem(getDefault(data))
+            defaulttp.addEventListener('click',()=>{
+                enableTP(-1);
+            });
+            if(data.currentTP === -1) {
+                defaulttp.classList += " active";
+            }
+            tplist.appendChild(defaulttp);
+
             texturepacks.forEach((tp,i)=>{
-                var tpitem = document.createElement('li');
+                /*var tpitem = document.createElement('li');
                 var tpitemlink = document.createElement('a');
                 tpitemlink.href = "#";
                 tpitemlink.addEventListener('click',()=>{
@@ -154,7 +258,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 tpitemlink.innerHTML = tp.name;
                 tpitem.appendChild(tpitemlink);
-                tplist.appendChild(tpitem);
+                tplist.appendChild(tpitem);*/
+
+                //NEW METHOD
+                var tplink = genTPItem(tp);
+                tplink.addEventListener('click',()=>{
+                    enableTP(i);
+                });
+                
+                if(data.currentTP === i) {
+                    tplink.classList += " active";
+                }
+                tplist.appendChild(tplink);
             });
         });
     }
@@ -199,6 +314,16 @@ document.addEventListener('DOMContentLoaded', () => {
             createtpform.addEventListener('submit', (e) => {
                 event.preventDefault();
                 createTP(e);
+            });
+        });
+    }
+
+
+    //reset
+    if(!isNullOrUndefined(resetbutton)) {
+        resetbutton.addEventListener('click', () => {
+            sendMessage("reset",{},()=>{
+                refreshPage();
             });
         });
     }

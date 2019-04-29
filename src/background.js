@@ -86,8 +86,8 @@ function genrules() {
                 if(typeof result !== "object") {
                     result = {};
                 }
-                if(currentTP[key] !== ""){
-                    result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
+                if(currentTP[key] !== ""&&currentTP[key]!==defaultTP[key]){
+                    result[key] = {from:defaultTP[key],to:currentTP[key]};
                 }
                 return result;
             });
