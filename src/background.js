@@ -1,18 +1,23 @@
+//@ts-check
+// @ts-ignore
 var chrome = chrome||browser;
 var rules = new Array();
 
-function sendMessage(type,content,response) {
+function sendMessage(type,content) {
     console.log("Sending message:",{type,content});
-    chrome.tabs.query({currentWindow:true,active:true},
-        (tabs)=>{
-            chrome.tabs.sendMessage(tabs[0].id,{type,content},response);
-        }
-    );
+    return new Promise((resolve,reject)=>{
+        chrome.tabs.query({currentWindow:true,active:true},
+            (tabs)=>{
+                chrome.tabs.sendMessage(tabs[0].id,{type,content}).then(resolve).catch(reject);
+            }
+        );
+    });
 }
 
 function load() {
     return new Promise((resolve,reject)=>{
         chrome.storage.sync.get(["bctpm"],(storage)=>{
+            chrome.browserAction.setBadgeText({text: storage.bctpm.texturePacks.length.toString()});
             resolve(storage.bctpm);
         });
     });
@@ -73,24 +78,10 @@ function genrules() {
             //get texture pack attributes
             keys = Object.keys(defaultTP);
             if(keys.length==0){
-                resject("texture pack has no attributes");
+                reject("texture pack has no attributes");
                 return;
             }
             console.log("keys",keys);
-            rules = keys.reduce((result,key)=>{
-                console.log(key);
-                console.log(typeof result !== "object")
-                console.log(result);
-
-
-                if(typeof result !== "object") {
-                    result = {};
-                }
-                if(currentTP[key] !== ""&&currentTP[key]!==defaultTP[key]){
-                    result[key] = {from:defaultTP[key],to:currentTP[key]};
-                }
-                return result;
-            });
             rules = keys.map((key)=>{
                 var rule = {};
 

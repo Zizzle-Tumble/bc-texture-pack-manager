@@ -1,3 +1,5 @@
+//@ts-check
+// @ts-ignore
 var chrome = chrome||browser;
 var RESET_ON_RELOAD = false;
 var data = {
@@ -24,7 +26,7 @@ function getCurrentAssetsFolder() {
         xobj.open('GET', 'https://bc-mod-api.herokuapp.com/', true); // Replace 'my_data' with the path to your file
         return new Promise((resolve, reject) => {
             xobj.onreadystatechange = function () {
-                if (xobj.readyState == 4 && xobj.status == "200") {
+                if (xobj.readyState == 4 && xobj.status == 200) {
                     // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
                     resolve(JSON.parse(xobj.responseText).assetsFolder);
                 }
@@ -99,14 +101,12 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
         case "addtp":
             data.texturePacks.push(content);
             save().then(() => {
+                chrome.browserAction.setBadgeText({text: data.texturePacks.length});
                 sendResponse("Texture Pack successfuly added.");
             });
             break;
         case "gettexturepacks":
             sendResponse(data.texturePacks);
-            break;
-        case "getbctexturepack":
-            sendResponse(getDefault());
             break;
         case "getdata":
             sendResponse(data);
