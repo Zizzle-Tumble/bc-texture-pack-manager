@@ -1,14 +1,8 @@
-//@ts-check
-// @ts-ignore
 var chrome = chrome||browser;
 document.addEventListener('DOMContentLoaded', () => {
     var addtpbutton = document.querySelector("button#addtheme");
-    var tplist = document.querySelector("div#tplist")
-    /**
-     * @type HTMLFormElement
-     */
+    var tplist = document.querySelector("ul#tplist")
     var createtpform = document.querySelector("form#createtpform")
-    var resetbutton = document.querySelector('button#reset');
 
     function isNullOrUndefined(obj) {
         return obj === null ||
@@ -29,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         xobj.open('GET', 'formats.json', true); // Replace 'my_data' with the path to your file
         return new Promise((resolve, reject) => {
             xobj.onreadystatechange = function () {
-                if (xobj.readyState == 4 && xobj.status == 200) {
+                if (xobj.readyState == 4 && xobj.status == "200") {
                     // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
                     resolve(JSON.parse(xobj.responseText));
                 }
@@ -38,25 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /**
-     * 
-     * @param {string} type 
-     * @param {object} content 
-     * @returns {Promise}
-     */
-    function sendMessage(type, content) {
-        console.log("Sending message:", { type, content });
-
-        return new Promise((resolve,reject)=>{
-            chrome.tabs.query({ currentWindow: true, active: true },
-                (tabs) => {
-                    chrome.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
-                }
-            );
-        });
-    }
-
-    function sendMessageCB(type, content, response) {
+    function sendMessage(type, content, response) {
         console.log("Sending message:", { type, content });
         chrome.tabs.query({ currentWindow: true, active: true },
             (tabs) => {
@@ -65,16 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-
-
-    function sendMessageBG(type,content) {
-        return new Promise((resolve,reject)=>{
-            chrome.runtime.sendMessage({type,content},resolve); 
-        })
+    function sendMessageBG(type,content,response) {
+        chrome.runtime.sendMessage({type,content}, response);
     }
 
     function refreshPage() {
-        location.reload();
         chrome.tabs.reload();
     }
 
@@ -110,13 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return new Promise((resolve, reject) => {
             data = decode(data);
             valid("texturePack", data).then((valid) => {
-                sendMessageCB("tpexists",data.name,(exists)=>{
+                sendMessage("tpexists",data.name,(exists)=>{
                     if(exists){
                         reject("Texture pack exists");
                     }
 
                     if (valid) {
-                        sendMessageCB("addtp", data, (msg) => {
+                        sendMessage("addtp", data, (msg) => {
                             resolve(msg);
                             setTimeout(() => {
                                 window.location.href = "popup.html";
@@ -132,10 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function enableTP(id){
+        console.log("hello")
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
-        sendMessageCB("settp",{id},(msg)=>{
-            sendMessageBG('refreshtp',id).then(console.log);
+        sendMessage("settp",{id},(msg)=>{
+            sendMessageBG('refreshtp',id,console.log);
             refreshPage();
             successmessage.style.display = "block";
             errormessage.innerHTML = msg;
@@ -143,25 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 successmessage.style.display = "none";
             },500)
         });
-    }
-
-    function getDefault(data) {
-        let tp = {};
-        for (var key in data.from) {
-            tp[key] = data.bc + data.from[key]; // copies each property to the objCopy object
-        }
-        tp.name = "BoxCritters";
-
-        var des = [
-            //Description by Eribetra
-            "The default, vanilla texture pack.",
-            //Description by Blackout03
-            "Wanna go retro? Use this pack!"
-        ]
-
-        tp.description = des[Math.floor(Math.random()*des.length)];
-        tp.version = 0;
-        return tp;
     }
 
     //Add Texture Pack Button
@@ -179,100 +132,21 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }, false);
     }
-    /*
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">List group item heading</h5>
-            <small>3 days ago</small>
-        </div>
-        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-        <small>Donec id elit non mi porta.</small>
-        <span class="pull-right button-group">
-        <a href="/admin/userA" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
-        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-        </span>
-    </a>
-    */
-
-    function genTPItem(tp) {
-        //link
-        var link = document.createElement('a');
-        link.classList.add("list-group-item list-group-item d-flex flex-row justify-content-between align-items-center");
-        link.href = "#";
-        //left
-        var left = document.createElement("span");
-        //header
-        var header = document.createElement('div');
-        header.classList.add("d-flex w-100 justify-content-between");
-        //title
-        var title = document.createElement('h5');
-        title.classList.add("mb-1");
-        title.innerHTML = tp.name;
-        header.appendChild(title);
-        //date created
-
-        //description
-        if(tp.description) {
-            var description = document.createElement('p');
-            description.classList.add("mb-1");
-            description.innerHTML = tp.description;
-        }
-        //author
-
-
-        
-        left.appendChild(header);
-        if(description) {
-            left.appendChild(description);
-        }
-        link.appendChild(left);
-
-         //button group
-         var bgroup = document.createElement('span');
-         bgroup.classList.add("btn-group");
-         var btn;
-         // edit button
-         btn = document.createElement('a');
-         btn.href = "#";
-         btn.classList.add("btn btn-warning");
-         btn.innerHTML = "Edit";
-         bgroup.appendChild(btn);
-         // delete button
-         btn = document.createElement('a');
-         btn.href = "#";
-         btn.classList.add("btn btn-danger");
-         btn.innerHTML = "Delete";
-         bgroup.appendChild(btn);
-
-
-        link.appendChild(bgroup);
-        return link;
-    }
 
     //List Texture Packs
     if (!isNullOrUndefined(tplist)) {
-        sendMessage("getdata", {}).then((data) => {
-            var texturepacks = data.texturePacks||[];
-            console.log(texturepacks);
+        sendMessage("gettexturepacks", {}, (texturepacks) => {
+            tplist.innerHTML = "";
+            if (isNullOrUndefined(texturepacks)) {
+                tplist.innerHTML = 'Please enter Box Critters.';
+                return;
+            }
             if (texturepacks instanceof Array && texturepacks.length === 0) {
                 tplist.innerHTML = 'There are no themes. Please <a href="addtheme.html">add a theme</a>.';
                 return;
             }
-            tplist.innerHTML = "";
-            tplist.classList.add("list-group");
-
-            //default
-            var defaulttp = genTPItem(getDefault(data))
-            defaulttp.addEventListener('click',()=>{
-                enableTP(-1);
-            });
-            if(data.currentTP === -1) {
-                defaulttp.classList.add("active");
-            }
-            tplist.appendChild(defaulttp);
-
             texturepacks.forEach((tp,i)=>{
-                /*var tpitem = document.createElement('li');
+                var tpitem = document.createElement('li');
                 var tpitemlink = document.createElement('a');
                 tpitemlink.href = "#";
                 tpitemlink.addEventListener('click',()=>{
@@ -280,22 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 tpitemlink.innerHTML = tp.name;
                 tpitem.appendChild(tpitemlink);
-                tplist.appendChild(tpitem);*/
-
-                //NEW METHOD
-                var tplink = genTPItem(tp);
-                tplink.addEventListener('click',()=>{
-                    enableTP(i);
-                });
-                
-                if(data.currentTP === i) {
-                    tplink.classList.add("active");
-                }
-                tplist.appendChild(tplink);
+                tplist.appendChild(tpitem);
             });
-        }).catch(()=>{
-            tplist.innerHTML = 'Please enter Box Critters.';
-            return;
         });
     }
 
@@ -323,31 +183,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 formItemLabel.innerHTML = f.label;
                 formItemValue.name = f.name;
-                formItemValue.classList.add("form-control px-2");
+                formItemValue.classList = "form-control px-2"
 
                 formItem.appendChild(formItemLabel);
                 formItem.appendChild(formItemValue);
                 createtpform.appendChild(formItem);
             });
             var button = document.createElement('button');
-			button.classList.add("btn btn-primary");
+			button.classList = "btn btn-primary"
+			button.attributeName = "style.css"
             button.innerHTML = "Create Texture Pack";
             button.type = "submit";
             createtpform.appendChild(button);
 
             createtpform.addEventListener('submit', (e) => {
                 event.preventDefault();
-                createTP();
-            });
-        });
-    }
-
-
-    //reset
-    if(!isNullOrUndefined(resetbutton)) {
-        resetbutton.addEventListener('click', () => {
-            sendMessageCB("reset",{},()=>{
-                refreshPage();
+                createTP(e);
             });
         });
     }
