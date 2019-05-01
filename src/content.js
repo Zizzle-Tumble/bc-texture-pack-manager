@@ -1,7 +1,5 @@
-//@ts-check
-// @ts-ignore
 var chrome = chrome||browser;
-var RESET_ON_RELOAD = false;
+var RESET_ON_RELOAD = true;
 var data = {
     currentTP: -1,
     texturePacks: [],
@@ -26,7 +24,7 @@ function getCurrentAssetsFolder() {
         xobj.open('GET', 'https://bc-mod-api.herokuapp.com/', true); // Replace 'my_data' with the path to your file
         return new Promise((resolve, reject) => {
             xobj.onreadystatechange = function () {
-                if (xobj.readyState == 4 && xobj.status == 200) {
+                if (xobj.readyState == 4 && xobj.status == "200") {
                     // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
                     resolve(JSON.parse(xobj.responseText).assetsFolder);
                 }
@@ -35,14 +33,27 @@ function getCurrentAssetsFolder() {
         });
 }
 
+function addDefault() {
+    let tp = {};
+    for (key in data.from) {
+        tp[key] = data.bc + data.from[key]; // copies each property to the objCopy object
+    }
+    tp.name = "BoxCritters";
+    tp.version = 0;
+    data.texturePacks.push(tp);
+}
+
 function initDefaultTP() {
-    /*data.texturePacks.push({
+    addDefault();
+    data.texturePacks.push({
         version: '0',
         name: 'CuteCritters',
         description: 'this texture pack has been in the making for almost 2 days now. it is my attempt to recreate the pink critter. i hope you enjoy. inspired by @Cutiejea\'s profile picture!',
         hamster: 'https://i.imgur.com/IXWBAYU.png',
-        snail: 'https://i.imgur.com/WLqEUEy.png'
-      })*/
+        snail: 'https://i.imgur.com/WLqEUEy.png',
+        items: '',
+        tavenProps: ''
+      })
 }
 initDefaultTP();
 
@@ -101,11 +112,10 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
         case "addtp":
             data.texturePacks.push(content);
             save().then(() => {
-                chrome.browserAction.setBadgeText({text: data.texturePacks.length});
                 sendResponse("Texture Pack successfuly added.");
             });
             break;
-        case "gettp":
+        case "gettexturepacks":
             sendResponse(data.texturePacks);
             break;
         case "getdata":
@@ -126,7 +136,6 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
             break;
         case "reset":
             reset();
-            sendResponse("reset");
             break;
         default:
             sendResponse();
