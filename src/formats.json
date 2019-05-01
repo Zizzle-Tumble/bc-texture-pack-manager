@@ -1,0 +1,43 @@
+{
+    "texturePack": [
+        [
+            {
+                "name": "name",
+                "required": true,
+				"label": "Name: "
+            },
+            {
+                "name": "dev",
+                "required": false,
+                "hidden": true,
+				"label": "Developer: "
+            },
+            {
+                "name": "description",
+                "required": false,
+                "hidden": false,
+				"label": "Description: "
+            },
+            {
+                "name": "hamster",
+                "required": false,
+				"label": "Hamster: "
+            },
+            {
+                "name": "snail",
+                "required": false,
+				"label": "Snail: "
+            },
+            {
+                "name": "items",
+                "required": false,
+				"label": "Items: "
+            },
+            {
+                "name": "tavenProps",
+                "required": false,
+				"label": "Tavern Props: "
+            }
+        ]
+    ]
+}
