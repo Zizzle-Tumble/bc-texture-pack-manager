@@ -3,7 +3,7 @@ var RESET_ON_RELOAD = false;
 var data = {
     currentTP: -1,
     texturePacks: [],
-    bc: "https://boxcritters.com/media/31-baseball/",
+    bc: "https://boxcritters.com/media/38-moveit/",
     from: {
         hamster: "critters/hamster.png",
         snail: "critters/snail.png",
@@ -33,11 +33,15 @@ function getCurrentAssetsFolder() {
         });
 }
 
+//update assets folder
+getCurrentAssetsFolder().then(af=>{
+    if(data.bc != af) {
+        data.bc = af;
+    }
+})
+
 function addDefault() {
     let tp = {};
-    for (key in data.from) {
-        tp[key] = data.bc + data.from[key]; // copies each property to the objCopy object
-    }
     tp.name = "BoxCritters";
     tp.version = 0;
     data.texturePacks.push(tp);
@@ -99,12 +103,6 @@ if (RESET_ON_RELOAD) {
 load();
 
 
-//update assets folder
-getCurrentAssetsFolder().then(af=>{
-    if(data.bc != af) {
-        data.bc = af;
-    }
-})
 
 
 chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
