@@ -39,6 +39,9 @@ function loadrules() {
 }
 
 async function loadImage(url) {
+    if(url.startsWith('https://boxcritters.com')) {
+        return url;
+    }
     return await new Promise((resolve,reject)=>{
         var canvas = document.createElement("canvas");
         var img = new Image();
