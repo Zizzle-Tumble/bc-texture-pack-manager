@@ -291,7 +291,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 tplist.appendChild(tplink);
             });
-        }).catch(()=>{
+        }).catch((e)=>{
+            console.log(e);
+            
             tplist.innerHTML = 'Please enter Box Critters.';
             return;
         });
