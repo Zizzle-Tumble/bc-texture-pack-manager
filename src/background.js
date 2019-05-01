@@ -1,18 +1,23 @@
+//@ts-check
+// @ts-ignore
 var chrome = chrome||browser;
 var rules = new Array();
 
-function sendMessage(type,content,response) {
+function sendMessage(type,content) {
     console.log("Sending message:",{type,content});
-    chrome.tabs.query({currentWindow:true,active:true},
-        (tabs)=>{
-            chrome.tabs.sendMessage(tabs[0].id,{type,content},response);
-        }
-    );
+    return new Promise((resolve,reject)=>{
+        chrome.tabs.query({currentWindow:true,active:true},
+            (tabs)=>{
+                chrome.tabs.sendMessage(tabs[0].id,{type,content},resolve);
+            }
+        );
+    });
 }
 
 function load() {
     return new Promise((resolve,reject)=>{
         chrome.storage.sync.get(["bctpm"],(storage)=>{
+            chrome.browserAction.setBadgeText({text: storage.bctpm.texturePacks.length.toString()});
             resolve(storage.bctpm);
         });
     });
@@ -36,18 +41,6 @@ function loadrules() {
             resolve(storage.bctpmRules);
         });
     });
-}
-
-function loadImage(url) {
-    return new Promise((resolve,reject)=>{
-        var canvas = document.createElement("canvas");
-        var img = new Image();
-        img.addEventListener("load", ()=> {
-            canvas.getContext("2d").drawImage(img, 0, 0);
-            resolve({data: canvas.toDataURL()}); 
-        });
-        img.src = url;
-    })
 }
 
 function clone(obj) {
@@ -85,24 +78,10 @@ function genrules() {
             //get texture pack attributes
             keys = Object.keys(defaultTP);
             if(keys.length==0){
-                resject("texture pack has no attributes");
+                reject("texture pack has no attributes");
                 return;
             }
             console.log("keys",keys);
-            rules = keys.reduce((result,key)=>{
-                console.log(key);
-                console.log(typeof result !== "object")
-                console.log(result);
-
-
-                if(typeof result !== "object") {
-                    result = {};
-                }
-                if(currentTP[key] !== ""){
-                    result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
-                }
-                return result;
-            });
             rules = keys.map((key)=>{
                 var rule = {};
 
@@ -148,8 +127,7 @@ function redirect(request) {
         lastRequestId = request.requestId;
         return {
             //redirectUrl : request.url.replace(rule.from, rule.to)
-            //redirectUrl:rule.to
-            redirectUrl: await loadImage(rule.to)
+            redirectUrl:rule.to
         };
     }
 }
