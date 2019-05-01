@@ -1,18 +1,23 @@
+//@ts-check
+// @ts-ignore
 var chrome = chrome||browser;
 var rules = new Array();
 
-function sendMessage(type,content,response) {
+function sendMessage(type,content) {
     console.log("Sending message:",{type,content});
-    chrome.tabs.query({currentWindow:true,active:true},
-        (tabs)=>{
-            chrome.tabs.sendMessage(tabs[0].id,{type,content},response);
-        }
-    );
+    return new Promise((resolve,reject)=>{
+        chrome.tabs.query({currentWindow:true,active:true},
+            (tabs)=>{
+                chrome.tabs.sendMessage(tabs[0].id,{type,content},resolve);
+            }
+        );
+    });
 }
 
 function load() {
     return new Promise((resolve,reject)=>{
         chrome.storage.sync.get(["bctpm"],(storage)=>{
+            chrome.browserAction.setBadgeText({text: storage.bctpm.texturePacks.length.toString()});
             resolve(storage.bctpm);
         });
     });
@@ -83,7 +88,7 @@ function genrules() {
                 return;
             }
             var currentTP = data.texturePacks[data.currentTP];
-            //console.log("current tp",data.currentTP);
+            console.log("current tp",data.currentTP);
 
             //Get Deafult texture pack
             var defaultTP = clone(data.from)
@@ -95,7 +100,7 @@ function genrules() {
             //get texture pack attributes
             keys = Object.keys(defaultTP);
             if(keys.length==0){
-                resject("texture pack has no attributes");
+                reject("texture pack has no attributes");
                 return;
             }
             //console.log("keys",keys);
@@ -135,7 +140,7 @@ function redirect(request) {
     var rule = rules.find((rule)=>{
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
-        && request.requestId !== lastRequestId;
+        //&& request.requestId !== lastRequestId;
     });
 
 

@@ -1,3 +1,5 @@
+//@ts-check
+// @ts-ignore
 var chrome = chrome||browser;
 var RESET_ON_RELOAD = false;
 var data = {
@@ -33,26 +35,13 @@ function getCurrentAssetsFolder() {
         });
 }
 
-function addDefault() {
-    let tp = {};
-    for (key in data.from) {
-        tp[key] = data.bc + data.from[key]; // copies each property to the objCopy object
-    }
-    tp.name = "BoxCritters";
-    tp.version = 0;
-    data.texturePacks.push(tp);
-}
-
 function initDefaultTP() {
-    addDefault();
     /*data.texturePacks.push({
         version: '0',
         name: 'CuteCritters',
         description: 'this texture pack has been in the making for almost 2 days now. it is my attempt to recreate the pink critter. i hope you enjoy. inspired by @Cutiejea\'s profile picture!',
         hamster: 'https://i.imgur.com/IXWBAYU.png',
-        snail: 'https://i.imgur.com/WLqEUEy.png',
-        items: '',
-        tavenProps: ''
+        snail: 'https://i.imgur.com/WLqEUEy.png'
       })*/
 }
 initDefaultTP();
@@ -112,10 +101,11 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
         case "addtp":
             data.texturePacks.push(content);
             save().then(() => {
+                chrome.browserAction.setBadgeText({text: data.texturePacks.length});
                 sendResponse("Texture Pack successfuly added.");
             });
             break;
-        case "gettexturepacks":
+        case "gettp":
             sendResponse(data.texturePacks);
             break;
         case "getdata":
@@ -136,6 +126,7 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
             break;
         case "reset":
             reset();
+            sendResponse("reset");
             break;
         default:
             sendResponse();
