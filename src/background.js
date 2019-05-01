@@ -39,7 +39,7 @@ function loadrules() {
 }
 
 async function loadImage(url) {
-    return new Promise((resolve,reject)=>{
+    return await new Promise((resolve,reject)=>{
         var canvas = document.createElement("canvas");
         var img = new Image();
         img.addEventListener("load", ()=> {
@@ -149,7 +149,7 @@ function redirect(request) {
         return {
             //redirectUrl : request.url.replace(rule.from, rule.to)
             //redirectUrl:rule.to
-            redirectUrl: await loadImage(rule.to)
+            redirectUrl: loadImage(rule.to)
         };
     }
 }
