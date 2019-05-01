@@ -105,7 +105,7 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
                 sendResponse("Texture Pack successfuly added.");
             });
             break;
-        case "gettexturepacks":
+        case "gettp":
             sendResponse(data.texturePacks);
             break;
         case "getdata":

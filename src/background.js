@@ -8,7 +8,7 @@ function sendMessage(type,content) {
     return new Promise((resolve,reject)=>{
         chrome.tabs.query({currentWindow:true,active:true},
             (tabs)=>{
-                chrome.tabs.sendMessage(tabs[0].id,{type,content}).then(resolve).catch(reject);
+                chrome.tabs.sendMessage(tabs[0].id,{type,content},resolve);
             }
         );
     });

@@ -38,17 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function sendMessageCB(type, content, response) {
+    /**
+     * 
+     * @param {string} type 
+     * @param {object} content 
+     * @returns {Promise}
+     */
+    function sendMessage(type, content) {
         console.log("Sending message:", { type, content });
 
         return new Promise((resolve,reject)=>{
             chrome.tabs.query({ currentWindow: true, active: true },
                 (tabs) => {
-                    chrome.tabs.sendMessage(tabs[0].id, { type, content }).then(resolve).catch(reject);
+                    chrome.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
                 }
             );
-        })
-       
+        });
     }
 
     function sendMessageCB(type, content, response) {
@@ -63,7 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function sendMessageBG(type,content) {
-        return chrome.runtime.sendMessage({type,content});
+        return new Promise((resolve,reject)=>{
+            chrome.runtime.sendMessage({type,content},resolve); 
+        })
     }
 
     function refreshPage() {
@@ -152,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Wanna go retro? Use this pack!"
         ]
 
-        tp.description = des[Math.round(Math.random()*des.length)];
+        tp.description = des[Math.floor(Math.random()*des.length)];
         tp.version = 0;
         return tp;
     }
