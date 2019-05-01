@@ -44,7 +44,10 @@ async function loadImage(url) {
         var img = new Image();
         img.addEventListener("load", ()=> {
             canvas.getContext("2d").drawImage(img, 0, 0);
-            //resolve({data: canvas.toDataURL()}); 
+            //resolve({data: canvas.toDataURL()});
+            console.log("dataurl:",canvas.toDataURL());
+            
+            
             resolve(canvas.toDataURL())
         });
         img.src = url;
