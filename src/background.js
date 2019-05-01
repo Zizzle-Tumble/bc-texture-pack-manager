@@ -88,7 +88,7 @@ function genrules() {
                 return;
             }
             var currentTP = data.texturePacks[data.currentTP];
-            console.log("current tp",data.currentTP);
+            //console.log("current tp",data.currentTP);
 
             //Get Deafult texture pack
             var defaultTP = clone(data.from)
@@ -140,7 +140,7 @@ function redirect(request) {
     var rule = rules.find((rule)=>{
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
-        //&& request.requestId !== lastRequestId;
+        && request.requestId !== lastRequestId;
     });
 
 
