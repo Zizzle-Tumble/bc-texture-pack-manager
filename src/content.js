@@ -23,7 +23,7 @@ function getCurrentAssetsFolder() {
         xobj.overrideMimeType("application/json");
         xobj.open('GET', 'https://bc-mod-api.herokuapp.com/', true); // Replace 'my_data' with the path to your file
         return new Promise((resolve, reject) => {
-            xobj.onreadystatechange = function () {
+            xobj.onreadystatechange = ()=> {
                 if (xobj.readyState == 4 && xobj.status == "200") {
                     // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
                     resolve(JSON.parse(xobj.responseText).assetsFolder);

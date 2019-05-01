@@ -38,23 +38,41 @@ function loadrules() {
     });
 }
 
-async function loadImage(url) {
-    if(url.startsWith('https://boxcritters.com')) {
-        return url;
+async function loadImage(img) {
+    if(img.startsWith('https://boxcritters.com')) {
+        return img;
     }
-    return await new Promise((resolve,reject)=>{
+    var api = "https://bc-mod-api.herokuapp.com/cors/data/";
+    var url = api + img;
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
+
+    return await new Promise((resolve, reject) => {
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                resolve(JSON.parse(xobj.responseText).url);
+            }
+        };
+        xobj.send(null);
+    });
+    /*return await new Promise((resolve,reject)=>{
         var canvas = document.createElement("canvas");
         var img = new Image();
+        img.origin = 'anonymous';
+        img.crossOrigin = "Anonymous";
         img.addEventListener("load", ()=> {
             canvas.getContext("2d").drawImage(img, 0, 0);
             //resolve({data: canvas.toDataURL()});
-            console.log("dataurl:",canvas.toDataURL());
+            console.log(canvas.toDataURL("image/png"));
             
             
             resolve(canvas.toDataURL())
         });
         img.src = url;
-    })
+    })*/
 }
 
 function clone(obj) {
@@ -96,7 +114,7 @@ function genrules() {
                 return;
             }
             console.log("keys",keys);
-            rules = keys.reduce((result,key)=>{
+            /*rules = keys.reduce((result,key)=>{
                 console.log(key);
                 console.log(typeof result !== "object")
                 console.log(result);
@@ -109,19 +127,27 @@ function genrules() {
                     result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
                 }
                 return result;
-            });
+            });*/
             rules = keys.map((key)=>{
                 var rule = {};
 
                 console.log("key",key);
-
+                
 
                 rule.from = defaultTP[key];
                 rule.to = currentTP[key]||defaultTP[key];
                 console.log("rule",rule);
                 return rule;
             });
-            console.log("rules",rules);
+            rules = rules.filter(r=>r.to!==r.from);
+            rules = rules.map(async r=>{
+                    r.to = await loadImage(r.to);
+                    return r;
+            });
+            Promise.all(rules).then(arr=>{
+                rules = arr;
+                console.log("rules",rules);
+            })
             resolve(rules);
         }).catch(reject);
         //resolve([{from:"https://boxcritters.com/media/31-baseball/critters/hamster.png",to:"https://i.imgur.com/IXWBAYU.png"}])
@@ -135,28 +161,28 @@ genrules().catch(console.error);
 loadrules();*/
 
 var lastRequestId;
-function redirect(request) {
+async function redirect(request) {
     //console.log("\n\n")
-    //console.log("REQUEST",request.url);
+    console.log("REQUEST",request.url);
     //console.log("rules",rules);
 
     var rule = rules.find((rule)=>{
-        //console.log("DOES ==",rule.from," ???");
+        console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
-        //&& request.requestId !== lastRequestId;
+        && request.requestId !== lastRequestId;
     });
 
 
 
     if(rule){
         //console.log("rule",rule);
-        //console.log("Redirecting...");
+        console.log("Redirecting to ",{data:rule.to});
 
         lastRequestId = request.requestId;
+        
         return {
             //redirectUrl : request.url.replace(rule.from, rule.to)
-            //redirectUrl:rule.to
-            redirectUrl: loadImage(rule.to)
+            redirectUrl: rule.to
         };
     }
 }
