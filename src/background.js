@@ -38,7 +38,7 @@ function loadrules() {
     });
 }
 
-function loadImage(url) {
+async function loadImage(url) {
     return new Promise((resolve,reject)=>{
         var canvas = document.createElement("canvas");
         var img = new Image();
