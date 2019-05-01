@@ -58,21 +58,6 @@ async function loadImage(img) {
         };
         xobj.send(null);
     });
-    /*return await new Promise((resolve,reject)=>{
-        var canvas = document.createElement("canvas");
-        var img = new Image();
-        img.origin = 'anonymous';
-        img.crossOrigin = "Anonymous";
-        img.addEventListener("load", ()=> {
-            canvas.getContext("2d").drawImage(img, 0, 0);
-            //resolve({data: canvas.toDataURL()});
-            console.log(canvas.toDataURL("image/png"));
-            
-            
-            resolve(canvas.toDataURL())
-        });
-        img.src = url;
-    })*/
 }
 
 function clone(obj) {
@@ -98,7 +83,7 @@ function genrules() {
                 return;
             }
             var currentTP = data.texturePacks[data.currentTP];
-            console.log("current tp",data.currentTP);
+            //console.log("current tp",data.currentTP);
 
             //Get Deafult texture pack
             var defaultTP = clone(data.from)
@@ -113,30 +98,16 @@ function genrules() {
                 resject("texture pack has no attributes");
                 return;
             }
-            console.log("keys",keys);
-            /*rules = keys.reduce((result,key)=>{
-                console.log(key);
-                console.log(typeof result !== "object")
-                console.log(result);
-
-
-                if(typeof result !== "object") {
-                    result = {};
-                }
-                if(currentTP[key] !== ""){
-                    result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
-                }
-                return result;
-            });*/
+            //console.log("keys",keys);
             rules = keys.map((key)=>{
                 var rule = {};
 
-                console.log("key",key);
+                //console.log("key",key);
                 
 
                 rule.from = defaultTP[key];
                 rule.to = currentTP[key]||defaultTP[key];
-                console.log("rule",rule);
+                //console.log("rule",rule);
                 return rule;
             });
             rules = rules.filter(r=>r.to!==r.from);
@@ -146,28 +117,23 @@ function genrules() {
             });
             Promise.all(rules).then(arr=>{
                 rules = arr;
-                console.log("rules",rules);
+                //console.log("rules",rules);
             })
             resolve(rules);
         }).catch(reject);
-        //resolve([{from:"https://boxcritters.com/media/31-baseball/critters/hamster.png",to:"https://i.imgur.com/IXWBAYU.png"}])
     });
 }
 
 genrules().catch(console.error);
-/*saverules().then(()=>{
-    loadrules();
-});
-loadrules();*/
 
 var lastRequestId;
-async function redirect(request) {
+function redirect(request) {
     //console.log("\n\n")
-    console.log("REQUEST",request.url);
+    //console.log("REQUEST",request.url);
     //console.log("rules",rules);
 
     var rule = rules.find((rule)=>{
-        console.log("DOES ==",rule.from," ???");
+        //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
         && request.requestId !== lastRequestId;
     });
@@ -176,7 +142,8 @@ async function redirect(request) {
 
     if(rule){
         //console.log("rule",rule);
-        console.log("Redirecting to ",{data:rule.to});
+        //console.log("THEN GO",{data:rule.to})
+        //console.log("Redirecting... ");
 
         lastRequestId = request.requestId;
         
@@ -191,8 +158,8 @@ chrome.runtime.onMessage.addListener(({type,content}, sender, sendResponse)=> {
     switch (type) {
         case "refreshtp":
             genrules().then(()=>{
-                sendResponse()
                 console.log("pack set to",content);
+                sendResponse()
             }).catch(sendResponse);
             break;
         default:
@@ -207,7 +174,8 @@ chrome.webRequest.onBeforeRequest.addListener(
         return redirect(details);
     },
     {
-        urls : ["https://boxcritters.com/media/*"]
+        urls : ["https://boxcritters.com/media/*"],
+        //types: ["image"]
     },
     ["blocking"]
 );

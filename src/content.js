@@ -1,5 +1,5 @@
 var chrome = chrome||browser;
-var RESET_ON_RELOAD = true;
+var RESET_ON_RELOAD = false;
 var data = {
     currentTP: -1,
     texturePacks: [],
@@ -45,7 +45,7 @@ function addDefault() {
 
 function initDefaultTP() {
     addDefault();
-    data.texturePacks.push({
+    /*data.texturePacks.push({
         version: '0',
         name: 'CuteCritters',
         description: 'this texture pack has been in the making for almost 2 days now. it is my attempt to recreate the pink critter. i hope you enjoy. inspired by @Cutiejea\'s profile picture!',
@@ -53,7 +53,7 @@ function initDefaultTP() {
         snail: 'https://i.imgur.com/WLqEUEy.png',
         items: '',
         tavenProps: ''
-      })
+      })*/
 }
 initDefaultTP();
 
