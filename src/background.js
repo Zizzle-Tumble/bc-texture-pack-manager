@@ -38,16 +38,26 @@ function loadrules() {
     });
 }
 
-function loadImage(url) {
-    return new Promise((resolve,reject)=>{
-        var canvas = document.createElement("canvas");
-        var img = new Image();
-        img.addEventListener("load", ()=> {
-            canvas.getContext("2d").drawImage(img, 0, 0);
-            resolve({data: canvas.toDataURL()}); 
-        });
-        img.src = url;
-    })
+async function loadImage(img) {
+    if(img.startsWith('https://boxcritters.com')) {
+        return img;
+    }
+    var api = "https://bc-mod-api.herokuapp.com/cors/data/";
+    var url = api + img;
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
+
+    return await new Promise((resolve, reject) => {
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                resolve(JSON.parse(xobj.responseText).url);
+            }
+        };
+        xobj.send(null);
+    });
 }
 
 function clone(obj) {
@@ -73,7 +83,7 @@ function genrules() {
                 return;
             }
             var currentTP = data.texturePacks[data.currentTP];
-            console.log("current tp",data.currentTP);
+            //console.log("current tp",data.currentTP);
 
             //Get Deafult texture pack
             var defaultTP = clone(data.from)
@@ -88,44 +98,33 @@ function genrules() {
                 resject("texture pack has no attributes");
                 return;
             }
-            console.log("keys",keys);
-            rules = keys.reduce((result,key)=>{
-                console.log(key);
-                console.log(typeof result !== "object")
-                console.log(result);
-
-
-                if(typeof result !== "object") {
-                    result = {};
-                }
-                if(currentTP[key] !== ""){
-                    result[key] = {from:defaultTP[key],to:currentTP[key]||defaultTP[key]};
-                }
-                return result;
-            });
+            //console.log("keys",keys);
             rules = keys.map((key)=>{
                 var rule = {};
 
-                console.log("key",key);
-
+                //console.log("key",key);
+                
 
                 rule.from = defaultTP[key];
                 rule.to = currentTP[key]||defaultTP[key];
-                console.log("rule",rule);
+                //console.log("rule",rule);
                 return rule;
             });
-            console.log("rules",rules);
+            rules = rules.filter(r=>r.to!==r.from);
+            rules = rules.map(async r=>{
+                    r.to = await loadImage(r.to);
+                    return r;
+            });
+            Promise.all(rules).then(arr=>{
+                rules = arr;
+                //console.log("rules",rules);
+            })
             resolve(rules);
         }).catch(reject);
-        //resolve([{from:"https://boxcritters.com/media/31-baseball/critters/hamster.png",to:"https://i.imgur.com/IXWBAYU.png"}])
     });
 }
 
 genrules().catch(console.error);
-/*saverules().then(()=>{
-    loadrules();
-});
-loadrules();*/
 
 var lastRequestId;
 function redirect(request) {
@@ -136,20 +135,21 @@ function redirect(request) {
     var rule = rules.find((rule)=>{
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
-        //&& request.requestId !== lastRequestId;
+        && request.requestId !== lastRequestId;
     });
 
 
 
     if(rule){
         //console.log("rule",rule);
-        //console.log("Redirecting...");
+        //console.log("THEN GO",{data:rule.to})
+        //console.log("Redirecting... ");
 
         lastRequestId = request.requestId;
+        
         return {
             //redirectUrl : request.url.replace(rule.from, rule.to)
-            //redirectUrl:rule.to
-            redirectUrl: await loadImage(rule.to)
+            redirectUrl: rule.to
         };
     }
 }
@@ -158,8 +158,8 @@ chrome.runtime.onMessage.addListener(({type,content}, sender, sendResponse)=> {
     switch (type) {
         case "refreshtp":
             genrules().then(()=>{
-                sendResponse()
                 console.log("pack set to",content);
+                sendResponse()
             }).catch(sendResponse);
             break;
         default:
@@ -174,7 +174,8 @@ chrome.webRequest.onBeforeRequest.addListener(
         return redirect(details);
     },
     {
-        urls : ["https://boxcritters.com/media/*"]
+        urls : ["https://boxcritters.com/media/*"],
+        //types: ["image"]
     },
     ["blocking"]
 );

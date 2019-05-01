@@ -107,8 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
         sendMessage("settp",{id},(msg)=>{
-            sendMessageBG('refreshtp',id,console.log);
-            refreshPage();
+            sendMessageBG('refreshtp',id,()=>{
+                refreshPage();
+            });
             successmessage.style.display = "block";
             errormessage.innerHTML = msg;
             setTimeout(()=>{
