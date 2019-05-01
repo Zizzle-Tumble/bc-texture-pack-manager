@@ -1,7 +1,8 @@
 {
     "manifest_version":2,
     "name": "Box Critters Texture Pack Manager",
-    "version":"0.6.1.020",
+    "version_name": "0.6.1.020",
+    "version":"0.6.1",
     "content_scripts": [
         {
             "matches": [
