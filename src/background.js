@@ -56,7 +56,7 @@ async function loadImage(img) {
 
     return await new Promise((resolve, reject) => {
         xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && xobj.status == "200") {
+            if (xobj.readyState == 4 && xobj.status === 200) {
                 // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
                 resolve(JSON.parse(xobj.responseText).url);
             }
