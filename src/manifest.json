@@ -1,8 +1,18 @@
 {
+    
     "manifest_version":2,
     "name": "Box Critters Texture Pack Manager",
-    "version_name":"1.0.0.020",
+    "version_name":"1.0.0.024",
     "version":"1.0.0",
+    "author": "TumbleGamer",
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "BC Texture Pack Manager"
+    },
+    "background": {
+        "page": "background.html",
+        "persistent": true
+    },
     "content_scripts": [
         {
             "matches": [
@@ -11,14 +21,11 @@
             "js": ["content.js"]
         }
     ],
-    "browser_action": {
-        "default_popup": "popup.html",
-        "default_title": "BC Texture Pack Manager"
-    },
     "permissions": [
         "webRequest", "webRequestBlocking","storage","https://boxcritters.com/*","tabs"
     ],
-    "background": {
-        "scripts": ["background.js"]
+    "-ms-preload": {
+        "backgroundScript": "backgroundScriptsAPIBridge.js",
+        "contentScript": "contentScriptsAPIBridge.js"
     }
 }
