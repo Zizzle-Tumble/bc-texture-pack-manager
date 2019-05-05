@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand">
+            Create Texture Pack
+        </span>
+    </nav>
+    <p id="error" class="alert alert-danger">Error text</p>
+    <p id="success" class="alert alert-success">Success text</p>
+    <div class="container">
+        <form id="createtpform">
+        </form>
+        <form id="addtpform">
+            <div class="form-group">
+                <label for="tpdata">Texture Pack Data</label>
+                <textarea id="tpdata" rows="10"></textarea>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="js/jquery-3.3.1.slim.min.js""></script>
+    <script src="js/popper.min.js"> </script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/addtheme.js"></script>
+    <script src="js/createtheme.js"></script>
+</body>
+
+</html>
