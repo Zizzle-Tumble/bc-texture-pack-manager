@@ -1,0 +1,11 @@
+body,html {
+    width:500px;
+    height:600px;
+    overflow-y: hidden;
+}
+
+
+.container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

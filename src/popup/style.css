@@ -1,0 +1,77 @@
+body,html {
+    padding: 0%;
+    margin: 0%;
+    width:100vw;
+    height:100vh;
+
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    align-content: center;
+}
+
+header >* {
+display: inline
+}
+
+footer {
+  text-align: center;
+  padding: 5px;
+}
+
+
+
+
+#tplist {
+    flex:1;
+    overflow-y: scroll;
+		overflow-x: hidden;
+}
+
+.tp-item {
+	display: flex;
+  display: -webkit-flex;
+  justify-content: stretch;
+	align-items:space-between;	
+}
+
+.tp-item > .tp-link {
+	flex: 1;
+}
+
+.tp-item.active .tp-link {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.tp-item .btn {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+	transform: translateX(100vw);
+	transition: transform .5s;
+}
+
+.tp-item .btn.edit {
+	transform: translateX(0px);
+}
+
+.alert {
+    position: absolute;
+    width: 100%;
+    display: none;
+}
+
+.middle-center {
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
