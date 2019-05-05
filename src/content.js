@@ -5,15 +5,7 @@ var RESET_ON_RELOAD = false;
 var data = {
     currentTP: -1,
     editing: -1,
-    texturePacks: [],
-    //bc: "https://boxcritters.com/media/40-beaver/",
-    // from: {
-    //     hamster: "critters/hamster.png",
-    //     snail: "critters/snail.png",
-    //     items: "items/items.png",
-    //     tavenProps: "rooms/HamTavern_SM.png",
-    //     beaver:""
-    // }
+    texturePacks: []
 }
 
 function getAsserFolderVersion(assetsFolder) {
@@ -22,33 +14,13 @@ function getAsserFolderVersion(assetsFolder) {
     return version;
 }
 
-/*function getCurrentVersionInfo() {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'https://bc-mod-api.herokuapp.com/', true); // Replace 'my_data' with the path to your file
-    return new Promise((resolve, reject) => {
-        xobj.onreadystatechange = () => {
-            if (xobj.readyState == 4 && xobj.status == 200) {
-                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-                resolve(JSON.parse(xobj.responseText));
-            }
-        };
-        xobj.send(null);
-    });
-}*/
-
 
 
 
 function initDefaultTP() {
-    /*data.texturePacks.push({
-        version: '0',
-        name: 'CuteCritters',
-        description: 'this texture pack has been in the making for almost 2 days now. it is my attempt to recreate the pink critter. i hope you enjoy. inspired by @Cutiejea\'s profile picture!',
-        hamster: 'https://i.imgur.com/IXWBAYU.png',
-        snail: 'https://i.imgur.com/WLqEUEy.png'
-      })*/
+
 }
+
 initDefaultTP();
 
 const resetdata = data;
@@ -80,7 +52,6 @@ function load() {
 
 
 function reset() {
-    //chrome.storage.sync.set({"bctpm":undefined},()=>{});
     data = resetdata;
     return save();
 }
@@ -90,11 +61,6 @@ if (RESET_ON_RELOAD) {
     reset();
 }
 load();
-//refreshRedirects().then(console.log)
-
-
-
-
 
 chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
     switch (type) {
@@ -117,7 +83,6 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
             break;
         case "settp":
             data.currentTP = content.id;
-            //sendResponse("Texture Pack successfuly set.");
             save().then(() => {
                 refreshRedirects().then(()=>{
                     sendResponse("Texture Pack successfuly set.");
@@ -128,11 +93,10 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
             if(data.currentTP === content.id){
                 data.currentTP = -1;
             }
-            //sendResponse("Texture Pack successfuly set.");
             data.texturePacks.splice(content.id,1);
             save().then(() => {
                 refreshRedirects().then(()=>{
-                    sendResponse("Texture Pack successfuly set.");
+                    sendResponse("Texture Pack successfuly deleted.");
                 });
             });
             break;
