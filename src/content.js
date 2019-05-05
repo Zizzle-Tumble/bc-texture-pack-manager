@@ -6,15 +6,10 @@ var data = {
     currentTP: -1,
     editing: -1,
     texturePacks: [],
-    bc: "https://boxcritters.com/media/38-moveit/",
-    from: {
-        hamster: "critters/hamster.png",
-        snail: "critters/snail.png",
-        items: "items/items.png",
-        tavenProps: "rooms/HamTavern_SM.png",
-        beaver:""
-    }
-}
+    bc: "https://boxcritters.com/media/40-beaver/"
+};
+
+
 
 function getAsserFolderVersion(assetsFolder) {
     var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
@@ -37,19 +32,22 @@ function getCurrentVersionInfo() {
     });
 }
 
-//update assets folder
-getCurrentAssetsFolder().then(af=>{
-    if(data.bc != af) {
-        data.bc = af;
-    }
-})
 
-function addDefault() {
-    let tp = {};
-    tp.name = "BoxCritters";
-    tp.version = 0;
-    data.texturePacks.push(tp);
+function getFormats() {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', '/formats.json', true); // Replace 'my_data' with the path to your file
+    return new Promise((resolve, reject) => {
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == 200) {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                resolve(JSON.parse(xobj.responseText));
+            }
+        };
+        xobj.send(null);
+    });
 }
+
 
 async function getCurrentAssetsFolder() {
     return (await getCurrentVersionInfo()).assetsFolder;
@@ -58,14 +56,15 @@ async function getCurrentAssetsFolder() {
 
 
 function initDefaultTP() {
-    data.texturePacks.push({
+    /*data.texturePacks.push({
         version: '0',
         name: 'CuteCritters',
         description: 'this texture pack has been in the making for almost 2 days now. it is my attempt to recreate the pink critter. i hope you enjoy. inspired by @Cutiejea\'s profile picture!',
         hamster: 'https://i.imgur.com/IXWBAYU.png',
         snail: 'https://i.imgur.com/WLqEUEy.png'
-      })
-}
+      })*/
+    }
+
 initDefaultTP();
 
 const resetdata = data;
@@ -111,11 +110,20 @@ if (RESET_ON_RELOAD) {
 }
 load();
 
+
+
 getFormats().then(f=>{
     var current = f.texturePacks.length-1;
     data.from = f.texturePacks[current].map(tp=>tp.default);
     data.from.filter(f=>f!==undefined);
 
+})
+
+//update assets folder
+getCurrentAssetsFolder().then(af => {
+    if (data.bc != af) {
+        data.bc = af;
+    }
 })
 getCurrentVersionInfo().then(v=>{
     data.from.script = `https://boxcritters.com/scripts/client${v.version}.min.js`
