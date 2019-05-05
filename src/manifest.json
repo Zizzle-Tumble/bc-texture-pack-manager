@@ -3,7 +3,7 @@
     "manifest_version":2,
     "name": "Box Critters Texture Pack Manager",
     "version_name":"1.0.1.064",
-    "version":"1.0.0",
+    "version":"1.0.1",
     "author": "TumbleGamer",
     "browser_action": {
         "default_popup": "popup/popup.html",
