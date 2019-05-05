@@ -4,39 +4,95 @@
             {
                 "name": "name",
                 "required": true,
-				"label": "Name: "
-            },
-            {
-                "name": "dev",
-                "required": false,
-                "hidden": true,
-				"label": "Developer: "
+				"label": "Name"
             },
             {
                 "name": "description",
                 "required": false,
-                "hidden": false,
-				"label": "Description: "
+				"label": "Description"
             },
             {
                 "name": "hamster",
                 "required": false,
-				"label": "Hamster: "
+				"label": "Hamster"
             },
             {
                 "name": "snail",
                 "required": false,
-				"label": "Snail: "
+				"label": "Snail"
             },
             {
                 "name": "items",
                 "required": false,
-				"label": "Items: "
+				"label": "Items"
             },
             {
                 "name": "tavenProps",
                 "required": false,
-				"label": "Tavern Props: "
+				"label": "Tavern Props"
+            }
+        ],
+        [
+            {
+                "name": "name",
+                "required": true,
+				"label": "Name"
+            },
+            {
+                "name": "author",
+                "required": true,
+				"label": "Author"
+            },
+            {
+                "name": "readonly",
+                "required": false,
+                "hidden": true
+            },
+            {
+                "name": "script",
+                "required": false,
+                "hidden":true,
+				"label": "Script"
+            },
+            {
+                "name": "date",
+                "hidden": true,
+				"label": "Date"
+            },
+            {
+                "name": "description",
+                "required": false,
+				"label": "Description"
+            },
+            {
+                "name": "hamster",
+                "required": false,
+                "label": "Hamster",
+                "default": "critters/hamster.png"
+            },
+            {
+                "name": "beaver",
+                "required": false,
+                "label": "Beaver",
+                "default": "critters/beaver.png"
+            },
+            {
+                "name": "snail",
+                "required": false,
+                "label": "Snail",
+                "default":"critters/snail.png"
+            },
+            {
+                "name": "items",
+                "required": false,
+                "label": "Items",
+                "default":"items/items.png"
+            },
+            {
+                "name": "tavenProps",
+                "required": false,
+                "label": "Tavern Props",
+                "default": "rooms/HamTavern_SM.png"
             }
         ]
     ]
