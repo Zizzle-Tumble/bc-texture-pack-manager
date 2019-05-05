@@ -71,6 +71,12 @@
                 "default": "critters/hamster.png"
             },
             {
+                "name": "beaver",
+                "required": false,
+                "label": "Beaver",
+                "default": "critters/beaver.png"
+            },
+            {
                 "name": "snail",
                 "required": false,
                 "label": "Snail",
@@ -81,12 +87,6 @@
                 "required": false,
                 "label": "Items",
                 "default":"items/items.png"
-            },
-            {
-                "name": "tavenProps",
-                "required": false,
-                "label": "Tavern Props",
-                "default": "rooms/HamTavern_SM.png"
             },
             {
                 "name": "tavenProps",
