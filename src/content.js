@@ -6,7 +6,7 @@ var data = {
     currentTP: -1,
     editing: -1,
     texturePacks: [],
-    bc: "https://boxcritters.com/media/38-baseball/",
+    bc: "https://boxcritters.com/media/38-moveit/",
     from: {
         hamster: "critters/hamster.png",
         snail: "critters/snail.png",
@@ -37,20 +37,18 @@ function getCurrentVersionInfo() {
     });
 }
 
+//update assets folder
+getCurrentAssetsFolder().then(af=>{
+    if(data.bc != af) {
+        data.bc = af;
+    }
+})
 
-function getFormats() {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', '/formats.json', true); // Replace 'my_data' with the path to your file
-    return new Promise((resolve, reject) => {
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && xobj.status == 200) {
-                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-                resolve(JSON.parse(xobj.responseText));
-            }
-        };
-        xobj.send(null);
-    });
+function addDefault() {
+    let tp = {};
+    tp.name = "BoxCritters";
+    tp.version = 0;
+    data.texturePacks.push(tp);
 }
 
 async function getCurrentAssetsFolder() {
@@ -124,12 +122,6 @@ getCurrentVersionInfo().then(v=>{
 })
 
 
-//update assets folder
-getCurrentAssetsFolder().then(af => {
-    if (data.bc != af) {
-        data.bc = af;
-    }
-})
 
 
 chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
