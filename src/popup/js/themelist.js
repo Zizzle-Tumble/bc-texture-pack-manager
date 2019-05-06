@@ -114,13 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //date created
         if (tp.date) {
+            var tpdate = new Date(tp.date);
             var date = document.createElement('small');
             date.classList.add("text-muted");
 
-            let dd = tp.date.getDate();
+            let dd = tpdate.getDate();
 
-            let mm = tp.date.getMonth()+1; 
-            let yyyy = tp.date.getFullYear();
+            let mm = tpdate.getMonth()+1; 
+            let yyyy = tpdate.getFullYear();
 
             //Enables 0 beginning numbers
             /*if(dd<10) 
