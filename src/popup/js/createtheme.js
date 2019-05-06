@@ -30,6 +30,7 @@ function createTP() {
     formData.forEach(function (value, key) {
         data[key] = value;
     });
+    data.date = Date.now();
     textarea.value = encode(data);
     return false;
 }
