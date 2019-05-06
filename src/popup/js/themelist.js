@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     var tplist = document.querySelector("div#tplist");
     var resetbutton = document.querySelector('#btn-reset');
 
-    function isNullOrUndefined(obj) {
-        return obj === null ||
-            obj === undefined
+    function displayVersion() {
+        getJSON('/manifest.json').then(manifest=>{
+            $('#version-display').text("Version: v" + manifest.version);
+        });
     }
 
     function sendMessageBG(type, content) {
@@ -281,9 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     refreshList();
 
-
-
-
+    displayVersion();
 
     //reset
     resetbutton.addEventListener('click', () => {
