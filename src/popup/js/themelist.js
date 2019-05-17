@@ -4,9 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     var resetbutton = document.querySelector('#btn-reset');
 
     function displayVersion() {
-        getJSON('/manifest.json').then(manifest=>{
-            $('#version-display').text("Version: v" + manifest.version);
-        });
+        var manifest = chrome.runtime.getManifest();
+        var versionNums = manifest.version.split(".");
+        
+        var versionInfo = "v" + manifest.version_name
+        if(manifest.version_name.endsWith("beta")|manifest.version_name.endsWith("alpha")) {
+           versionInfo = "v" + manifest.version_name;
+           versionInfo += " build " + Number(versionNums[versionNums.length-1]);
+        }        
+        $('#version-display').text(versionInfo);
     }
 
     function sendMessageBG(type, content) {
