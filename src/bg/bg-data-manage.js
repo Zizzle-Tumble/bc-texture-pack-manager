@@ -8,24 +8,24 @@ function getAsserFolderVersion(assetsFolder) {
 
 function save() {
     return new Promise((resolve, reject) => {
-        browser.storage.sync.set({ 'bctpm': data }, resolve);
+        browser.storage.sync.set({ 'bctpm': DATA }, resolve);
     });
 }
 
 function load() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.get(["bctpm"], (storage) => {
-            data = storage.bctpm || data;
-            if (resetdata.bc !== data.bc) {
-                data.bc = resetdata.bc;
+            DATA = storage.bctpm || DATA;
+            if (RESETDATA.bc !== DATA.bc) {
+                DATA.bc = RESETDATA.bc;
             }
-            resolve(data);
+            resolve(DATA);
         });
     });
 }
 
 function reset() {
-    data = resetdata;
+    DATA = RESETDATA;
     return save();
 }
 
@@ -39,44 +39,44 @@ load();
 
 
 MSG_LISTENER.addListener("addtp",(content,sendResponse)=>{
-    var id = data.texturePacks.push(content)-1;
-    data.currentTP = id;
+    var id = DATA.texturePacks.push(content)-1;
+    DATA.currentTP = id;
     save().then(() => {
         //browser.browserAction.setBadgeText({ text: data.texturePacks.length });
         sendResponse("Texture Pack successfuly added.");
     });
 });
 MSG_LISTENER.addListener("gettp",(content,sendResponse)=>{
-    sendResponse(data.texturePacks);
+    sendResponse(DATA.texturePacks);
 });
 MSG_LISTENER.addListener("getdata",(content,sendResponse)=>{
-    sendResponse(data);
+    sendResponse(DATA);
 });
 MSG_LISTENER.addListener("settp",(content,sendResponse)=>{
-    data.currentTP = content.id;
+    DATA.currentTP = content.id;
     save().then(() => {
-        refreshRedirects().then(()=>{
+        genrules().then(()=>{
             sendResponse("Texture Pack successfuly set.");
         });
     });
 });
 MSG_LISTENER.addListener("deletetp",(content,sendResponse)=>{
-    if(data.currentTP === content.id){
-        data.currentTP = -1;
+    if(DATA.currentTP === content.id){
+        DATA.currentTP = -1;
     }
-    data.texturePacks.splice(content.id,1);
+    DATA.texturePacks.splice(content.id,1);
     save().then(() => {
-        refreshRedirects().then(()=>{
+        genrules().then(()=>{
             sendResponse("Texture Pack successfuly deleted.");
         });
     });
 });
 MSG_LISTENER.addListener("tpexists",(content,sendResponse)=>{
-    sendResponse(data.texturePacks.map(tp => tp.name).includes(content));
+    sendResponse(DATA.texturePacks.map(tp => tp.name).includes(content));
 });
 MSG_LISTENER.addListener("reset",(content,sendResponse)=>{
     reset().then(() => {
-        refreshRedirects().then(()=>{
+        genrules().then(()=>{
             sendResponse("reset");
         });
     });

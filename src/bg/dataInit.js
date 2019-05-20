@@ -1,6 +1,6 @@
 var browser = browser || chrome || msBrowser;
 var RESET_ON_RELOAD = false;
-var data = {
+var DATA = {
     currentTP: -1,
     editing: -1,
     texturePacks: []
@@ -16,4 +16,4 @@ initDefaultTP();
 
 
 
-const resetdata = data;
+const RESETDATA = DATA;
