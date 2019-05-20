@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var resetbutton = document.querySelector('#btn-reset');
 
     function displayVersion() {
-        var manifest = chrome.runtime.getManifest();
+        var manifest = browser.runtime.getManifest();
         var versionNums = manifest.version.split(".");
         
         var versionInfo = "v" + manifest.version_name
@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function sendMessageBG(type, content) {
         return new Promise((resolve, reject) => {
-            chrome.runtime.sendMessage({ type, content }, resolve);
+            browser.runtime.sendMessage({ type, content }, resolve);
         })
     }
 
     function refreshPage() {
-        chrome.tabs.reload({'bypassCache':true},()=>{
+        browser.tabs.reload({'bypassCache':true},()=>{
             refreshNav();
             refreshList();
         });
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(texturepacks);
             if (texturepacks instanceof Array && texturepacks.length === 0) {
                 tplist.classList.add('middle-center');
-                tplist.innerHTML = '<p>There are no Texture Packs.</p><a href="addtheme.html" class="btn btn-primary">Add Texture Pack</a>';
+                tplist.innerHTML = '<p>There are no Texture Packs.</p><a href="addtheme.html" target="_blank" class="btn btn-primary">Add Texture Pack</a>';
                 return;
             }
             tplist.innerHTML = "";
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else { //if tab open and not current
                     bcBtn.innerHTML = "Switch to tab";
                     bcBtn.addEventListener('click',()=>{
-                        chrome.tabs.highlight({'tabs':tab.index},()=>{
+                        browser.tabs.highlight({'tabs':tab.index},()=>{
                             refreshPage();
                         });
                     });

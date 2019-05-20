@@ -9,11 +9,6 @@ textarea.style.width = "100%";
 var addtpfrom = document.querySelector("form#addtpform");
 addtpfrom.addEventListener('submit',noRedirectForm);
 
-
-function decode(text) {
-    return JSON.parse(atob(text));
-};
-
 async function valid(type, obj) {
         var keys = Object.keys(obj);
         if (!keys.includes("version")) {
@@ -69,10 +64,16 @@ addtpbutton.addEventListener('click', () => {
         successmessage.style.display = "block";
         successmessage.innerHTML = msg;
         setTimeout(() => {
-            window.location.href = "popup.html";
+            //window.location.href = "popup.html";
+            window.close();
         }, 500)
     }).catch((msg) => {
         errormessage.style.display = "block";
         errormessage.innerHTML = msg;
     })
 }, false);
+
+if(getURLParams().data) {
+    textarea.value = getURLParams().data;
+    //addtpbutton.click();
+}

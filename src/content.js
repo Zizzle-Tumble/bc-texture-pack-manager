@@ -1,6 +1,5 @@
 //@ts-check
-// @ts-ignore
-var chrome = chrome || browser;
+var browser = browser || chrome || msBrowser;
 var RESET_ON_RELOAD = false;
 var data = {
     currentTP: -1,
@@ -27,19 +26,19 @@ const resetdata = data;
 
 function refreshRedirects() {
     return new Promise((resolve,reject)=>{
-        chrome.runtime.sendMessage({ type: "refreshtp", content: data.currentTP }, resolve);
+        browser.runtime.sendMessage({ type: "refreshtp", content: data.currentTP }, resolve);
     });
 }
 
 function save() {
     return new Promise((resolve, reject) => {
-        chrome.storage.sync.set({ 'bctpm': data }, resolve);
+        browser.storage.sync.set({ 'bctpm': data }, resolve);
     });
 }
 
 function load() {
     return new Promise((resolve, reject) => {
-        chrome.storage.sync.get(["bctpm"], (storage) => {
+        browser.storage.sync.get(["bctpm"], (storage) => {
             data = storage.bctpm || data;
             if (resetdata.bc !== data.bc) {
                 data.bc = resetdata.bc;
@@ -62,13 +61,13 @@ if (RESET_ON_RELOAD) {
 }
 load();
 
-chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
+browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
     switch (type) {
         case "addtp":
             var id = data.texturePacks.push(content)-1;
             data.currentTP = id;
             save().then(() => {
-                //chrome.browserAction.setBadgeText({ text: data.texturePacks.length });
+                //browser.browserAction.setBadgeText({ text: data.texturePacks.length });
                 sendResponse("Texture Pack successfuly added.");
             });
             break;
@@ -79,7 +78,7 @@ chrome.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) =
             sendResponse(data);
             break;
         case "refreshpage":
-            chrome.tabs.reload();
+            browser.tabs.reload();
             break;
         case "settp":
             data.currentTP = content.id;

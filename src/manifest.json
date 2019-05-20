@@ -1,14 +1,24 @@
 {
-    
-    "manifest_version":2,
+    "manifest_version": 2,
     "name": "Box Critters Texture Pack Manager",
-    "version_name":"1.2.0 beta",
-    "version":"1.2.0.072",
+    "version_name": "1.2.0 beta",
+    "version": "1.2.0.073",
     "author": "TumbleGamer",
-    "icons": { "16": "logo-16.png",
+    "icons": {
+        "16": "logo-16.png",
+        "32": "logo-32.png",
+        "64": "logo-64.png",
         "48": "logo-48.png",
-       "128": "logo-128.png" },
+        "128": "logo-128.png"
+    },
     "browser_action": {
+        "default_icon": {
+            "16": "logo-16.png",
+            "32": "logo-32.png",
+            "64": "logo-64.png",
+            "48": "logo-48.png",
+            "128": "logo-128.png"
+        },
         "default_popup": "popup/popup.html",
         "default_title": "BC Texture Pack Manager"
     },
@@ -19,13 +29,30 @@
     "content_scripts": [
         {
             "matches": [
-                "https://boxcritters.com/*",
-                "https://boxcritters.github.io/*"
+                "*://*/*.bctp.json"
             ],
-            "js": ["content.js"]
+            "js": [
+                "oneclick-detect.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://boxcritters.com/*",
+                "https://boxcritters.github.io/*",
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
         }
     ],
     "permissions": [
-        "webRequest", "webRequestBlocking","storage","https://boxcritters.com/*","tabs"
-    ]
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "https://boxcritters.com/*",
+        "tabs",
+        "<all_urls>"
+    ],
+    "options_page": "popup/options.html"
 }

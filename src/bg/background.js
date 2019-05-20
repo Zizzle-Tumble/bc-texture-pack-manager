@@ -1,6 +1,5 @@
 //@ts-check
-// @ts-ignore
-var chrome = chrome||browser;
+var browser = browser || chrome || msBrowser;
 var rules = new Array();
 
 function getJSON(url) {
@@ -32,33 +31,35 @@ async function getCurrentAssetsFolder() {
 
 async function getDefaultTP() {
     var formats = await getFormats();
-    var defaultTP = formats.texturePack[formats.texturePack.length-1].reduce((obj,tp)=>{
-        if(!tp.default) {
+    var defaultTP = formats.texturePack[formats.texturePack.length - 1].reduce((obj, tp) => {
+        if (!tp.default) {
             return obj;
         }
-         obj[tp.name] = tp.default;
+        obj[tp.name] = tp.default;
         return obj
-    },{})
-    var v = await getCurrentVersionInfo();    
+    }, {})
+    var v = await getCurrentVersionInfo();
     defaultTP.script = `https://boxcritters.com/scripts/client${v.version}.min.js`
-    return defaultTP    
+    return defaultTP
 }
 
-function sendMessage(type,content) {
-    console.log("Sending message:",{type,content});
-    return new Promise((resolve,reject)=>{
-        chrome.tabs.query({currentWindow:true,active:true},
-            (tabs)=>{
-                chrome.tabs.sendMessage(tabs[0].id,{type,content},resolve);
+function sendMessage(type, content) {
+    console.log("Sending message:", { type, content });
+    return new Promise((resolve, reject) => {
+        browser.tabs.query({ currentWindow: true, active: true },
+            (tabs) => {
+                browser.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
             }
         );
     });
 }
 
 function load() {
-    return new Promise((resolve,reject)=>{
-        chrome.storage.sync.get(["bctpm"],(storage)=>{
-            chrome.browserAction.setBadgeText({text: storage.bctpm.texturePacks.length.toString()});
+    return new Promise((resolve, reject) => {
+        browser.storage.sync.get(["bctpm"], (storage) => {
+            if(storage.bctpm){
+            browser.browserAction.setBadgeText({ text: storage.bctpm.texturePacks.length.toString() });
+            }
             resolve(storage.bctpm);
         });
     });
@@ -68,16 +69,16 @@ function load() {
 
 
 function saverules() {
-    return new Promise((resolve,reject)=>{
-        genrules().then((rules)=>{
-            chrome.storage.sync.set({'bctpmRules':rules},resolve);
+    return new Promise((resolve, reject) => {
+        genrules().then((rules) => {
+            browser.storage.sync.set({ 'bctpmRules': rules }, resolve);
         })
     });
 }
 
 function loadrules() {
-    return new Promise((resolve,reject)=>{
-        chrome.storage.sync.get(["bctpmRules"],(storage)=>{
+    return new Promise((resolve, reject) => {
+        browser.storage.sync.get(["bctpmRules"], (storage) => {
             rules = storage.bctpmRules || [];
             resolve(storage.bctpmRules);
         });
@@ -85,7 +86,7 @@ function loadrules() {
 }
 
 async function loadImage(img) {
-    if(img.startsWith('https://boxcritters.com')) {
+    if (img.startsWith('https://boxcritters.com')) {
         return img;
     }
     var api = "https://bc-mod-api.herokuapp.com/cors/data/";
@@ -108,56 +109,56 @@ async function genrules() {
     var defaultTP = await getDefaultTP();
     var bc = (await getCurrentVersionInfo()).assetsFolder;
 
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
 
-        load().then((data)=>{
-            if(data===undefined || data === {}){
+        load().then((data) => {
+            if (data === undefined || data === {}) {
                 reject("no data was found");
                 return;
             }
 
             //get current texture pack
-            if(data.currentTP<0){
+            if (data.currentTP < 0) {
                 rules = [];
                 resolve("no texture pack was selected");
             }
-            var currentTP = data.texturePacks[data.currentTP]||{};
-            console.log("current tp",data.currentTP);
+            var currentTP = data.texturePacks[data.currentTP] || {};
+            console.log("current tp", data.currentTP);
 
             var keys = Object.keys(defaultTP);
-            keys.map(function(key) {
-                if(!defaultTP[key].startsWith("http")){
+            keys.map(function (key) {
+                if (!defaultTP[key].startsWith("http")) {
                     defaultTP[key] = bc + defaultTP[key];
                 }
             });
 
             //get texture pack attributes
             keys = Object.keys(defaultTP);
-            if(keys.length==0){
+            if (keys.length == 0) {
                 reject("texture pack has no attributes");
             }
             //console.log("keys",keys);
-            rules = keys.map((key)=>{
+            rules = keys.map((key) => {
                 var rule = {};
                 //console.log("key",key);
-                
+
 
                 rule.from = defaultTP[key];
-                rule.to = currentTP[key]||defaultTP[key];
+                rule.to = currentTP[key] || defaultTP[key];
                 //console.log("rule",rule);
                 return rule;
             });
-            
-            rules = rules.filter(r=>r.to!==r.from);
-            rules = rules.map(async r=>{
-                if(r.from.endsWith(".png")){
-                r.to = await loadImage(r.to);
+
+            rules = rules.filter(r => r.to !== r.from);
+            rules = rules.map(async r => {
+                if (r.from.endsWith(".png")) {
+                    r.to = await loadImage(r.to);
                 }
                 return r;
             });
-            Promise.all(rules).then(arr=>{
+            Promise.all(rules).then(arr => {
                 rules = arr;
-                console.log("rules",rules);
+                console.log("rules", rules);
                 resolve(rules);
             })
         }).catch(reject);
@@ -171,26 +172,26 @@ function redirect(request) {
     //console.log("\n\n")
     //console.log("rules",rules);
 
-    var rule = rules.find((rule)=>{
+    var rule = rules.find((rule) => {
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
-        && request.requestId !== lastRequestId;
+            && request.requestId !== lastRequestId;
     });
 
-    if(!rule) {
+    if (!rule) {
         return;
     }
-    console.log("REQUEST",request.url);
+    console.log("REQUEST", request.url);
 
 
 
-    if(rule){
+    if (rule) {
         //console.log("rule",rule);
-        console.log("THEN GO",{data:rule.to})
+        console.log("THEN GO", { data: rule.to })
         //console.log("Redirecting... ");
 
         lastRequestId = request.requestId;
-        
+
         return {
             //redirectUrl : request.url.replace(rule.from, rule.to)
             redirectUrl: rule.to
@@ -198,13 +199,18 @@ function redirect(request) {
     }
 }
 
-chrome.runtime.onMessage.addListener(({type,content}, sender, sendResponse)=> {
+browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
     switch (type) {
         case "refreshtp":
-            genrules().then(()=>{
-                console.log("pack set to",content);
+            genrules().then(() => {
+                console.log("pack set to", content);
                 sendResponse();
             }).catch(sendResponse);
+            break;
+        case "createtab":
+            //browser.tabs.query({ currentWindow: true, active: true }, tabs => {
+                browser.tabs.update(sender.tab.id, content), sendResponse;
+            //})
             break;
         default:
             break;
@@ -213,12 +219,12 @@ chrome.runtime.onMessage.addListener(({type,content}, sender, sendResponse)=> {
     sendResponse();
 });
 
-chrome.webRequest.onBeforeRequest.addListener(
-    function(details) {
+browser.webRequest.onBeforeRequest.addListener(
+    function (details) {
         return redirect(details);
     },
     {
-        urls : ["https://boxcritters.com/*"],
+        urls: ["https://boxcritters.com/*"],
         //types: ["image"]
     },
     ["blocking"]

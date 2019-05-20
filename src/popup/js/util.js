@@ -1,8 +1,15 @@
 //@ts-check
-//@ts-ignore
-var chrome = chrome || browser;
+var browser = browser || chrome || msBrowser;
 var NAV = document.getElementById('nav');
 var NAVTEXT = NAV.innerHTML;
+
+function getURLParams() {
+	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
+        obj[p.split('=')[0]] = p.split('=')[1];
+        return obj;
+    },{});
+}
+
 
 /**
  * 
@@ -46,9 +53,9 @@ function sendMessage(type, content={}) {
     console.log("Sending message:", { type, content });
 
     return new Promise((resolve, reject) => {
-        chrome.tabs.query({ currentWindow: true, active: true },
+        browser.tabs.query({ currentWindow: true, active: true },
             (tabs) => {
-                chrome.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
+                browser.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
             }
         );
     });
@@ -58,7 +65,7 @@ function findTabWithURl(url) {
     console.log("Finding tab with url:", url);
 
     return new Promise((resolve, reject) => {
-        chrome.tabs.query({ currentWindow: true, url:url },
+        browser.tabs.query({ currentWindow: true, url:url },
             (tabs) => {
                 resolve(tabs[0]);
             }
@@ -76,4 +83,12 @@ function refreshNav() {
     }
     });
 }
-refreshNav();
+//refreshNav();
+
+function decode(text) {
+    return JSON.parse(atob(text));
+};
+
+function encode(text) {
+    return btoa(JSON.stringify(text));
+};

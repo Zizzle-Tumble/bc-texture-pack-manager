@@ -4,10 +4,6 @@
  */
 var createtpform = document.querySelector("form#createtpform");
 
-function encode(text) {
-    return btoa(JSON.stringify(text));
-}
-
 /**
  * 
  * @param {number} v 
