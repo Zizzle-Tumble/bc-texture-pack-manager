@@ -1,7 +1,6 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
-var NAV = document.getElementById('nav');
-var NAVTEXT = NAV.innerHTML;
+var CONTENT_CONNECTED = false;
 
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
@@ -61,6 +60,12 @@ function sendMessage(type, content={}) {
     });
 }
 
+function sendMessageBG(type, content) {
+    return new Promise((resolve, reject) => {
+        browser.runtime.sendMessage({ type, content }, resolve);
+    })
+}
+
 function findTabWithURl(url) {
     console.log("Finding tab with url:", url);
 
@@ -72,18 +77,6 @@ function findTabWithURl(url) {
         );
     });
 }
-
-function refreshNav() {
-    sendMessage("ping")
-    .then((pong=false)=>{
-    if(pong){
-        NAV.innerHTML = NAVTEXT;
-    } else {
-        NAV.innerHTML = "";
-    }
-    });
-}
-//refreshNav();
 
 function decode(text) {
     return JSON.parse(atob(text));

@@ -37,9 +37,9 @@
         },
         {
             "matches": [
+                "<all_urls>",
                 "https://boxcritters.com/*",
-                "https://boxcritters.github.io/*",
-                "<all_urls>"
+                "https://boxcritters.github.io/*"
             ],
             "js": [
                 "content.js"

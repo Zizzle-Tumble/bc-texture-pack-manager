@@ -54,7 +54,7 @@ function sendMessage(type, content) {
     });
 }
 
-function load() {
+function loadBG() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.get(["bctpm"], (storage) => {
             if(storage.bctpm){
@@ -111,7 +111,7 @@ async function genrules() {
 
     return new Promise((resolve, reject) => {
 
-        load().then((data) => {
+        loadBG().then((data) => {
             if (data === undefined || data === {}) {
                 reject("no data was found");
                 return;
@@ -199,25 +199,19 @@ function redirect(request) {
     }
 }
 
-browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
-    switch (type) {
-        case "refreshtp":
-            genrules().then(() => {
-                console.log("pack set to", content);
-                sendResponse();
-            }).catch(sendResponse);
-            break;
-        case "createtab":
-            //browser.tabs.query({ currentWindow: true, active: true }, tabs => {
-                browser.tabs.update(sender.tab.id, content), sendResponse;
-            //})
-            break;
-        default:
-            break;
-    }
-
-    sendResponse();
+MSG_LISTENER.addListener("refreshtp",(content,sendResponse)=>{
+    genrules().then(() => {
+        console.log("pack set to", content);
+        sendResponse();
+    }).catch(sendResponse);
 });
+MSG_LISTENER.addListener("createtab",(content,sendResponse,sender)=>{
+    //browser.tabs.query({ currentWindow: true, active: true }, tabs => {
+        browser.tabs.update(sender.tab.id, content), sendResponse;
+    //})
+});
+
+MSG_LISTENER.start();
 
 browser.webRequest.onBeforeRequest.addListener(
     function (details) {

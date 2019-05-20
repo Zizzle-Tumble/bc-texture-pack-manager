@@ -15,15 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#version-display').text(versionInfo);
     }
 
-    function sendMessageBG(type, content) {
-        return new Promise((resolve, reject) => {
-            browser.runtime.sendMessage({ type, content }, resolve);
-        })
-    }
+    
 
     function refreshPage() {
         browser.tabs.reload({'bypassCache':true},()=>{
-            refreshNav();
             refreshList();
         });
     }
@@ -32,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function enableTP(id) {        
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
-        sendMessage("settp", { id }).then(msg => {
+        sendMessageBG("settp", { id }).then(msg => {
             sendMessageBG('refreshtp', id).then(() => {
                 refreshPage();
             });
@@ -45,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteTP(id) {
-        sendMessage("deletetp", { id }).then(msg => {
+        sendMessageBG("deletetp", { id }).then(msg => {
             sendMessageBG('refreshtp', id).then(() => {
                 refreshPage();
             });
@@ -205,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //List Texture Packs
     function refreshList() {
-        sendMessage("getdata").then((data) => {
+        sendMessageBG("getdata").then((data) => {
             var texturepacks = data.texturePacks || [];
             console.log(texturepacks);
             if (texturepacks instanceof Array && texturepacks.length === 0) {
@@ -287,13 +282,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         });
     }
-    refreshList();
 
     displayVersion();
+    refreshList();
 
     //reset
     resetbutton.addEventListener('click', () => {
-        sendMessage("reset").then(() => {
+        sendMessageBG("reset").then(() => {
             console.log("RESETTING...");
             
             refreshPage();
