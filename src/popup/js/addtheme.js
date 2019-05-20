@@ -75,5 +75,5 @@ addtpbutton.addEventListener('click', () => {
 
 if(getURLParams().data) {
     textarea.value = getURLParams().data;
-    //addtpbutton.click();
+    addtpbutton.click();
 }
