@@ -1,32 +1,30 @@
 class MsgListener {
     constructor() {
-        this.names = [];
+        this.types = [];
         this.actions = [];
     }
 
     /**
      * 
-     * @param {string} name 
+     * @param {string} type 
      * @param {(content:any,sendResponse:(...args:any[])=>void)=>any} action 
      */
-    addListener(name,action) {
-        if(this.names.includes(name)) {
-            console.warn("Action for message type",type,"has been overwritten.");
-        } else {
-            this.names.push(name);
-            this.actions.length = name.length;
+    addListener(type,action) {
+        if(this.types.includes(type)) {
+            console.warn("message type",type,"already exists.");
+            return;
         }
-        var i = this.names.indexOf(name);
-        this.actions[i] = action;
+        this.types.push(type);
+        this.actions.push(action);
     }
 
     start() {
         browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
-            if(!this.names.includes(type)) {
+            if(!this.types.includes(type)) {
                 console.error("no such msg type",type);
                 sendResponse();
             }
-            var i = this.names.indexOf(type);
+            var i = this.types.indexOf(type);
             this.actions[i](content,sendResponse,sender);
         });
     }
