@@ -1,6 +1,6 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
-var rules = new Array();
+var RULES = new Array();
 
 function getJSON(url) {
     var xobj = new XMLHttpRequest();
@@ -54,17 +54,6 @@ function sendMessage(type, content) {
     });
 }
 
-function loadBG() {
-    return new Promise((resolve, reject) => {
-        browser.storage.sync.get(["bctpm"], (storage) => {
-            if(storage.bctpm){
-            browser.browserAction.setBadgeText({ text: storage.bctpm.texturePacks.length.toString() });
-            }
-            resolve(storage.bctpm);
-        });
-    });
-}
-
 
 
 
@@ -79,7 +68,7 @@ function saverules() {
 function loadrules() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.get(["bctpmRules"], (storage) => {
-            rules = storage.bctpmRules || [];
+            RULES = storage.bctpmRules || [];
             resolve(storage.bctpmRules);
         });
     });
@@ -109,70 +98,65 @@ async function genrules() {
     var defaultTP = await getDefaultTP();
     var bc = (await getCurrentVersionInfo()).assetsFolder;
 
-    return new Promise((resolve, reject) => {
+    if (DATA === undefined ) {
+        return "no data was found";
+    }
 
-        loadBG().then((data) => {
-            if (data === undefined || data === {}) {
-                reject("no data was found");
-                return;
-            }
+    //get current texture pack
+    if (DATA.currentTP < 0) {
+        RULES = [];
+        return "no texture pack was selected";
+    }
+    var currentTP = DATA.texturePacks[DATA.currentTP] || {};
+    console.log("current tp", DATA.currentTP);
 
-            //get current texture pack
-            if (data.currentTP < 0) {
-                rules = [];
-                resolve("no texture pack was selected");
-            }
-            var currentTP = data.texturePacks[data.currentTP] || {};
-            console.log("current tp", data.currentTP);
-
-            var keys = Object.keys(defaultTP);
-            keys.map(function (key) {
-                if (!defaultTP[key].startsWith("http")) {
-                    defaultTP[key] = bc + defaultTP[key];
-                }
-            });
-
-            //get texture pack attributes
-            keys = Object.keys(defaultTP);
-            if (keys.length == 0) {
-                reject("texture pack has no attributes");
-            }
-            //console.log("keys",keys);
-            rules = keys.map((key) => {
-                var rule = {};
-                //console.log("key",key);
-
-
-                rule.from = defaultTP[key];
-                rule.to = currentTP[key] || defaultTP[key];
-                //console.log("rule",rule);
-                return rule;
-            });
-
-            rules = rules.filter(r => r.to !== r.from);
-            rules = rules.map(async r => {
-                if (r.from.endsWith(".png")) {
-                    r.to = await loadImage(r.to);
-                }
-                return r;
-            });
-            Promise.all(rules).then(arr => {
-                rules = arr;
-                console.log("rules", rules);
-                resolve(rules);
-            })
-        }).catch(reject);
+    var keys = Object.keys(defaultTP);
+    keys.map(function (key) {
+        if (!defaultTP[key].startsWith("http")) {
+            defaultTP[key] = bc + defaultTP[key];
+        }
     });
-}
 
-genrules().catch(console.error);
+    //get texture pack attributes
+    keys = Object.keys(defaultTP);
+    if (keys.length == 0) {
+        throw "texture pack has no attributes";
+    }
+    //console.log("keys",keys);
+    RULES = keys.map((key) => {
+        var rule = {};
+        //console.log("key",key);
+
+
+        rule.from = defaultTP[key];
+        rule.to = currentTP[key] || defaultTP[key];
+        //console.log("rule",rule);
+        return rule;
+    });
+
+    RULES = RULES.filter(r => r.to !== r.from);
+    RULES = RULES.map(async r => {
+        if (r.from.endsWith(".png")) {
+            r.to = await loadImage(r.to);
+        }
+        return r;
+    });
+    Promise.all(RULES).then(arr => {
+        RULES = arr;
+        console.log("rules", RULES);
+        RULES = RULES;
+    })
+}
+load().then(()=>{
+    genrules().catch(console.error);
+})
 
 var lastRequestId;
 function redirect(request) {
     //console.log("\n\n")
     //console.log("rules",rules);
 
-    var rule = rules.find((rule) => {
+    var rule = RULES.find((rule) => {
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
             && request.requestId !== lastRequestId;
