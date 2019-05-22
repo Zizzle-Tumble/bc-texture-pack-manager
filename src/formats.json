@@ -33,334 +33,73 @@
             }
         ],
         [
-            {
-                "name": "name",
-                "required": true,
-                "label": "Name",
-                "category":"info"
-            },
-            {
-                "name": "author",
-                "required": true,
-                "label": "Author",
-                "category":"info"
-            },
-            {
-                "name": "readonly",
-                "required": false,
-                "hidden": true,
-                "category":"info"
-            },
-            {
-                "name": "script",
-                "required": false,
-                "hidden": true,
-                "label": "Script"
-            },
-            {
-                "name": "date",
-                "hidden": true,
-                "label": "Date",
-                "category":"info"
-            },
-            {
-                "name": "packVersion",
-                "required": false,
-                "hidden": true,
-                "category":"info"
-            },
-            {
-                "name": "description",
-                "required": false,
-                "label": "Description",
-                "category":"info"
-            },
-            {
-                "name": "hamster",
-                "required": false,
-                "label": "Hamster",
-                "default": "critters/hamster.png",
-                "category":"critters"
-            },
-            {
-                "name": "beaver",
-                "required": false,
-                "label": "Beaver",
-                "default": "critters/beaver.png",
-                "category":"critters"
-            },
-            {
-                "name": "snail",
-                "required": false,
-                "label": "Rocket Snail",
-                "default": "critters/snail.png",
-                "category":"critters/mascots"
-            },
-            {
-                "name": "3d_black",
-                "required": false,
-                "label": "Black 3D Glasses",
-                "default": "icons/3d_black.png",
-                "category": "icons"
-            },
-            {
-                "name": "3d_white",
-                "required": false,
-                "label": "White 3D Glasses",
-                "default": "icons/3d_white.png",
-                "category": "icons"
-            },
-            {
-                "name": "ballcap_black",
-                "required": false,
-                "label": "Black Baseball Cap",
-                "default": "icons/ballcap_black.png",
-                "category": "icons"
-            },
-            {
-                "name": "ballcap_blue",
-                "required": false,
-                "label": "Blue Baseball Cap",
-                "default": "icons/ballcap_blue.png",
-                "category": "icons"
-            },
-            {
-                "name": "ballcap_green",
-                "required": false,
-                "label": "Green Baseball Cap",
-                "default": "icons/ballcap_green.png",
-                "category": "icons"
-            },
-            {
-                "name": "bunny_blue",
-                "required": false,
-                "label": "Blue Bunny Ears",
-                "default": "icons/bunny_blue.png",
-                "category": "icons"
-            },
-            {
-                "name": "bunny_pink",
-                "required": false,
-                "label": "Pink Bunny Ears",
-                "default": "icons/bunny_pink.png",
-                "category": "icons"
-            },
-            {
-                "name": "bunny_white",
-                "required": false,
-                "label": "White Bunny Ears",
-                "default": "icons/bunny_white.png",
-                "category": "icons"
-            },
-            {
-                "name": "easteregg_a",
-                "required": false,
-                "label": "Easter Egg A",
-                "default": "icons/easteregg_a.png",
-                "category": "icons"
-            },
-            {
-                "name": "easteregg_b",
-                "required": false,
-                "label": "Easter Egg B",
-                "default": "icons/easteregg_b.png",
-                "category": "icons"
-            },
-            {
-                "name": "easteregg_c",
-                "required": false,
-                "label": "Easter Egg C",
-                "default": "icons/easteregg_c.png",
-                "category": "icons"
-            },
-            {
-                "name": "float_yellow",
-                "required": false,
-                "label": "Yellow Duck Floatie",
-                "default": "icons/float_yellow.png",
-                "category": "icons"
-            },
-            {
-                "name": "headphones_white",
-                "required": false,
-                "label": "Discord Headphones",
-                "default": "icons/headphones_white.png",
-                "category": "icons"
-            },
-            {
-                "name": "hoodie_blue",
-                "required": false,
-                "label": "Blue Hoodie",
-                "default": "icons/hoodie_blue.png",
-                "category": "icons"
-            },
-            {
-                "name": "hoodie_pink",
-                "required": false,
-                "label": "Pink Hoodie",
-                "default": "icons/hoodie_pink.png",
-                "category": "icons"
-            },
-            {
-                "name": "monk",
-                "required": false,
-                "label": "Monk Outfit",
-                "default": "icons/monk.png",
-                "category": "icons"
-            },
-            {
-                "name": "paperhat",
-                "required": false,
-                "label": "Paper Hat",
-                "default": "icons/paperhat.png",
-                "category": "icons"
-            },
-            {
-                "name": "party_green",
-                "required": false,
-                "label": "Party Hat",
-                "default": "icons/party_green.png",
-                "category": "icons"
-            },
-            {
-                "name": "pirate_capt_black",
-                "required": false,
-                "label": "Pirate Captain Jacket",
-                "default": "icons/pirate_capt_black.png",
-                "category": "icons"
-            },
-            {
-                "name": "plaid_red",
-                "required": false,
-                "label": "Red Plaid Shirt",
-                "default": "icons/plaid_red.png",
-                "category": "icons"
-            },
-            {
-                "name": "pot",
-                "required": false,
-                "label": "Pot Helm",
-                "default": "icons/pot.png",
-                "category": "icons"
-            },
-            {
-                "name": "propeller",
-                "required": false,
-                "label": "Propeller Cap",
-                "default": "icons/propeller.png",
-                "category": "icons"
-            },
-            {
-                "name": "sleeping",
-                "required": false,
-                "label": "Sleeping Hat",
-                "default": "icons/sleeping.png",
-                "category": "icons"
-            },
-            {
-                "name": "space_blue",
-                "required": false,
-                "label": "Space blue",
-                "default": "icons/space_blue.png",
-                "category": "icons"
-            },
-            {
-                "name": "space_red",
-                "required": false,
-                "label": "Red Space Suit",
-                "default": "icons/space_red.png",
-                "category": "icons"
-            },
-            {
-                "name": "toque_blue",
-                "required": false,
-                "label": "Blue Toque",
-                "default": "icons/toque_blue.png",
-                "category": "icons"
-            },
-            {
-                "name": "toque_pink",
-                "required": false,
-                "label": "Pink Toque",
-                "default": "icons/toque_pink.png",
-                "category": "icons"
-            },
-            {
-                "name": "toque_purple",
-                "required": false,
-                "label": "Purple Toque",
-                "default": "icons/toque_purple.png",
-                "category": "icons"
-            },
-            {
-                "name": "toque_white",
-                "required": false,
-                "label": "White Toquee",
-                "default": "icons/toque_white.png",
-                "category": "icons"
-            },
-            {
-                "name": "tshirt_white",
-                "required": false,
-                "label": "White T-shirt",
-                "default": "icons/tshirt_white.png",
-                "category": "icons"
-            },
-            {
-                "name": "viking",
-                "required": false,
-                "label": "Viking Helmet",
-                "default": "icons/viking.png",
-                "category": "icons"
-            },
-            {
-                "name": "items",
-                "required": false,
-                "label": "Items",
-                "default": "items/items.png",
-                "category":"items"
-            },
-            {
-                "name": "tavenProps",
-                "required": false,
-                "default": "/rooms/tavern_ss.png",
-                "hidden": true,
-                "category": "rooms/tavern"
-            },
-            {
-                "name": "tavenProps",
-                "required": false,
-                "label": "Tavern Props",
-                "default": "/rooms/tavern_ss.png",
-                "category": "rooms/tavern"
-            },
-            {
-                "name": "tavernBG",
-                "required": false,
-                "label": "Tavern Background",
-                "default": "/rooms/tavern_bg.png",
-                "category": "rooms/tavern"
-            },
-            {
-                "name": "tavernFG",
-                "required": false,
-                "label": "Tavern Foreground",
-                "default": "/rooms/tavern_fg.png",
-                "category": "rooms/tavern"
-            },
-            {
-                "name": "bridgeBackground",
-                "required": false,
-                "label": "Bridge Background",
-                "default": "/rooms/bridge_bg.png",
-                "category": "rooms/bridge"
-            },
-            {
-                "name": "bridgeProps",
-                "required": false,
-                "label": "Bridge Props",
-                "default": "/rooms/bridge_ss.png",
-                "category": "rooms/bridge"
+            {"name": "name","required": true,"label": "Name","category": "info"},
+            {"name": "author","required": true,"label": "Author","category": "info"},
+            {"name": "readonly","required": false,"hidden": true,"category": "info"},
+            {"name": "date","hidden": true,"label": "Date","category": "info"},
+            {"name": "packVersion","required": false,"hidden": true,"category": "info"},
+            {"name": "description","required": false,"label": "Description","category": "info"},
+
+
+            {"name": "script","required": false,"hidden": true,"label": "Script"},
+
+
+            {"name": "bridge","required": false,"label": "The Bridge","default": "cards/oomm/bridge.png","category": "cards/oomm"},
+            {"name": "ghost_ship","required": false,"label": "Ghost Ship","default": "cards/oomm/ghost_ship.png","category": "cards/oomm"},
+
+
+            {"name": "hamster","required": false,"label": "Hamster","default": "critters/hamster.png","category": "critters"},
+            {"name": "beaver","required": false,"label": "Beaver","default": "critters/beaver.png","category": "critters"},
+            {"name": "snail","required": false,"label": "Rocket Snail","default": "critters/snail.png","category": "critters/mascots"},
+
+
+            {"name": "ballcap_black","required": false,"label": "Black Baseball Cap","default": "icons/ballcap_black.png","category": "icons/head"},
+            {"name": "ballcap_blue","required": false,"label": "Blue Baseball Cap","default": "icons/ballcap_blue.png","category": "icons/head"},
+            {"name": "ballcap_green","required": false,"label": "Green Baseball Cap","default": "icons/ballcap_green.png","category": "icons/head"},
+            {"name": "bunny_pink","required": false,"label": "Pink Bunny Ears","default": "icons/bunny_pink.png","category": "icons/head"},
+            {"name": "bunny_white","required": false,"label": "White Bunny Ears","default": "icons/bunny_white.png","category": "icons/head"},
+            {"name": "easteregg_a","required": false,"label": "Easter Egg A","default": "icons/easteregg_a.png","category": "icons/head"},
+            {"name": "easteregg_b","required": false,"label": "Easter Egg B","default": "icons/easteregg_b.png","category": "icons/head"},
+            {"name": "easteregg_c","required": false,"label": "Easter Egg C","default": "icons/easteregg_c.png","category": "icons/head"},
+            {"name": "paperhat","required": false,"label": "Paper Hat","default": "icons/paperhat.png","category": "icons/head"},
+            {"name": "party_green","required": false,"label": "Party Hat","default": "icons/party_green.png","category": "icons/head"},
+            {"name": "pot","required": false,"label": "Pot Helm","default": "icons/pot.png","category": "icons/head"},
+            {"name": "propeller","required": false,"label": "Propeller Cap","default": "icons/propeller.png","category": "icons/head"},
+            {"name": "sleeping","required": false,"label": "Sleeping Hat","default": "icons/sleeping.png","category": "icons/head"},
+            {"name": "toque_blue","required": false,"label": "Blue Toque","default": "icons/toque_blue.png","category": "icons/head"},
+            {"name": "toque_pink","required": false,"label": "Pink Toque","default": "icons/toque_pink.png","category": "icons/head"},
+            {"name": "toque_purple","required": false,"label": "Purple Toque","default": "icons/toque_purple.png","category": "icons/head"},
+            {"name": "toque_white","required": false,"label": "White Toquee","default": "icons/toque_white.png","category": "icons/head"},
+            {"name": "viking","required": false,"label": "Viking Helmet","default": "icons/viking.png","category": "icons/head"},
+
+            {"name": "headphones_white","required": false,"label": "Discord Headphones","default": "icons/headphones_white.png","category": "icons/ears"},
+
+            {"name": "3d_black","required": false,"label": "Black 3D Glasses","default": "icons/3d_black.png","category": "icons/eyes"},
+            {"name": "3d_white","required": false,"label": "White 3D Glasses","default": "icons/3d_white.png","category": "icons/eyes"},
+            {"name": "pirate_patch","required": false,"label": "Pirate Patch","default": "icons/pirate_patch.png","category": "icons/eyes"},
+
+            {"name": "bunny_blue","required": false,"label": "Blue Bunny Ears","default": "icons/bunny_blue.png","category": "icons/body"},
+            {"name": "hoodie_blue","required": false,"label": "Blue Hoodie","default": "icons/hoodie_blue.png","category": "icons/body"},
+            {"name": "hoodie_pink","required": false,"label": "Pink Hoodie","default": "icons/hoodie_pink.png","category": "icons/body"},
+            {"name": "monk","required": false,"label": "Monk Outfit","default": "icons/monk.png","category": "icons/body"},
+            {"name": "pirate_capt_black","required": false,"label": "Pirate Captain Jacket","default": "icons/pirate_capt_black.png","category": "icons/body"},
+            {"name": "plaid_red","required": false,"label": "Red Plaid Shirt","default": "icons/plaid_red.png","category": "icons/body"},
+            {"name": "space_blue","required": false,"label": "Space blue","default": "icons/space_blue.png","category": "icons/body"},
+            {"name": "space_red","required": false,"label": "Red Space Suit","default": "icons/space_red.png","category": "icons/body"},
+            {"name": "tshirt_white","required": false,"label": "White T-shirt","default": "icons/tshirt_white.png","category": "icons/body"},
+
+            {"name": "float_yellow","required": false,"label": "Yellow Duck Floatie","default": "icons/float_yellow.png","category": "icons/belt"},
+
+
+            {"name": "items","required": false,"label": "Items","default": "items/items.png","category": "items"},
+
+
+            {"name": "bridgeBackground","required": false,"label": "Bridge Background","default": "/rooms/bridge_bg.png","category": "rooms/bridge"},
+            {"name": "bridgeProps","required": false,"label": "Bridge Props","default": "/rooms/bridge_ss.png","category": "rooms/bridge"},
+            {"name": "tavenProps","required": false,"default": "/rooms/tavern_ss.png","hidden": true,"category": "rooms/tavern"},
+            {"name": "tavenProps","required": false,"label": "Tavern Props","default": "/rooms/tavern_ss.png","category": "rooms/tavern"},
+            {"name": "tavernBG","required": false,"label": "Tavern Background","default": "/rooms/tavern_bg.png","category": "rooms/tavern"},
+            {"name": "tavernFG","required": false,"label": "Tavern Foreground","default": "/rooms/tavern_fg.png","category": "rooms/tavern"
             }
         ]
     ]
