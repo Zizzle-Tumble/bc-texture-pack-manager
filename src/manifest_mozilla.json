@@ -58,10 +58,5 @@
     ],
     "options_ui": {
         "page": "popup/options.html"
-    },
-    "browser_specific_settings": {
-        "gecko": {
-          "id": "bc-texture-pack-manager@boxcritters.github.io"
-        }
-      }
+    }
 }
