@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let tp = {};
         tp.name = "BoxCritters";
         tp.author = "RocketSnail";
-        tp.date = new Date("05-01-2019");
+        tp.date = new Date("5 Jan 2019");
         tp.readonly = true;
 
         var des = [
@@ -78,6 +78,29 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
     */
 
+    function dateToString(unix){
+        var date = new Date(unix);
+
+        let dd = date.getDate();
+        let mm = (date.getMonth() + 1);
+        let yyyy = date.getFullYear();
+
+        //Enables 0 beginning numbers
+        /*if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } */
+
+
+        return dd+'/'+mm+'/'+yyyy;
+
+    }
+
     function genTPItem(tp ,i) {
         //div.tp-item
         var tpitem = document.createElement('a');
@@ -115,28 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //date created
         if (tp.date) {
-            var tpdate = new Date(tp.date);
             var date = document.createElement('small');
             date.classList.add("text-muted");
-
-            let dd = tpdate.getDate();
-
-            let mm = tpdate.getMonth()+1; 
-            let yyyy = tpdate.getFullYear();
-
-            //Enables 0 beginning numbers
-            /*if(dd<10) 
-            {
-                dd='0'+dd;
-            } 
-
-            if(mm<10) 
-            {
-                mm='0'+mm;
-            } */
-
-
-            date.innerHTML = "Created " + dd+'/'+mm+'/'+yyyy;
+            date.innerHTML = "Created " + dateToString(tp.date);
             header.appendChild(date);
         }
 
