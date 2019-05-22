@@ -9,11 +9,6 @@ textarea.style.width = "100%";
 var addtpfrom = document.querySelector("form#addtpform");
 addtpfrom.addEventListener('submit',noRedirectForm);
 
-
-function decode(text) {
-    return JSON.parse(atob(text));
-};
-
 async function valid(type, obj) {
         var keys = Object.keys(obj);
         if (!keys.includes("version")) {
@@ -32,13 +27,14 @@ async function valid(type, obj) {
     });
 
 }
+
 function AddTP(data) {
     console.log("addtp");
     
     return new Promise((resolve, reject) => {
         data = decode(data);
         valid("texturePack", data).then((valid) => {
-            sendMessage("tpexists", data.name)
+            sendMessageBG("tpexists", data.name)
                 .then(exists => {
                     if (exists) {
                         console.log("exists");
@@ -48,7 +44,7 @@ function AddTP(data) {
                     } else if (valid) {
                         console.log("valid");
                         
-                        sendMessage("addtp", data).then(resolve);
+                        sendMessageBG("addtp", data).then(resolve);
                         return;
                     }
                     else {
@@ -69,10 +65,17 @@ addtpbutton.addEventListener('click', () => {
         successmessage.style.display = "block";
         successmessage.innerHTML = msg;
         setTimeout(() => {
-            window.location.href = "popup.html";
+            //window.location.href = "popup.html";
+            window.close();
         }, 500)
     }).catch((msg) => {
         errormessage.style.display = "block";
         errormessage.innerHTML = msg;
     })
 }, false);
+
+if(getURLParams().data) {
+    textarea.value = getURLParams().data;
+    textarea.setAttribute("readonly","");
+    //addtpbutton.click();
+}

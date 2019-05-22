@@ -1,23 +1,10 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
     var tplist = document.querySelector("div#tplist");
-    var resetbutton = document.querySelector('#btn-reset');
-
-    function displayVersion() {
-        getJSON('/manifest.json').then(manifest=>{
-            $('#version-display').text("Version: v" + manifest.version);
-        });
-    }
-
-    function sendMessageBG(type, content) {
-        return new Promise((resolve, reject) => {
-            chrome.runtime.sendMessage({ type, content }, resolve);
-        })
-    }
+    var resetbutton = document.querySelector('#btn-reset');    
 
     function refreshPage() {
-        chrome.tabs.reload({'bypassCache':true},()=>{
-            refreshNav();
+        browser.tabs.reload({'bypassCache':true},()=>{
             refreshList();
         });
     }
@@ -26,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function enableTP(id) {        
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
-        sendMessage("settp", { id }).then(msg => {
+        sendMessageBG("settp", { id }).then(msg => {
             sendMessageBG('refreshtp', id).then(() => {
                 refreshPage();
             });
@@ -39,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteTP(id) {
-        sendMessage("deletetp", { id }).then(msg => {
+        sendMessageBG("deletetp", { id }).then(msg => {
             sendMessageBG('refreshtp', id).then(() => {
                 refreshPage();
             });
@@ -51,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let tp = {};
         tp.name = "BoxCritters";
         tp.author = "RocketSnail";
-        tp.date = new Date("05-01-2019");
+        tp.date = new Date("5 Jan 2019");
         tp.readonly = true;
 
         var des = [
@@ -91,6 +78,29 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
     */
 
+    function dateToString(unix){
+        var date = new Date(unix);
+
+        let dd = date.getDate();
+        let mm = (date.getMonth() + 1);
+        let yyyy = date.getFullYear();
+
+        //Enables 0 beginning numbers
+        /*if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } */
+
+
+        return dd+'/'+mm+'/'+yyyy;
+
+    }
+
     function genTPItem(tp ,i) {
         //div.tp-item
         var tpitem = document.createElement('a');
@@ -111,31 +121,26 @@ document.addEventListener('DOMContentLoaded', () => {
         title.classList.add("mb-1");
         title.innerHTML = tp.name;
         header.appendChild(title);
+        if(tp.packVersion) {
+            title.innerText += " ";
+            var tpVersion = document.createElement('small');
+            tpVersion.classList.add("text-muted");
+            tpVersion.innerHTML = "[" + tp.packVersion + "]";
+            title.appendChild(tpVersion);
+        }
+        if(tp.new) {
+            title.innerText = " " + title.innerText
+            var tpUpdate = document.createElement('span');
+            tpUpdate.classList.add("badge","badge-primary","badge-pill");
+            tpUpdate.innerHTML = "New";
+            title.prepend(tpUpdate);
+        }
 
         //date created
         if (tp.date) {
-            var tpdate = new Date(tp.date);
             var date = document.createElement('small');
             date.classList.add("text-muted");
-
-            let dd = tpdate.getDate();
-
-            let mm = tpdate.getMonth()+1; 
-            let yyyy = tpdate.getFullYear();
-
-            //Enables 0 beginning numbers
-            /*if(dd<10) 
-            {
-                dd='0'+dd;
-            } 
-
-            if(mm<10) 
-            {
-                mm='0'+mm;
-            } */
-
-
-            date.innerHTML = "Created " + dd+'/'+mm+'/'+yyyy;
+            date.innerHTML = "Created " + dateToString(tp.date);
             header.appendChild(date);
         }
 
@@ -199,12 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //List Texture Packs
     function refreshList() {
-        sendMessage("getdata").then((data) => {
+        sendMessageBG("getdata").then((data) => {
             var texturepacks = data.texturePacks || [];
             console.log(texturepacks);
             if (texturepacks instanceof Array && texturepacks.length === 0) {
                 tplist.classList.add('middle-center');
-                tplist.innerHTML = '<p>There are no Texture Packs.</p><a href="addtheme.html" class="btn btn-primary">Add Texture Pack</a>';
+                tplist.innerHTML = '<p>There are no Texture Packs.</p><a href="addtheme.html" target="_blank" class="btn btn-primary">Add Texture Pack</a>';
                 return;
             }
             tplist.innerHTML = "";
@@ -265,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else { //if tab open and not current
                     bcBtn.innerHTML = "Switch to tab";
                     bcBtn.addEventListener('click',()=>{
-                        chrome.tabs.highlight({'tabs':tab.index},()=>{
+                        browser.tabs.highlight({'tabs':tab.index},()=>{
                             refreshPage();
                         });
                     });
@@ -283,11 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     refreshList();
 
-    displayVersion();
-
     //reset
     resetbutton.addEventListener('click', () => {
-        sendMessage("reset").then(() => {
+        sendMessageBG("reset").then(() => {
             console.log("RESETTING...");
             
             refreshPage();

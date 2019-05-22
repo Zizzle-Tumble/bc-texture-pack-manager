@@ -9,29 +9,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="popup.css">
+    <!-- <link rel="stylesheet" href="popup.css"> -->
 </head>
 
 <body>
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand">
-            <a href="popup.html" class="btn btn-secondary">Back </a>
-            Add Texture Pack
+            <!-- <a href="popup.html" class="btn btn-secondary">Back </a> -->
+            Install Texture Pack
         </span>
     </nav>
     <p id="error" class="alert alert-danger">Error text</p>
     <p id="success" class="alert alert-success">Success text</p>
     <div class="container">
-        <p>Please ask for a code from a texture pack author or the <a target="_blank" href="https://discord.gg/awZNvc">
-                Box critters modding Community</a> </p>
+        <h1>Install Texture Pack</h1>
+        <p>Please ask for a code from a texture pack author or the <a target="_blank" href="https://boxcritters.github.io">BoxCritters Modding Community</a> or from <a target="_blank" href="https://discord.gg/awZNvc">
+                their discord</a>.</p>
         <form id="addtpform">
             <div class="form-group">
                 <label for="tpdata">Texture Pack Data</label>
-                <textarea id="tpdata" rows="5"></textarea>
+                <textarea id="tpdata" class="form-control" rows="5"></textarea>
             </div>
-            <button id="addtheme" class="btn btn-primary">Add Texture Pack</button>
+            <button id="addtheme" class="btn btn-primary">Install</button>
         </form>
     </div>
+    <footer id="version-display"></footer>
 
 
     <script src="js/jquery-3.3.1.slim.min.js""></script>

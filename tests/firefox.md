@@ -1,0 +1,1 @@
+14. One click Redirect does not occour

@@ -1,8 +1,14 @@
 //@ts-check
-//@ts-ignore
-var chrome = chrome || browser;
-var NAV = document.getElementById('nav');
-var NAVTEXT = NAV.innerHTML;
+var browser = browser || chrome || msBrowser;
+var CONTENT_CONNECTED = false;
+
+function getURLParams() {
+	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
+        obj[p.split('=')[0]] = p.split('=')[1];
+        return obj;
+    },{});
+}
+
 
 /**
  * 
@@ -46,19 +52,25 @@ function sendMessage(type, content={}) {
     console.log("Sending message:", { type, content });
 
     return new Promise((resolve, reject) => {
-        chrome.tabs.query({ currentWindow: true, active: true },
+        browser.tabs.query({ currentWindow: true, active: true },
             (tabs) => {
-                chrome.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
+                browser.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
             }
         );
     });
+}
+
+function sendMessageBG(type, content) {
+    return new Promise((resolve, reject) => {
+        browser.runtime.sendMessage({ type, content }, resolve);
+    })
 }
 
 function findTabWithURl(url) {
     console.log("Finding tab with url:", url);
 
     return new Promise((resolve, reject) => {
-        chrome.tabs.query({ currentWindow: true, url:url },
+        browser.tabs.query({ currentWindow: true, url:url },
             (tabs) => {
                 resolve(tabs[0]);
             }
@@ -66,14 +78,22 @@ function findTabWithURl(url) {
     });
 }
 
-function refreshNav() {
-    sendMessage("ping")
-    .then((pong=false)=>{
-    if(pong){
-        NAV.innerHTML = NAVTEXT;
-    } else {
-        NAV.innerHTML = "";
-    }
-    });
-}
-refreshNav();
+function decode(text) {
+    return JSON.parse(atob(text));
+};
+
+function encode(text) {
+    return btoa(JSON.stringify(text));
+};
+
+(function displayVersion() {
+    var manifest = browser.runtime.getManifest();
+    var versionNums = manifest.version.split(".");
+    
+    var versionInfo = "v" + manifest.version_name
+    if(manifest.version_name.endsWith("beta")|manifest.version_name.endsWith("alpha")) {
+       versionInfo = "v" + manifest.version_name;
+       versionInfo += " build " + Number(versionNums[versionNums.length-1]);
+    }        
+    $('#version-display').text(versionInfo);
+})();
