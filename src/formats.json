@@ -27,7 +27,7 @@
                 "label": "Items"
             },
             {
-                "name": "tavenProps",
+                "name": "tavernProps",
                 "required": false,
                 "label": "Tavern Props"
             }
@@ -48,7 +48,8 @@
             {
                 "name": "readonly",
                 "required": false,
-                "hidden": true
+                "hidden": true,
+                "category":"info"
             },
             {
                 "name": "script",
@@ -59,7 +60,14 @@
             {
                 "name": "date",
                 "hidden": true,
-                "label": "Date"
+                "label": "Date",
+                "category":"info"
+            },
+            {
+                "name": "packVersion",
+                "required": false,
+                "hidden": true,
+                "category":"info"
             },
             {
                 "name": "description",
@@ -72,180 +80,180 @@
                 "required": false,
                 "label": "Hamster",
                 "default": "critters/hamster.png",
-                "category":"critter"
+                "category":"critters"
             },
             {
                 "name": "beaver",
                 "required": false,
                 "label": "Beaver",
                 "default": "critters/beaver.png",
-                "category":"critter"
+                "category":"critters"
             },
             {
                 "name": "snail",
                 "required": false,
-                "label": "Snail",
+                "label": "Rocket Snail",
                 "default": "critters/snail.png",
-                "category":"critter"
+                "category":"critters/mascots"
             },
             {
                 "name": "3d_black",
                 "required": false,
-                "label": "3d black",
+                "label": "Black 3D Glasses",
                 "default": "icons/3d_black.png",
                 "category": "icons"
             },
             {
                 "name": "3d_white",
                 "required": false,
-                "label": "3d white",
+                "label": "White 3D Glasses",
                 "default": "icons/3d_white.png",
                 "category": "icons"
             },
             {
                 "name": "ballcap_black",
                 "required": false,
-                "label": "Ballcap black",
+                "label": "Black Baseball Cap",
                 "default": "icons/ballcap_black.png",
                 "category": "icons"
             },
             {
                 "name": "ballcap_blue",
                 "required": false,
-                "label": "Ballcap blue",
+                "label": "Blue Baseball Cap",
                 "default": "icons/ballcap_blue.png",
                 "category": "icons"
             },
             {
                 "name": "ballcap_green",
                 "required": false,
-                "label": "Ballcap green",
+                "label": "Green Baseball Cap",
                 "default": "icons/ballcap_green.png",
                 "category": "icons"
             },
             {
                 "name": "bunny_blue",
                 "required": false,
-                "label": "Bunny blue",
+                "label": "Blue Bunny Ears",
                 "default": "icons/bunny_blue.png",
                 "category": "icons"
             },
             {
                 "name": "bunny_pink",
                 "required": false,
-                "label": "Bunny pink",
+                "label": "Pink Bunny Ears",
                 "default": "icons/bunny_pink.png",
                 "category": "icons"
             },
             {
                 "name": "bunny_white",
                 "required": false,
-                "label": "Bunny white",
+                "label": "White Bunny Ears",
                 "default": "icons/bunny_white.png",
                 "category": "icons"
             },
             {
                 "name": "easteregg_a",
                 "required": false,
-                "label": "Easteregg a",
+                "label": "Easter Egg A",
                 "default": "icons/easteregg_a.png",
                 "category": "icons"
             },
             {
                 "name": "easteregg_b",
                 "required": false,
-                "label": "Easteregg b",
+                "label": "Easter Egg B",
                 "default": "icons/easteregg_b.png",
                 "category": "icons"
             },
             {
                 "name": "easteregg_c",
                 "required": false,
-                "label": "Easteregg c",
+                "label": "Easter Egg C",
                 "default": "icons/easteregg_c.png",
                 "category": "icons"
             },
             {
                 "name": "float_yellow",
                 "required": false,
-                "label": "Float yellow",
+                "label": "Yellow Duck Floatie",
                 "default": "icons/float_yellow.png",
                 "category": "icons"
             },
             {
                 "name": "headphones_white",
                 "required": false,
-                "label": "Headphones white",
+                "label": "Discord Headphones",
                 "default": "icons/headphones_white.png",
                 "category": "icons"
             },
             {
                 "name": "hoodie_blue",
                 "required": false,
-                "label": "Hoodie blue",
+                "label": "Blue Hoodie",
                 "default": "icons/hoodie_blue.png",
                 "category": "icons"
             },
             {
                 "name": "hoodie_pink",
                 "required": false,
-                "label": "Hoodie pink",
+                "label": "Pink Hoodie",
                 "default": "icons/hoodie_pink.png",
                 "category": "icons"
             },
             {
                 "name": "monk",
                 "required": false,
-                "label": "Monk",
+                "label": "Monk Outfit",
                 "default": "icons/monk.png",
                 "category": "icons"
             },
             {
                 "name": "paperhat",
                 "required": false,
-                "label": "Paperhat",
+                "label": "Paper Hat",
                 "default": "icons/paperhat.png",
                 "category": "icons"
             },
             {
                 "name": "party_green",
                 "required": false,
-                "label": "Party green",
+                "label": "Party Hat",
                 "default": "icons/party_green.png",
                 "category": "icons"
             },
             {
                 "name": "pirate_capt_black",
                 "required": false,
-                "label": "Pirate capt_black",
+                "label": "Pirate Captain Jacket",
                 "default": "icons/pirate_capt_black.png",
                 "category": "icons"
             },
             {
                 "name": "plaid_red",
                 "required": false,
-                "label": "Plaid red",
+                "label": "Red Plaid Shirt",
                 "default": "icons/plaid_red.png",
                 "category": "icons"
             },
             {
                 "name": "pot",
                 "required": false,
-                "label": "Pot",
+                "label": "Pot Helm",
                 "default": "icons/pot.png",
                 "category": "icons"
             },
             {
                 "name": "propeller",
                 "required": false,
-                "label": "Propeller",
+                "label": "Propeller Cap",
                 "default": "icons/propeller.png",
                 "category": "icons"
             },
             {
                 "name": "sleeping",
                 "required": false,
-                "label": "Sleeping",
+                "label": "Sleeping Hat",
                 "default": "icons/sleeping.png",
                 "category": "icons"
             },
@@ -259,49 +267,49 @@
             {
                 "name": "space_red",
                 "required": false,
-                "label": "Space red",
+                "label": "Red Space Suit",
                 "default": "icons/space_red.png",
                 "category": "icons"
             },
             {
                 "name": "toque_blue",
                 "required": false,
-                "label": "Toque blue",
+                "label": "Blue Toque",
                 "default": "icons/toque_blue.png",
                 "category": "icons"
             },
             {
                 "name": "toque_pink",
                 "required": false,
-                "label": "Toque pink",
+                "label": "Pink Toque",
                 "default": "icons/toque_pink.png",
                 "category": "icons"
             },
             {
                 "name": "toque_purple",
                 "required": false,
-                "label": "Toque purple",
+                "label": "Purple Toque",
                 "default": "icons/toque_purple.png",
                 "category": "icons"
             },
             {
                 "name": "toque_white",
                 "required": false,
-                "label": "Toque white",
+                "label": "White Toquee",
                 "default": "icons/toque_white.png",
                 "category": "icons"
             },
             {
                 "name": "tshirt_white",
                 "required": false,
-                "label": "Tshirt white",
+                "label": "White T-shirt",
                 "default": "icons/tshirt_white.png",
                 "category": "icons"
             },
             {
                 "name": "viking",
                 "required": false,
-                "label": "Viking",
+                "label": "Viking Helmet",
                 "default": "icons/viking.png",
                 "category": "icons"
             },
@@ -315,19 +323,26 @@
             {
                 "name": "tavenProps",
                 "required": false,
+                "default": "/rooms/tavern_ss.png",
+                "hidden": true,
+                "category": "rooms/tavern"
+            },
+            {
+                "name": "tavenProps",
+                "required": false,
                 "label": "Tavern Props",
                 "default": "/rooms/tavern_ss.png",
                 "category": "rooms/tavern"
             },
             {
-                "name": "tavenBG",
+                "name": "tavernBG",
                 "required": false,
-                "label": "Tavern Bsckground",
+                "label": "Tavern Background",
                 "default": "/rooms/tavern_bg.png",
                 "category": "rooms/tavern"
             },
             {
-                "name": "tavenFG",
+                "name": "tavernFG",
                 "required": false,
                 "label": "Tavern Foreground",
                 "default": "/rooms/tavern_fg.png",
@@ -344,7 +359,8 @@
                 "name": "bridgeProps",
                 "required": false,
                 "label": "Bridge Props",
-                "default": "/rooms/bridge_ss.png"
+                "default": "/rooms/bridge_ss.png",
+                "category": "rooms/bridge"
             }
         ]
     ]

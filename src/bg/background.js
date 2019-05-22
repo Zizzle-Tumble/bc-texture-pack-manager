@@ -39,7 +39,7 @@ async function getDefaultTP() {
         return obj
     }, {})
     var v = await getCurrentVersionInfo();
-    defaultTP.script = `https://boxcritters.com/scripts/client${v.version}.min.js`
+    defaultTP.script = `/scripts/client${v.version}.min.js`
     return defaultTP
 }
 
@@ -96,7 +96,8 @@ function clone(obj) {
 async function genrules() {
     //Get Default texture pack
     var defaultTP = await getDefaultTP();
-    var bc = (await getCurrentVersionInfo()).assetsFolder;
+    var bc = "https://boxcritters.com/media";
+    var bcv = (await getCurrentVersionInfo()).assetsFolder;
 
     if (DATA === undefined ) {
         return "no data was found";
@@ -108,12 +109,17 @@ async function genrules() {
         return "no texture pack was selected";
     }
     var currentTP = DATA.texturePacks[DATA.currentTP] || {};
+    currentTP.new = false;
     console.log("current tp", DATA.currentTP);
 
     var keys = Object.keys(defaultTP);
     keys.map(function (key) {
         if (!defaultTP[key].startsWith("http")) {
-            defaultTP[key] = bc + defaultTP[key];
+            if(defaultTP[key].startsWith("/")) {
+                defaultTP[key] = bc + defaultTP[key];
+            } else {
+                defaultTP[key] = bcv + defaultTP[key];
+            }
         }
     });
 

@@ -27,6 +27,7 @@ async function valid(type, obj) {
     });
 
 }
+
 function AddTP(data) {
     console.log("addtp");
     
@@ -75,5 +76,6 @@ addtpbutton.addEventListener('click', () => {
 
 if(getURLParams().data) {
     textarea.value = getURLParams().data;
-    addtpbutton.click();
+    textarea.setAttribute("readonly","");
+    //addtpbutton.click();
 }

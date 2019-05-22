@@ -1,6 +1,11 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
 
+function cleanEmpty(obj) {
+    Object.keys(obj).forEach(key => obj[key] === undefined||obj[key] === "" ? delete obj[key] : '');
+    return obj;
+}
+
 function sendMessageBG(type, content) {
     return new Promise((resolve, reject) => {
         browser.runtime.sendMessage({ type, content }, resolve);
@@ -10,9 +15,9 @@ function sendMessageBG(type, content) {
 console.log("FOUND THEME FILE");
 
 var tpdata = JSON.parse(document.body.innerText);
-tpdata.source = document.URL
+tpdata.updateURL = document.URL
 console.log(tpdata);
-var tpencoded = btoa(JSON.stringify(tpdata))
+var tpencoded = btoa(JSON.stringify(cleanEmpty(tpdata)));
 
 var newURL = browser.extension.getURL('popup/addtheme.html') + "?data=" + tpencoded;
 console.log(newURL);

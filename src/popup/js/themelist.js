@@ -1,21 +1,7 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
     var tplist = document.querySelector("div#tplist");
-    var resetbutton = document.querySelector('#btn-reset');
-
-    function displayVersion() {
-        var manifest = browser.runtime.getManifest();
-        var versionNums = manifest.version.split(".");
-        
-        var versionInfo = "v" + manifest.version_name
-        if(manifest.version_name.endsWith("beta")|manifest.version_name.endsWith("alpha")) {
-           versionInfo = "v" + manifest.version_name;
-           versionInfo += " build " + Number(versionNums[versionNums.length-1]);
-        }        
-        $('#version-display').text(versionInfo);
-    }
-
-    
+    var resetbutton = document.querySelector('#btn-reset');    
 
     function refreshPage() {
         browser.tabs.reload({'bypassCache':true},()=>{
@@ -112,6 +98,20 @@ document.addEventListener('DOMContentLoaded', () => {
         title.classList.add("mb-1");
         title.innerHTML = tp.name;
         header.appendChild(title);
+        if(tp.packVersion) {
+            title.innerText += " ";
+            var tpVersion = document.createElement('small');
+            tpVersion.classList.add("text-muted");
+            tpVersion.innerHTML = "[" + tp.packVersion + "]";
+            title.appendChild(tpVersion);
+        }
+        if(tp.new) {
+            title.innerText = " " + title.innerText
+            var tpUpdate = document.createElement('span');
+            tpUpdate.classList.add("badge","badge-primary","badge-pill");
+            tpUpdate.innerHTML = "New";
+            title.prepend(tpUpdate);
+        }
 
         //date created
         if (tp.date) {
@@ -282,8 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         });
     }
-
-    displayVersion();
     refreshList();
 
     //reset

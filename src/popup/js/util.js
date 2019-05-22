@@ -85,3 +85,15 @@ function decode(text) {
 function encode(text) {
     return btoa(JSON.stringify(text));
 };
+
+(function displayVersion() {
+    var manifest = browser.runtime.getManifest();
+    var versionNums = manifest.version.split(".");
+    
+    var versionInfo = "v" + manifest.version_name
+    if(manifest.version_name.endsWith("beta")|manifest.version_name.endsWith("alpha")) {
+       versionInfo = "v" + manifest.version_name;
+       versionInfo += " build " + Number(versionNums[versionNums.length-1]);
+    }        
+    $('#version-display').text(versionInfo);
+})();

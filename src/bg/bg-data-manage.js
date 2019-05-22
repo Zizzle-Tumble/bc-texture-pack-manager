@@ -39,8 +39,8 @@ load();
 
 
 MSG_LISTENER.addListener("addtp",(content,sendResponse)=>{
+    content.new = true;
     var id = DATA.texturePacks.push(content)-1;
-    DATA.currentTP = id;
     save().then(() => {
         //browser.browserAction.setBadgeText({ text: data.texturePacks.length });
         sendResponse("Texture Pack successfuly added.");
