@@ -2,21 +2,6 @@
 var browser = browser || chrome || msBrowser;
 var RULES = new Array();
 
-function getJSON(url) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
-    return new Promise((resolve, reject) => {
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && xobj.status == 200) {
-                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-                resolve(JSON.parse(xobj.responseText));
-            }
-        };
-        xobj.send(null);
-    });
-}
-
 async function getFormats() {
     return getJSON('/formats.json');
 }
