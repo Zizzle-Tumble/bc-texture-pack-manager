@@ -16,22 +16,24 @@
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand">
             <!-- <a href="popup.html" class="btn btn-secondary">Back </a> -->
-            Add Texture Pack
+            Install Texture Pack
         </span>
     </nav>
     <p id="error" class="alert alert-danger">Error text</p>
     <p id="success" class="alert alert-success">Success text</p>
     <div class="container">
+        <h1>Install Texture Pack</h1>
         <p>Please ask for a code from a texture pack author or the <a target="_blank" href="https://boxcritters.github.io">BoxCritters Modding Community</a> or from <a target="_blank" href="https://discord.gg/awZNvc">
                 their discord</a>.</p>
         <form id="addtpform">
             <div class="form-group">
                 <label for="tpdata">Texture Pack Data</label>
-                <textarea id="tpdata" rows="5"></textarea>
+                <textarea id="tpdata" class="form-control" rows="5"></textarea>
             </div>
-            <button id="addtheme" class="btn btn-primary">Add Texture Pack</button>
+            <button id="addtheme" class="btn btn-primary">Install</button>
         </form>
     </div>
+    <footer id="version-display"></footer>
 
 
     <script src="js/jquery-3.3.1.slim.min.js""></script>

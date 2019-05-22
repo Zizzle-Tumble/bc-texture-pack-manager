@@ -27,13 +27,14 @@ async function valid(type, obj) {
     });
 
 }
+
 function AddTP(data) {
     console.log("addtp");
     
     return new Promise((resolve, reject) => {
         data = decode(data);
         valid("texturePack", data).then((valid) => {
-            sendMessage("tpexists", data.name)
+            sendMessageBG("tpexists", data.name)
                 .then(exists => {
                     if (exists) {
                         console.log("exists");
@@ -43,7 +44,7 @@ function AddTP(data) {
                     } else if (valid) {
                         console.log("valid");
                         
-                        sendMessage("addtp", data).then(resolve);
+                        sendMessageBG("addtp", data).then(resolve);
                         return;
                     }
                     else {
@@ -75,5 +76,6 @@ addtpbutton.addEventListener('click', () => {
 
 if(getURLParams().data) {
     textarea.value = getURLParams().data;
+    textarea.setAttribute("readonly","");
     //addtpbutton.click();
 }

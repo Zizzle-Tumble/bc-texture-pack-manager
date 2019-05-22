@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Box Critters Texture Pack Manager",
     "version_name": "1.2.0 beta",
-    "version": "1.2.0.073",
+    "version": "1.2.0.075",
     "author": "TumbleGamer",
     "icons": {
         "16": "logo-16.png",
@@ -37,9 +37,9 @@
         },
         {
             "matches": [
+                "<all_urls>",
                 "https://boxcritters.com/*",
-                "https://boxcritters.github.io/*",
-                "<all_urls>"
+                "https://boxcritters.github.io/*"
             ],
             "js": [
                 "content.js"

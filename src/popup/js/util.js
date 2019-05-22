@@ -1,7 +1,6 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
-var NAV = document.getElementById('nav');
-var NAVTEXT = NAV.innerHTML;
+var CONTENT_CONNECTED = false;
 
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
@@ -61,6 +60,12 @@ function sendMessage(type, content={}) {
     });
 }
 
+function sendMessageBG(type, content) {
+    return new Promise((resolve, reject) => {
+        browser.runtime.sendMessage({ type, content }, resolve);
+    })
+}
+
 function findTabWithURl(url) {
     console.log("Finding tab with url:", url);
 
@@ -73,18 +78,6 @@ function findTabWithURl(url) {
     });
 }
 
-function refreshNav() {
-    sendMessage("ping")
-    .then((pong=false)=>{
-    if(pong){
-        NAV.innerHTML = NAVTEXT;
-    } else {
-        NAV.innerHTML = "";
-    }
-    });
-}
-//refreshNav();
-
 function decode(text) {
     return JSON.parse(atob(text));
 };
@@ -92,3 +85,15 @@ function decode(text) {
 function encode(text) {
     return btoa(JSON.stringify(text));
 };
+
+(function displayVersion() {
+    var manifest = browser.runtime.getManifest();
+    var versionNums = manifest.version.split(".");
+    
+    var versionInfo = "v" + manifest.version_name
+    if(manifest.version_name.endsWith("beta")|manifest.version_name.endsWith("alpha")) {
+       versionInfo = "v" + manifest.version_name;
+       versionInfo += " build " + Number(versionNums[versionNums.length-1]);
+    }        
+    $('#version-display').text(versionInfo);
+})();

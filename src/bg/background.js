@@ -1,6 +1,6 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
-var rules = new Array();
+var RULES = new Array();
 
 function getJSON(url) {
     var xobj = new XMLHttpRequest();
@@ -39,7 +39,7 @@ async function getDefaultTP() {
         return obj
     }, {})
     var v = await getCurrentVersionInfo();
-    defaultTP.script = `https://boxcritters.com/scripts/client${v.version}.min.js`
+    defaultTP.script = `/scripts/client${v.version}.min.js`
     return defaultTP
 }
 
@@ -51,17 +51,6 @@ function sendMessage(type, content) {
                 browser.tabs.sendMessage(tabs[0].id, { type, content }, resolve);
             }
         );
-    });
-}
-
-function load() {
-    return new Promise((resolve, reject) => {
-        browser.storage.sync.get(["bctpm"], (storage) => {
-            if(storage.bctpm){
-            browser.browserAction.setBadgeText({ text: storage.bctpm.texturePacks.length.toString() });
-            }
-            resolve(storage.bctpm);
-        });
     });
 }
 
@@ -79,7 +68,7 @@ function saverules() {
 function loadrules() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.get(["bctpmRules"], (storage) => {
-            rules = storage.bctpmRules || [];
+            RULES = storage.bctpmRules || [];
             resolve(storage.bctpmRules);
         });
     });
@@ -107,72 +96,73 @@ function clone(obj) {
 async function genrules() {
     //Get Default texture pack
     var defaultTP = await getDefaultTP();
-    var bc = (await getCurrentVersionInfo()).assetsFolder;
+    var bc = "https://boxcritters.com/media";
+    var bcv = (await getCurrentVersionInfo()).assetsFolder;
 
-    return new Promise((resolve, reject) => {
+    if (DATA === undefined ) {
+        return "no data was found";
+    }
 
-        load().then((data) => {
-            if (data === undefined || data === {}) {
-                reject("no data was found");
-                return;
+    //get current texture pack
+    if (DATA.currentTP < 0) {
+        RULES = [];
+        return "no texture pack was selected";
+    }
+    var currentTP = DATA.texturePacks[DATA.currentTP] || {};
+    currentTP.new = false;
+    console.log("current tp", DATA.currentTP);
+
+    var keys = Object.keys(defaultTP);
+    keys.map(function (key) {
+        if (!defaultTP[key].startsWith("http")) {
+            if(defaultTP[key].startsWith("/")) {
+                defaultTP[key] = bc + defaultTP[key];
+            } else {
+                defaultTP[key] = bcv + defaultTP[key];
             }
-
-            //get current texture pack
-            if (data.currentTP < 0) {
-                rules = [];
-                resolve("no texture pack was selected");
-            }
-            var currentTP = data.texturePacks[data.currentTP] || {};
-            console.log("current tp", data.currentTP);
-
-            var keys = Object.keys(defaultTP);
-            keys.map(function (key) {
-                if (!defaultTP[key].startsWith("http")) {
-                    defaultTP[key] = bc + defaultTP[key];
-                }
-            });
-
-            //get texture pack attributes
-            keys = Object.keys(defaultTP);
-            if (keys.length == 0) {
-                reject("texture pack has no attributes");
-            }
-            //console.log("keys",keys);
-            rules = keys.map((key) => {
-                var rule = {};
-                //console.log("key",key);
-
-
-                rule.from = defaultTP[key];
-                rule.to = currentTP[key] || defaultTP[key];
-                //console.log("rule",rule);
-                return rule;
-            });
-
-            rules = rules.filter(r => r.to !== r.from);
-            rules = rules.map(async r => {
-                if (r.from.endsWith(".png")) {
-                    r.to = await loadImage(r.to);
-                }
-                return r;
-            });
-            Promise.all(rules).then(arr => {
-                rules = arr;
-                console.log("rules", rules);
-                resolve(rules);
-            })
-        }).catch(reject);
+        }
     });
-}
 
-genrules().catch(console.error);
+    //get texture pack attributes
+    keys = Object.keys(defaultTP);
+    if (keys.length == 0) {
+        throw "texture pack has no attributes";
+    }
+    //console.log("keys",keys);
+    RULES = keys.map((key) => {
+        var rule = {};
+        //console.log("key",key);
+
+
+        rule.from = defaultTP[key];
+        rule.to = currentTP[key] || defaultTP[key];
+        //console.log("rule",rule);
+        return rule;
+    });
+
+    RULES = RULES.filter(r => r.to !== r.from);
+    RULES = RULES.map(async r => {
+        if (r.from.endsWith(".png")) {
+            r.to = await loadImage(r.to);
+        }
+        return r;
+    });
+    Promise.all(RULES).then(arr => {
+        RULES = arr;
+        console.log("rules", RULES);
+        RULES = RULES;
+    })
+}
+load().then(()=>{
+    genrules().catch(console.error);
+})
 
 var lastRequestId;
 function redirect(request) {
     //console.log("\n\n")
     //console.log("rules",rules);
 
-    var rule = rules.find((rule) => {
+    var rule = RULES.find((rule) => {
         //console.log("DOES ==",rule.from," ???");
         return request.url == rule.from
             && request.requestId !== lastRequestId;
@@ -199,25 +189,19 @@ function redirect(request) {
     }
 }
 
-browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
-    switch (type) {
-        case "refreshtp":
-            genrules().then(() => {
-                console.log("pack set to", content);
-                sendResponse();
-            }).catch(sendResponse);
-            break;
-        case "createtab":
-            //browser.tabs.query({ currentWindow: true, active: true }, tabs => {
-                browser.tabs.update(sender.tab.id, content), sendResponse;
-            //})
-            break;
-        default:
-            break;
-    }
-
-    sendResponse();
+MSG_LISTENER.addListener("refreshtp",(content,sendResponse)=>{
+    genrules().then(() => {
+        console.log("pack set to", content);
+        sendResponse();
+    }).catch(sendResponse);
 });
+MSG_LISTENER.addListener("createtab",(content,sendResponse,sender)=>{
+    //browser.tabs.query({ currentWindow: true, active: true }, tabs => {
+        browser.tabs.update(sender.tab.id, content), sendResponse;
+    //})
+});
+
+MSG_LISTENER.start();
 
 browser.webRequest.onBeforeRequest.addListener(
     function (details) {

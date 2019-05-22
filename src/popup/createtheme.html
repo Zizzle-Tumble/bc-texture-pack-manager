@@ -20,21 +20,24 @@
     <p id="error" class="alert alert-danger">Error text</p>
     <p id="success" class="alert alert-success">Success text</p>
     <div class="container">
+        <h1>Create Texture Pack</h1>
+        <p>Anything missing? <a href="https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager" target="_blank">Let Us Know</a></p>
         <form id="createtpform">
         </form>
         <form id="addtpform">
             <div class="form-group">
                 <label for="tpdata">Texture Pack Data</label>
-                <textarea id="tpdata" rows="10"></textarea>
+                <textarea id="tpdata" class="form-control" readonly rows="10"></textarea>
             </div>
         </form>
     </div>
+    <footer id="version-display"></footer>
 
 
     <script src="js/jquery-3.3.1.slim.min.js""></script>
-    <script src="js/popper.min.js"> </script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"> </script> <script src="js/bootstrap.min.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/category.js"></script>
     <script src="js/addtheme.js"></script>
     <script src="js/createtheme.js"></script>
 </body>
