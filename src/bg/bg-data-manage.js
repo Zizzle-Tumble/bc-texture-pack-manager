@@ -19,6 +19,11 @@ function load() {
             if (RESETDATA.bc !== DATA.bc) {
                 DATA.bc = RESETDATA.bc;
             }
+            DATA.texturePacks.forEach(tp=>{
+                if(tp.new === undefined) {
+                    tp.new = true;
+                }
+            })
             resolve(DATA);
         });
     });

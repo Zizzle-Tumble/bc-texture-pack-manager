@@ -1,4 +1,6 @@
 //@ts-check
+console.log("CONTENT.JS");
+
 var browser = browser || chrome || msBrowser;
 
 function getAsserFolderVersion(assetsFolder) {

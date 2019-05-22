@@ -15,7 +15,7 @@ function sendMessageBG(type, content) {
 console.log("FOUND THEME FILE");
 
 var tpdata = JSON.parse(document.body.innerText);
-tpdata.updateURL = document.URL
+tpdata.updateURL = document.URL;
 console.log(tpdata);
 var tpencoded = btoa(JSON.stringify(cleanEmpty(tpdata)));
 
