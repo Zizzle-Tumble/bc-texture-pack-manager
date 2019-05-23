@@ -49,9 +49,12 @@
         "webRequest",
         "webRequestBlocking",
         "storage",
-        "https://boxcritters.com/*",
         "tabs",
-        "<all_urls>"
+        "activeTab",
+        "*://boxcritters.com/*",
+        "*://*/*.bctp.json",
+        "*://bc-mod-api.herokuapp.com/*",
+        "*://boxcritters.github.io/*"
     ],
     "options_ui": {
         "page": "popup/options.html"
