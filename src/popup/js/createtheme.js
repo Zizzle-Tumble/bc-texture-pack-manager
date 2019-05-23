@@ -27,7 +27,7 @@ function getFormData(removeEmpty=false) {
         if((value&&value!=="")||!removeEmpty) data[key] = value;
     });
     data.date = Date.now();
-    data.packVersion = "0";
+    data.packVersion = "0.1";
     return data;
 }
 
