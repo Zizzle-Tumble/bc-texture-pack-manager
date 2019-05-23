@@ -4,7 +4,7 @@ var splashes = [
     "Made by hackers for hackers.      You know who you are",
     "You opened this menu, thanks",
     "👨‍🔧Thank you so much for pl.. <b>using</b> my extention",
-    "We want Experiment 3!",
+    "We want Experiment 4!",
     "RocketSnail is... A SNAIL!",
     "Beaver or Hamster? This is the real question",
     "Sub to BC Bulletin",
