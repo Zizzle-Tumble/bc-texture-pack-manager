@@ -95,7 +95,8 @@ if (RESET_ON_RELOAD) {
 load();
 
 
-MSG_LISTENER.addListener('refreshtp',(content,sendResponse)=>{
+MSG_LISTENER.addListener("refreshtp",(content,sendResponse)=>{
+    
     load().then(()=>{
         genrules().then(() => {
             sendResponse("done");
@@ -107,7 +108,7 @@ MSG_LISTENER.addListener("addtp", (content, sendResponse) => {
     content.new = true;
     var id = DATA.texturePacks.push(content) - 1;
     save().then(() => {
-        //browser.browserAction.setBadgeText({ text: data.texturePacks.length });
+        browser.browserAction.setBadgeText({ text: data.texturePacks.length });
         sendResponse("Texture Pack successfuly added.");
     });
 });

@@ -46,22 +46,24 @@ async function AddTP(data) {
 }
 
 //Add Texture Pack Button
-addtpbutton.addEventListener('click', () => {
-    var errormessage = document.getElementById('error');
-    var successmessage = document.getElementById('success');
-    AddTP(textarea.value)
-        .then((msg) => {
-            successmessage.style.display = "block";
-            successmessage.innerHTML = msg;
-            setTimeout(() => {
-                //window.location.href = "popup.html";
-                window.close();
-            }, 500)
-        }).catch((msg) => {
-            errormessage.style.display = "block";
-            errormessage.innerHTML = msg;
-        })
-}, false);
+if(addtpbutton){
+    addtpbutton.addEventListener('click', () => {
+        var errormessage = document.getElementById('error');
+        var successmessage = document.getElementById('success');
+        AddTP(textarea.value)
+            .then((msg) => {
+                successmessage.style.display = "block";
+                successmessage.innerHTML = msg;
+                setTimeout(() => {
+                    //window.location.href = "popup.html";
+                    window.close();
+                }, 500)
+            }).catch((msg) => {
+                errormessage.style.display = "block";
+                errormessage.innerHTML = msg;
+            })
+    }, false);
+}
 
 if (getURLParams().data) {
     textarea.value = getURLParams().data;

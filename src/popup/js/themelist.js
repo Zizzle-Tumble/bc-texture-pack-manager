@@ -122,15 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
         title.classList.add("mb-1");
         title.innerHTML = tp.name;
         header.appendChild(title);
+
         if(tp.packVersion) {
             title.innerText += " ";
+        }
+        if(tp.new) {
+            title.innerText = " " + title.innerText;
+        }
+
+        if(tp.packVersion) {
             var tpVersion = document.createElement('small');
             tpVersion.classList.add("text-muted");
             tpVersion.innerHTML = "[" + tp.packVersion + "]";
             title.appendChild(tpVersion);
         }
         if(tp.new) {
-            title.innerText = " " + title.innerText
             var tpUpdate = document.createElement('span');
             tpUpdate.classList.add("badge","badge-primary","badge-pill");
             tpUpdate.innerHTML = "New";
@@ -291,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshList();
 
     //refresh
-    refreshbutton.addEventListener('refreshtp', () => {
+    refreshbutton.addEventListener('click', () => {
         sendMessageBG("refreshtp").then(() => {
             console.log("REFRESHING...");
             
