@@ -93,10 +93,10 @@
             {"name": "float_yellow","required": false,"label": "Yellow Duck Floatie","default": "icons/float_yellow.png","category": "icons/belt"},
 
 
-            {"name": "ux","required": false,"label": "User Interface","default": "/ux/ux.png","category": "ux"},
-
-
             {"name": "items","required": false,"label": "Items","default": "items/items.png","category": "items"},
+            
+
+            {"name": "ux","required": false,"label": "User Interface","default": "/ux/ux.png","category": "ux"},
 
 
             {"name": "bridgeBackground","required": false,"label": "Bridge Background","default": "/rooms/bridge_bg.png","category": "rooms/bridge"},
