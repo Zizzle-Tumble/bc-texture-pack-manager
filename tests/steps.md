@@ -19,3 +19,10 @@
 # Test One Click
 14. goto: https://github.com/boxcritters/boxcritters.github.io/raw/master/tp/OneClickTest.bctp.json
 15. a texture pack should install
+16. click on the texture pack so the new tag goes away
+
+#test update
+17. goto https://github.com/boxcritters/boxcritters.github.io/blob/master/tp/OneClickTest.bctp.json
+18. change `packVersion`
+19. click refresh
+20. it should update and the new tag should come back
