@@ -132,11 +132,8 @@ async function genrules() {
         }
         return r;
     });
-    Promise.all(RULES).then(arr => {
-        RULES = arr;
-        console.log("rules", RULES);
-        RULES = RULES;
-    })
+    RULES = await Promise.all(RULES);
+    console.log("rules", RULES);
 }
 load().then(()=>{
     genrules().catch(console.error);
@@ -174,7 +171,7 @@ function redirect(request) {
     }
 }
 
-MSG_LISTENER.addListener("refreshtp",(content,sendResponse)=>{
+MSG_LISTENER.addListener("refreshrules",(content,sendResponse)=>{
     genrules().then(() => {
         console.log("pack set to", content);
         sendResponse();

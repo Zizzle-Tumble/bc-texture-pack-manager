@@ -1,6 +1,7 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
     var tplist = document.querySelector("div#tplist");
+    var refreshbutton = document.querySelector('#btn-refresh');   
     var resetbutton = document.querySelector('#btn-reset');    
 
     function refreshPage() {
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
         sendMessageBG("settp", { id }).then(msg => {
-            sendMessageBG('refreshtp', id).then(() => {
+            sendMessageBG('refreshrules', id).then(() => {
                 refreshPage();
             });
             successmessage.style.display = "block";
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function deleteTP(id) {
         sendMessageBG("deletetp", { id }).then(msg => {
-            sendMessageBG('refreshtp', id).then(() => {
+            sendMessageBG('refreshrules', id).then(() => {
                 refreshPage();
             });
         });
@@ -195,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tplink.addEventListener('click', () => {
             enableTP(i);
+            refreshPage();
         });
 
         
@@ -287,6 +289,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     refreshList();
+
+    //refresh
+    refreshbutton.addEventListener('refreshtp', () => {
+        sendMessageBG("refreshtp").then(() => {
+            console.log("REFRESHING...");
+            
+            refreshPage();
+        });
+    });
 
     //reset
     resetbutton.addEventListener('click', () => {

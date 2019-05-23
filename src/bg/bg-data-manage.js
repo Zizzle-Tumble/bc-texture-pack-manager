@@ -63,7 +63,7 @@ async function load() {
     var proms = DATA.texturePacks.map(async tp => {
         if (tp.new === undefined) {
             tp.new = true;
-            return;
+            return tp;
         }
 
         //UPDATE TEXTURE PACKS
@@ -76,7 +76,7 @@ async function load() {
             }
 
         }
-
+        return tp;
     });
 
     DATA.texturePacks = await Promise.all(proms);
@@ -95,7 +95,13 @@ if (RESET_ON_RELOAD) {
 load();
 
 
-
+MSG_LISTENER.addListener('refreshtp',(content,sendResponse)=>{
+    load().then(()=>{
+        genrules().then(() => {
+            sendResponse("done");
+        });
+    });
+})
 
 MSG_LISTENER.addListener("addtp", (content, sendResponse) => {
     content.new = true;
