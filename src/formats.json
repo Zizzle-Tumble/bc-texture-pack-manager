@@ -50,6 +50,8 @@
 
             {"name": "hamster","required": false,"label": "Hamster","default": "critters/hamster.png","category": "critters"},
             {"name": "beaver","required": false,"label": "Beaver","default": "critters/beaver.png","category": "critters"},
+            {"name": "lizard","required": false,"label": "Lizard","default": "critters/lizard.png","category": "critters"},
+
             {"name": "snail","required": false,"label": "Rocket Snail","default": "critters/snail.png","category": "critters/mascots"},
 
 
@@ -91,6 +93,9 @@
             {"name": "float_yellow","required": false,"label": "Yellow Duck Floatie","default": "icons/float_yellow.png","category": "icons/belt"},
 
 
+            {"name": "ux","required": false,"label": "User Interface","default": "/ux/ux.png","category": "ux"},
+
+
             {"name": "items","required": false,"label": "Items","default": "items/items.png","category": "items"},
 
 
@@ -99,8 +104,7 @@
             {"name": "tavenProps","required": false,"default": "/rooms/tavern_ss.png","hidden": true,"category": "rooms/tavern"},
             {"name": "tavenProps","required": false,"label": "Tavern Props","default": "/rooms/tavern_ss.png","category": "rooms/tavern"},
             {"name": "tavernBG","required": false,"label": "Tavern Background","default": "/rooms/tavern_bg.png","category": "rooms/tavern"},
-            {"name": "tavernFG","required": false,"label": "Tavern Foreground","default": "/rooms/tavern_fg.png","category": "rooms/tavern"
-            }
+            {"name": "tavernFG","required": false,"label": "Tavern Foreground","default": "/rooms/tavern_fg.png","category": "rooms/tavern"}
         ]
     ]
 }
