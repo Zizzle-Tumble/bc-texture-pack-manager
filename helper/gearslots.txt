@@ -1,0 +1,11 @@
+eyes
+eyes_back
+ears
+ears_back
+head
+belt
+belt_back
+mask
+body
+pack
+pack_back
