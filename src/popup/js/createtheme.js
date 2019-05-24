@@ -89,11 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 var formItemLabel = document.createElement('span');
                 var formItemValue = document.createElement('input');
 
-                formItemLabel.innerHTML = f.label;
+                formItemLabel.innerHTML = f.label||f.name;
                 formItemValue.name = f.name;
                 formItemValue.classList.add("form-control","px-2");
                 if(f.required){
                     formItemValue.setAttribute("required","");
+                }
+                if(!f.default&&f.category!=="info") {
+                    formItemValue.setAttribute("readonly","");
+                    formItemValue.placeholder = "Coming Soon"
                 }
 
                 formItem.appendChild(formItemLabel);
