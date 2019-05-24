@@ -1,36 +1,12 @@
 {
     "texturePack": [
         [
-            {
-                "name": "name",
-                "required": true,
-                "label": "Name"
-            },
-            {
-                "name": "description",
-                
-                "label": "Description"
-            },
-            {
-                "name": "hamster",
-                
-                "label": "Hamster"
-            },
-            {
-                "name": "snail",
-                
-                "label": "Snail"
-            },
-            {
-                "name": "items",
-                
-                "label": "Items"
-            },
-            {
-                "name": "tavernProps",
-                
-                "label": "Tavern Props"
-            }
+            {"name": "name","required": true,"label": "Name"},
+            {"name": "description","label": "Description"},
+            {"name": "hamster","label": "Hamster","default": "critters/hamster.png"},
+            {"name": "snail","label": "Snail","default": "critters/snail.png"},
+            {"name": "items","label": "Items","default": "items/items.png"},
+            {"name": "tavernProps","label": "Tavern Props","default": "/rooms/tavern_ss.png"}
         ],
         [
             {"name": "name","required": true,"label": "Name","category": "info"},
@@ -67,7 +43,7 @@
             {"name": "easteregg_c","label": "Easter Egg C","default": "icons/easteregg_c.png","category": "icons/head"},
             {"name": "paperhat","label": "Paper Hat","default": "icons/paperhat.png","category": "icons/head"},
             {"name": "party_green","label": "Party Hat","default": "icons/party_green.png","category": "icons/head"},
-            {"name": "pickle","label": "Pickle","category": "icons/head"},
+            {"name": "pickle","label": "Pickle","default":"icons/pickle.png","category": "icons/head"},
             {"name": "pirate_hat","label": "Pirate Hat","category": "icons/head"},
             {"name": "pot","label": "Pot Helm","default": "icons/pot.png","category": "icons/head"},
             {"name": "propeller","label": "Propeller Cap","default": "icons/propeller.png","category": "icons/head"},
