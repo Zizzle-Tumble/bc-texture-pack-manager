@@ -44,6 +44,8 @@ echo Building Mozilla Version...
 call :build mozilla>nul
 call :unload_manifest mozilla>nul
 
+call :build src>nul
+
 call :load_manifest chrome>nul
 cd %source%
 move /y %ROOT%manifest_*.json>nul
