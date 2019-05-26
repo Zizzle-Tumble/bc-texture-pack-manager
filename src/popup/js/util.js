@@ -125,3 +125,4 @@ function encode(text) {
     }        
     $('#version-display').text(versionInfo);
 })();
+

@@ -22,6 +22,72 @@ async function isValidFormatting(type, obj) {
 
 }
 
+function tpListing(tp ,i) {
+    //div.tp-item
+    var tpitem = document.createElement('a');
+    var tpitemclasses = "list-group-item tp-item btn-group"
+    .split(" ");
+    tpitem.classList.add(...tpitemclasses);
+    //header
+    var header = document.createElement('div');
+    var headerclasses = "d-flex w-100 justify-content-between"
+    .split(" ");
+    header.classList.add(...headerclasses);
+    //title
+    var title = document.createElement('h5');
+    title.classList.add("mb-1");
+    title.innerHTML = tp.name;
+    header.appendChild(title);
+
+    if(tp.packVersion) {
+        title.innerText += " ";
+    }
+    if(tp.new) {
+        title.innerText = " " + title.innerText;
+    }
+
+    if(tp.packVersion) {
+        var tpVersion = document.createElement('small');
+        tpVersion.classList.add("text-muted");
+        tpVersion.innerHTML = "[" + tp.packVersion + "]";
+        title.appendChild(tpVersion);
+    }
+    if(tp.new) {
+        var tpUpdate = document.createElement('span');
+        tpUpdate.classList.add("badge","badge-primary","badge-pill");
+        tpUpdate.innerHTML = "New";
+        title.prepend(tpUpdate);
+    }
+
+    //date created
+    if (tp.date) {
+        var date = document.createElement('small');
+        date.classList.add("text-muted");
+        date.innerHTML = "Created " + dateToString(tp.date);
+        header.appendChild(date);
+    }
+
+    tpitem.appendChild(header);
+
+    //description
+    if (tp.description) {
+        var description = document.createElement('p');
+        description.classList.add("mb-1");
+        description.innerHTML = tp.description;
+        tpitem.appendChild(description);
+    }
+
+    //author
+    if (tp.author) {
+        var author = document.createElement('small');
+        author.classList.add("text-muted");
+        author.innerHTML = "created by " + tp.author;
+        tpitem.appendChild(author);
+    }
+
+    return tpitem;
+}
+
 async function AddTP(data) {
     console.log("addtp");
     data = decode(data);
