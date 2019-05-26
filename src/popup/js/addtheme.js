@@ -9,6 +9,10 @@ textarea.style.width = "100%";
 var addtpfrom = document.querySelector("form#addtpform");
 addtpfrom.addEventListener('submit', noRedirectForm);
 
+var preview = document.getElementById('preview');
+var gallery = document.getElementById('gallery');
+
+
 async function isValidFormatting(type, obj) {
     var keys = Object.keys(obj);
     if (!keys.includes("version")) {
@@ -136,3 +140,6 @@ if (getURLParams().data) {
     textarea.setAttribute("readonly", "");
     //addtpbutton.click();
 }
+$(textarea).on('change keyup paste', (e)=>{
+gallery.textContent = e.currentTarget.value;
+});

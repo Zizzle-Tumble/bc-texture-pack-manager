@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formItemValue.name = f.name;
                 formItemValue.classList.add("form-control","px-2");
                 if(img){
-                    $(formItemValue).change((e)=>{
+                    $(formItemValue).on('change keyup paste', (e)=>{
                         console.log(e);
                         console.log($(e.currentTarget).closest('.tp-attrib'));
                         let img = $(e.currentTarget).closest('.tp-attrib').find('img');
