@@ -7,23 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
+    <div class="dropzone" id="dropzone"></div>
+    <div class="dropzone-content container h-100 text-primary" id="dropzone-content">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-auto">
+                    <div class="card mx-auto bg-white">
+                        <div class="card-body text-center">
+                            <i class="display-1 fas fa-upload"></i>
+                        </div>
+                        <div class="card-header">Install Texture Pack From File</div>
+                    </div>
+                </div>
+        </div>
+    </div>
     <div id="nav" class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
                 <h5 class="text-white h4">Advanced Options</h5>
                 <a href="createtheme.html" target="_blank" class="btn btn-secondary">Create</a>
                 <a href="#" id="btn-refresh" class="btn btn-primary">Refresh</a>
-                <a href="https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager" class="btn btn-secondary"
-                    target="_blank" rel=”noopener noreferrer”>Send Feedback</a>
+                <a href="https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager"
+                    class="btn btn-secondary" target="_blank" rel=”noopener noreferrer”>Send Feedback</a>
                 <a href="#" id="btn-reset" class="btn btn-danger">Reset</a>
             </div>
         </div>
@@ -52,10 +66,11 @@
 
 
     <script src="js/jquery-3.4.1.slim.min.js""></script>
-    <script src="js/popper.min.js"> </script> <script src="js/bootstrap.min.js"></script>
+    <script src=" js/popper.min.js"> </script> <script src="js/bootstrap.min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/spash.js"></script>
     <script src="js/themelist.js"></script>
+    <script src="js/dropfile.js"></script>
 </body>
 
 </html>
