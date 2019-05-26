@@ -29,6 +29,29 @@ function getJSON(url) {
     });
 }
 
+function getCurrentVersionInfo() {
+    return getJSON('https://bc-mod-api.herokuapp.com/');
+}
+
+async function getCurrentAssetsFolder() {
+    return (await getCurrentVersionInfo()).assetsFolder;
+}
+
+async function getFileURL(url) {
+    var bc = "https://boxcritters.com/media";
+    var bcv = await getCurrentAssetsFolder();
+
+    if (!url.startsWith("http")) {
+        if(url.startsWith("/")) {
+            url = bc + url;
+        } else {
+            url = bcv + url;
+        }
+    }
+    return url;
+
+}
+
 function getFormats() {
     return getJSON('/formats.json');
 
@@ -40,6 +63,11 @@ function getFormats() {
  */
 function noRedirectForm(e) {
     e.preventDefault();
+}
+
+function cleanEmpty(obj) {
+    Object.keys(obj).forEach(key => obj[key] === undefined||obj[key] === "" ? delete obj[key] : '');
+    return obj;
 }
 
 /**
@@ -86,6 +114,29 @@ function encode(text) {
     return btoa(JSON.stringify(text));
 };
 
+function dateToString(unix){
+    var date = new Date(unix);
+
+    let dd = date.getDate();
+    let mm = (date.getMonth() + 1);
+    let yyyy = date.getFullYear();
+
+    //Enables 0 beginning numbers
+    /*if(dd<10) 
+    {
+        dd='0'+dd;
+    } 
+
+    if(mm<10) 
+    {
+        mm='0'+mm;
+    } */
+
+
+    return dd+'/'+mm+'/'+yyyy;
+
+}
+
 (function displayVersion() {
     var manifest = browser.runtime.getManifest();
     var versionNums = manifest.version.split(".");
@@ -97,3 +148,4 @@ function encode(text) {
     }        
     $('#version-display').text(versionInfo);
 })();
+

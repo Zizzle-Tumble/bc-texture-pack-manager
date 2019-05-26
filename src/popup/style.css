@@ -1,8 +1,8 @@
 body,html {
     padding: 0%;
     margin: 0%;
-    width:100vw;
-    height:100vh;
+    min-width:100vw;
+    min-height:100vh;
 
     display: flex;
     display: -webkit-flex;
@@ -74,4 +74,22 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.dropzone,.dropzone-content {
+	box-sizing: border-box;
+	display: none;
+	position: fixed;
+	width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+	border: 11px dashed #60a7dc;
+}
+.dropzone {
+  z-index: 100;
+}
+
+.dropzone-content {
+	background: rgba(96,167,220,.8);
+  z-index: 99;
 }

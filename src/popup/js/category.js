@@ -68,8 +68,12 @@ class Category {
         this.card.classList.add("card");
         this.card.appendChild(header);
 
-        this.body = document.createElement('div');
-        this.body.classList.add("card-body");
+        this.cardrow = document.createElement('div');
+        if(this.name=="info") {
+            this.cardrow.classList.add("card-body");
+        } else {
+            this.cardrow.classList.add("row");
+        }
     }
 
     /**
@@ -81,13 +85,14 @@ class Category {
             if(!this.acordian) {
                 this.acordian = document.createElement("div");
                 this.acordian.id = "acordian" + this.name;
-                this.body.appendChild(this.acordian);
+                this.acordian.classList.add("col-12")
+                this.cardrow.appendChild(this.acordian);
             }
             newChild.parentType = this.acordian.id;
             this.acordian.appendChild(newChild.getElement());
             return;
         }
-        this.body.appendChild(newChild)
+        this.cardrow.appendChild(newChild)
     }
 
     /**
@@ -103,8 +108,19 @@ class Category {
         }
         collapseBody.setAttribute("aria-labelledby","heading"+this.name);
         collapseBody.setAttribute("data-parent","#" + this.parentType);
-        collapseBody.appendChild(this.body);
-        this.card.appendChild(collapseBody);
+
+        if(this.name=="info") {
+            collapseBody.appendChild(this.cardrow);
+            this.card.appendChild(collapseBody);
+
+        } else {
+            var body = document.createElement('div');
+            body.classList.add('card-body');
+            body.appendChild(this.cardrow);
+            collapseBody.appendChild(body);
+            this.card.appendChild(collapseBody);
+
+        }
         return this.card;
     }
 }

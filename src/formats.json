@@ -26,6 +26,7 @@
             {"name": "beaver","label": "Beaver","default": "critters/beaver.png","category": "critters"},
             {"name": "fox","label": "Fox","category": "critters"},
             {"name": "lizard","label": "Lizard","default": "critters/lizard.png","category": "critters"},
+            {"name": "racoon","label": "Racoon","category": "critters"},
             {"name": "sock_monkey","label": "Sock Monkey","category": "critters"},
             {"name": "unicorn","label": "Unicorn","category": "critters"},
 
@@ -52,7 +53,7 @@
             {"name": "toque_blue","label": "Blue Toque","default": "icons/toque_blue.png","category": "icons/head"},
             {"name": "toque_pink","label": "Pink Toque","default": "icons/toque_pink.png","category": "icons/head"},
             {"name": "toque_purple","label": "Purple Toque","default": "icons/toque_purple.png","category": "icons/head"},
-            {"name": "toque_white","label": "White Toquee","default": "icons/toque_white.png","category": "icons/head"},
+            {"name": "toque_white","label": "White Toque","default": "icons/toque_white.png","category": "icons/head"},
             {"name": "viking","label": "Viking Helmet","default": "icons/viking.png","category": "icons/head"},
 
             {"name": "headphones_black","label": "Black Headphones","category": "icons/ears"},
@@ -65,7 +66,7 @@
             {"name": "sunglasses_square_black","label": "Black Square Sunglasses","category": "icons/eyes"},
             {"name": "pirate_patch","label": "Pirate Patch","default": "icons/pirate_patch.png","category": "icons/eyes"},
             
-            {"name": "hoodie_black","label": "Black Hoodie","category": "icons/body"},
+            {"name": "hoodie_black","label": "Black Hoodie","default": "icons/hoodie_black.png","category": "icons/body"},
             {"name": "hoodie_blue","label": "Blue Hoodie","default": "icons/hoodie_blue.png","category": "icons/body"},
             {"name": "hoodie_green","label": "Green Hoodie","category": "icons/body"},
             {"name": "hoodie_pink","label": "Pink Hoodie","default": "icons/hoodie_pink.png","category": "icons/body"},
