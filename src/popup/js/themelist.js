@@ -313,7 +313,4 @@ document.addEventListener('DOMContentLoaded', () => {
             refreshPage();
         });
     });
-
-    
-
 }, false);
