@@ -29,6 +29,29 @@ function getJSON(url) {
     });
 }
 
+function getCurrentVersionInfo() {
+    return getJSON('https://bc-mod-api.herokuapp.com/');
+}
+
+async function getCurrentAssetsFolder() {
+    return (await getCurrentVersionInfo()).assetsFolder;
+}
+
+async function getFileURL(url) {
+    var bc = "https://boxcritters.com/media";
+    var bcv = await getCurrentAssetsFolder();
+
+    if (!url.startsWith("http")) {
+        if(url.startsWith("/")) {
+            url = bc + url;
+        } else {
+            url = bcv + url;
+        }
+    }
+    return url;
+
+}
+
 function getFormats() {
     return getJSON('/formats.json');
 

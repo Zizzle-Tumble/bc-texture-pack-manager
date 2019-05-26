@@ -1,8 +1,8 @@
 body,html {
     padding: 0%;
     margin: 0%;
-    width:100vw;
-    height:100vh;
+    min-width:100%;
+    min-height:100%;
 
     display: flex;
     display: -webkit-flex;
