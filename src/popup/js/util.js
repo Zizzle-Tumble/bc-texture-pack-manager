@@ -114,6 +114,29 @@ function encode(text) {
     return btoa(JSON.stringify(text));
 };
 
+function dateToString(unix){
+    var date = new Date(unix);
+
+    let dd = date.getDate();
+    let mm = (date.getMonth() + 1);
+    let yyyy = date.getFullYear();
+
+    //Enables 0 beginning numbers
+    /*if(dd<10) 
+    {
+        dd='0'+dd;
+    } 
+
+    if(mm<10) 
+    {
+        mm='0'+mm;
+    } */
+
+
+    return dd+'/'+mm+'/'+yyyy;
+
+}
+
 (function displayVersion() {
     var manifest = browser.runtime.getManifest();
     var versionNums = manifest.version.split(".");
@@ -125,3 +148,4 @@ function encode(text) {
     }        
     $('#version-display').text(versionInfo);
 })();
+

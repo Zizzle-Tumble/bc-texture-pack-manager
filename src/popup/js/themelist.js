@@ -79,32 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
     */
 
-    function dateToString(unix){
-        var date = new Date(unix);
-
-        let dd = date.getDate();
-        let mm = (date.getMonth() + 1);
-        let yyyy = date.getFullYear();
-
-        //Enables 0 beginning numbers
-        /*if(dd<10) 
-        {
-            dd='0'+dd;
-        } 
-
-        if(mm<10) 
-        {
-            mm='0'+mm;
-        } */
-
-
-        return dd+'/'+mm+'/'+yyyy;
-
-    }
-
     function genTPItem(tp ,i) {
         //div.tp-item
-        var tpitem = document.createElement('a');
+        var tpitem = document.createElement('div');
         var tpitemclasses = "list-group-item tp-item btn-group"
         .split(" ");
         tpitem.classList.add(...tpitemclasses);
@@ -313,7 +290,4 @@ document.addEventListener('DOMContentLoaded', () => {
             refreshPage();
         });
     });
-
-    
-
 }, false);
