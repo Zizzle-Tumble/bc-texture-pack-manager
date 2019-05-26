@@ -77,19 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
         formats = formats.texturePack[currentVersion];
 
         /*
-        <div class="tp-attrib card">
-            <div class="row no-gutters">
-                <div class="col-2">
-                    <img src="https://dummyimage.com/160" class="card-img" alt="">
-                </div>
-                <div class="col-lg">
-                    <div class="card-header">
-                        <span>Name</span>
-                    </div>
-                    <div class="card-body">
-                        <input name="name" class="form-control px-2" required="">
-                    </div>
-                </div>
+       <div class="tp-attrib card">
+            <div class="card-header">
+                <span>Name</span>
+
+            </div>
+            <img src="https://dummyimage.com/500" class="card-img" alt="">
+            <div class="card-body">
+                <input name="name" class="form-control px-2" required="">
             </div>
         </div>
         */
@@ -105,32 +100,69 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!f.hidden) {
                 formItem = document.createElement('div');
                 formItem.classList.add("tp-attrib", "card");
-                var row = document.createElement('div');
-                row.classList.add("row", "no-gutters");
-                formItem.appendChild(row);
-                if (f.category !== "info") {
-                    if (f.default) {
-                        var imgcol = document.createElement('div');
-                        imgcol.classList.add("col-2");
-                        var img = new Image(160);
-                        img.classList.add('card-img');
-                        getFileURL(f.default).then((url) => {
-                            img.setAttribute('src', url);
-                        });
-                        imgcol.appendChild(img);
-                        row.appendChild(imgcol);
-                    }
-                }
-                var infocol = document.createElement('div');
-                infocol.classList.add("col-lg");
+
+                //HEADER
                 var header = document.createElement('div');
                 header.classList.add('card-header');
                 var formItemLabel = document.createElement('span');
                 formItemLabel.innerHTML = f.label||f.name;
                 header.appendChild(formItemLabel);
 
-                infocol.appendChild(header);
-                row.appendChild(infocol);
+                var img;
+                var defaultimg;
+                if (f.category !== "info") {
+                    if (f.default) {
+                        img = new Image();
+                        formItem.append(img);
+                        img.classList.add('card-img');
+                        getFileURL(f.default).then((url) => {
+                            img.setAttribute('src', url);
+                            defaultimg = url;
+                            img.onload = ()=>{
+                                /*console.log(img.width/img.height)
+                                var aspect = img.width/img.height;
+                                img.width = 160*aspect;
+                                img.height = 160;*/
+
+                            };
+                        });
+                    }
+                }
+                /**
+                 * @type {HTMLInputElement|HTMLParagraphElement}
+                 */
+                var formItemValue;
+                formItemValue = document.createElement('input');
+
+                var infocol = document.createElement('div');
+                infocol.classList.add("col-12");
+
+                var body = document.createElement('div');
+                body.classList.add('card-body');
+                formItemValue.name = f.name;
+                formItemValue.classList.add("form-control","px-2");
+                if(img){
+                    $(formItemValue).change((e)=>{
+                        console.log(e);
+                        console.log($(e.currentTarget).closest('.tp-attrib'));
+                        let img = $(e.currentTarget).closest('.tp-attrib').find('img');
+                        
+                        img.attr("src",e.currentTarget.value);
+                        img.on("error",()=>{
+                            img.attr("src",defaultimg);
+                        })
+                    });
+                }
+                if(!f.default&&f.category!=="info") {
+                    formItemValue = document.createElement('p');
+                    formItemValue.classList.add("display-4");
+                    formItemValue.innerHTML = "Coming Soon"
+                }
+                body.appendChild(formItemValue);
+
+                formItem.appendChild(header);
+                if(img) formItem.appendChild(img);
+                formItem.appendChild(body);
 
 
                 /***************************************** *//*
