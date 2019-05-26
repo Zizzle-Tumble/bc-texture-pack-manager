@@ -28,10 +28,13 @@ async function isValidFormatting(type, obj) {
 
 function tpListing(tp ,i) {
     //div.tp-item
-    var tpitem = document.createElement('a');
+    var tpitem = document.createElement('div');
     var tpitemclasses = "list-group-item tp-item btn-group"
     .split(" ");
     tpitem.classList.add(...tpitemclasses);
+    //a.tp-link
+    var tplink = document.createElement("div");
+    tplink.classList.add("tp-link");
     //header
     var header = document.createElement('div');
     var headerclasses = "d-flex w-100 justify-content-between"
@@ -71,14 +74,14 @@ function tpListing(tp ,i) {
         header.appendChild(date);
     }
 
-    tpitem.appendChild(header);
+    tplink.appendChild(header);
 
     //description
     if (tp.description) {
         var description = document.createElement('p');
         description.classList.add("mb-1");
         description.innerHTML = tp.description;
-        tpitem.appendChild(description);
+        tplink.appendChild(description);
     }
 
     //author
@@ -86,10 +89,56 @@ function tpListing(tp ,i) {
         var author = document.createElement('small');
         author.classList.add("text-muted");
         author.innerHTML = "created by " + tp.author;
-        tpitem.appendChild(author);
+        tplink.appendChild(author);
     }
 
+    tpitem.appendChild(tplink);
+
+    //button group
+    var btn;
+    var btnClasses;
+    // edit button
+    /*btn = document.createElement('a');
+    btn.href = "#";
+    btnClasses = 'btn btn-primary'
+    .split(" ");
+    btn.classList.add(...btnClasses);
+    btn.innerHTML = '<i class="fas fa-info"></i>';
+    btn.addEventListener('click', () => {
+       infoPage(i)
+    });
+    tpitem.appendChild(btn);*/
+
+    
+
     return tpitem;
+}
+
+function tpGallery(tp) {
+    var row = document.createElement('div');
+    row.classList.add("row");
+    var keys = Object.keys(tp);
+
+    Object.values(tp).forEach((url,i) => {
+        if(!(typeof url == "string")||!url.startsWith("http")) {
+            return
+        }
+        var card = document.createElement('div');
+        card.classList.add('card','tp-attrib');
+        var head = document.createElement('div');
+        head.classList.add('card-header');
+        head.textContent = keys[i];
+        card.appendChild(head);
+
+        var img = new Image();
+        img.src = url
+        img.onload = () =>{
+            card.appendChild(img);
+            row.appendChild(card);
+        }
+        img.classList.add('card-img');
+    });
+    return row;
 }
 
 async function AddTP(data) {
@@ -138,8 +187,18 @@ if(addtpbutton){
 if (getURLParams().data) {
     textarea.value = getURLParams().data;
     textarea.setAttribute("readonly", "");
+    UpdatePreview()
     //addtpbutton.click();
 }
-$(textarea).on('change keyup paste', (e)=>{
-gallery.textContent = e.currentTarget.value;
-});
+
+function UpdatePreview() {
+    console.log("UPDATE");
+    var tp = decode(textarea.value);
+    
+    preview.innerHTML = "";
+    gallery.innerHTML = "";
+
+    preview.appendChild(tpListing(tp));
+    gallery.appendChild(tpGallery(tp));
+}
+$(textarea).on('change keyup paste', UpdatePreview);
