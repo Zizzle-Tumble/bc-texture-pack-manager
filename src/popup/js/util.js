@@ -65,6 +65,11 @@ function noRedirectForm(e) {
     e.preventDefault();
 }
 
+function cleanEmpty(obj) {
+    Object.keys(obj).forEach(key => obj[key] === undefined||obj[key] === "" ? delete obj[key] : '');
+    return obj;
+}
+
 /**
  * 
  * @param {string} type 
