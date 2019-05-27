@@ -43,26 +43,28 @@ function tpListing(tp ,i) {
     //title
     var title = document.createElement('h5');
     title.classList.add("mb-1");
-    title.innerHTML = tp.name;
+    title.textContentL = tp.name;
     header.appendChild(title);
 
     if(tp.packVersion) {
-        title.innerText += " ";
+        //was innerText
+        title.textContent += " ";
     }
     if(tp.new) {
-        title.innerText = " " + title.innerText;
+        //was innertext
+        title.textContent = " " + title.textContent;
     }
 
     if(tp.packVersion) {
         var tpVersion = document.createElement('small');
         tpVersion.classList.add("text-muted");
-        tpVersion.innerHTML = "[" + tp.packVersion + "]";
+        tpVersion.textContent = "[" + tp.packVersion + "]";
         title.appendChild(tpVersion);
     }
     if(tp.new) {
         var tpUpdate = document.createElement('span');
         tpUpdate.classList.add("badge","badge-primary","badge-pill");
-        tpUpdate.innerHTML = "New";
+        tpUpdate.textContent = "New";
         title.prepend(tpUpdate);
     }
 
@@ -70,7 +72,7 @@ function tpListing(tp ,i) {
     if (tp.date) {
         var date = document.createElement('small');
         date.classList.add("text-muted");
-        date.innerHTML = "Created " + dateToString(tp.date);
+        date.textContent = "Created " + dateToString(tp.date);
         header.appendChild(date);
     }
 
@@ -80,7 +82,7 @@ function tpListing(tp ,i) {
     if (tp.description) {
         var description = document.createElement('p');
         description.classList.add("mb-1");
-        description.innerHTML = tp.description;
+        description.textContent = tp.description;
         tplink.appendChild(description);
     }
 
@@ -88,7 +90,7 @@ function tpListing(tp ,i) {
     if (tp.author) {
         var author = document.createElement('small');
         author.classList.add("text-muted");
-        author.innerHTML = "created by " + tp.author;
+        author.textContent = "created by " + tp.author;
         tplink.appendChild(author);
     }
 
@@ -103,7 +105,7 @@ function tpListing(tp ,i) {
     btnClasses = 'btn btn-primary'
     .split(" ");
     btn.classList.add(...btnClasses);
-    btn.innerHTML = '<i class="fas fa-info"></i>';
+    btn.textContent = '<i class="fas fa-info"></i>';
     btn.addEventListener('click', () => {
        infoPage(i)
     });
@@ -172,14 +174,14 @@ if(addtpbutton){
         AddTP(textarea.value)
             .then((msg) => {
                 successmessage.style.display = "block";
-                successmessage.innerHTML = msg;
+                successmessage.textContent = msg;
                 setTimeout(() => {
                     //window.location.href = "popup.html";
                     window.close();
                 }, 500)
             }).catch((msg) => {
                 errormessage.style.display = "block";
-                errormessage.innerHTML = msg;
+                errormessage.textContent = msg;
             })
     }, false);
 }
@@ -195,8 +197,8 @@ function UpdatePreview() {
     console.log("UPDATE");
     var tp = decode(textarea.value);
     
-    preview.innerHTML = "";
-    gallery.innerHTML = "";
+    preview.textContent = "";
+    gallery.textContent = "";
 
     preview.appendChild(tpListing(tp));
     gallery.appendChild(tpGallery(tp));

@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 var header = document.createElement('div');
                 header.classList.add('card-header');
                 var formItemLabel = document.createElement('span');
-                formItemLabel.innerHTML = f.label||f.name;
+                formItemLabel.textContent = f.label||f.name;
                 header.appendChild(formItemLabel);
 
                 var img;
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(!f.default&&f.category!=="info") {
                     formItemValue = document.createElement('p');
                     formItemValue.classList.add("display-4");
-                    formItemValue.innerHTML = "Coming Soon"
+                    formItemValue.textContent = "Coming Soon"
                 }
                 body.appendChild(formItemValue);
 
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 var formItemLabel = document.createElement('span');
                 var formItemValue = document.createElement('input');
 
-                formItemLabel.innerHTML = f.label||f.name;
+                formItemLabel.textContent = f.label||f.name;
                 formItemValue.name = f.name;
                 formItemValue.classList.add("form-control","px-2");
                 if(f.required){
@@ -215,14 +215,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         var button = document.createElement('button');
         button.classList.add("btn", "btn-primary");
-        button.innerHTML = "Generate Texture Pack Code";
+        button.textContent = "Generate Texture Pack Code";
         button.type = "submit";
         createtpform.appendChild(button);
 
 
         var jsonbutton = document.createElement('a');
         jsonbutton.classList.add("btn", "btn-secondary");
-        jsonbutton.innerHTML = "Download One Click File";
+        jsonbutton.textContent = "Download One Click File";
         jsonbutton.href = "#";
         createtpform.appendChild(jsonbutton);
         jsonbutton.addEventListener("click", (e) => {
