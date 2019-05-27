@@ -22,9 +22,9 @@
             {"name": "ghost_ship","label": "Ghost Ship","default": "cards/oomm/ghost_ship.png","category": "cards/oomm"},
 
 
-            {"name": "hamster","label": "Hamster","default": "critters/hamster.png","category": "critters"},
             {"name": "beaver","label": "Beaver","default": "critters/beaver.png","category": "critters"},
             {"name": "fox","label": "Fox","category": "critters"},
+            {"name": "hamster","label": "Hamster","default": "critters/hamster.png","category": "critters"},
             {"name": "lizard","label": "Lizard","default": "critters/lizard.png","category": "critters"},
             {"name": "racoon","label": "Racoon","category": "critters"},
             {"name": "sock_monkey","label": "Sock Monkey","category": "critters"},
@@ -78,9 +78,8 @@
             {"name": "plaid_blue","label": "Red Plaid Shirt","category": "icons/body"},
             {"name": "plaid_red","label": "Red Plaid Shirt","default": "icons/plaid_red.png","category": "icons/body"},
             {"name": "space_black","label": "Black Space Suit","category": "icons/body"},
-            {"name": "space_blue","label": "Space blue","default": "icons/space_blue.png","category": "icons/body"},
-            {"name": "space_red","label": "Red Space Suit","default": "icons/space_red.png","category": "icons/body"},
             {"name": "space_blue","label": "Blue Space Suit","default": "icons/space_blue.png","category": "icons/body"},
+            {"name": "space_red","label": "Red Space Suit","default": "icons/space_red.png","category": "icons/body"},
             {"name": "space_suit_white","label": "White Space Suit","category": "icons/body"},
             {"name": "tshirt_white","label": "White T-shirt","default": "icons/tshirt_white.png","category": "icons/body"},
 

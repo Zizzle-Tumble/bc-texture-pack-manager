@@ -52,7 +52,7 @@ class Category {
             button.classList.add("collapsed");
             
         }
-        button.innerText = title;
+        button.textContent = title;
 
         var heading = document.createElement("h5");
         heading.classList.add("mb-0");

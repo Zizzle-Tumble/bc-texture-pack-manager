@@ -1,17 +1,17 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
     var tplist = document.querySelector("div#tplist");
-    var refreshbutton = document.querySelector('#btn-refresh');   
-    var resetbutton = document.querySelector('#btn-reset');    
+    var refreshbutton = document.querySelector('#btn-refresh');
+    var resetbutton = document.querySelector('#btn-reset');
 
     function refreshPage() {
-        browser.tabs.reload({'bypassCache':true},()=>{
+        browser.tabs.reload({ 'bypassCache': true }, () => {
             refreshList();
         });
     }
 
 
-    function enableTP(id) {        
+    function enableTP(id) {
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
         sendMessageBG("settp", { id }).then(msg => {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 refreshPage();
             });
             successmessage.style.display = "block";
-            errormessage.innerHTML = msg;
+            errormessage.textContent = msg;
             setTimeout(() => {
                 successmessage.style.display = "none";
             }, 500)
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupActionButtons() {
         var togglebtn = document.getElementById('toggleedit');
         var tpbtns = document.querySelectorAll('.tp-item .btn');
-        togglebtn.addEventListener("click",()=>{
-            tpbtns.forEach(btn=>{
+        togglebtn.addEventListener("click", () => {
+            tpbtns.forEach(btn => {
                 btn.classList.toggle("edit");
             });
         });
@@ -79,11 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
     */
 
-    function genTPItem(tp ,i) {
+    function genTPItem(tp, i) {
         //div.tp-item
         var tpitem = document.createElement('div');
         var tpitemclasses = "list-group-item tp-item btn-group"
-        .split(" ");
+            .split(" ");
         tpitem.classList.add(...tpitemclasses);
         //a.tp-link
         var tplink = document.createElement("a");
@@ -92,31 +92,33 @@ document.addEventListener('DOMContentLoaded', () => {
         //header
         var header = document.createElement('div');
         var headerclasses = "d-flex w-100 justify-content-between"
-        .split(" ");
+            .split(" ");
         header.classList.add(...headerclasses);
         //title
         var title = document.createElement('h5');
         title.classList.add("mb-1");
-        title.innerHTML = tp.name;
+        title.textContent = tp.name;
         header.appendChild(title);
 
-        if(tp.packVersion) {
-            title.innerText += " ";
+        if (tp.packVersion) {
+            //was innerText
+            title.textContent += " ";
         }
-        if(tp.new) {
-            title.innerText = " " + title.innerText;
+        if (tp.new) {
+            //was innerText
+            title.textContent = " " + title.textContent;
         }
 
-        if(tp.packVersion) {
+        if (tp.packVersion) {
             var tpVersion = document.createElement('small');
             tpVersion.classList.add("text-muted");
-            tpVersion.innerHTML = "[" + tp.packVersion + "]";
+            tpVersion.textContent = "[" + tp.packVersion + "]";
             title.appendChild(tpVersion);
         }
-        if(tp.new) {
+        if (tp.new) {
             var tpUpdate = document.createElement('span');
-            tpUpdate.classList.add("badge","badge-primary","badge-pill");
-            tpUpdate.innerHTML = "New";
+            tpUpdate.classList.add("badge", "badge-primary", "badge-pill");
+            tpUpdate.textContent = "New";
             title.prepend(tpUpdate);
         }
 
@@ -124,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tp.date) {
             var date = document.createElement('small');
             date.classList.add("text-muted");
-            date.innerHTML = "Created " + dateToString(tp.date);
+            date.textContent = "Created " + dateToString(tp.date);
             header.appendChild(date);
         }
 
@@ -134,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tp.description) {
             var description = document.createElement('p');
             description.classList.add("mb-1");
-            description.innerHTML = tp.description;
+            description.textContent = tp.description;
             tplink.appendChild(description);
         }
 
@@ -142,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tp.author) {
             var author = document.createElement('small');
             author.classList.add("text-muted");
-            author.innerHTML = "created by " + tp.author;
+            author.textContent = "created by " + tp.author;
             tplink.appendChild(author);
         }
 
@@ -157,20 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
         btnClasses = 'btn btn-primary'
         .split(" ");
         btn.classList.add(...btnClasses);
-        btn.innerHTML = '<i class="fas fa-info"></i>';
+        btn.textContent = '<i class="fas fa-info"></i>';
         btn.addEventListener('click', () => {
            infoPage(i)
         });
         tpitem.appendChild(btn);*/
-        
-        if(!tp.readonly){
+
+        if (!tp.readonly) {
             // delete button
             btn = document.createElement('a');
             btn.href = '#';
             btnClasses = 'btn btn-danger'
-            .split(" ");
+                .split(" ");
             btn.classList.add(...btnClasses);
-            btn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+            var icon = document.createElement('i');
+            icon.classList.add('fas', 'fa-trash-alt');
+            btn.appendChild(icon);
             btn.addEventListener('click', () => {
                 deleteTP(i);
             });
@@ -182,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             refreshPage();
         });
 
-        
+
 
         return tpitem;
     }
@@ -194,14 +198,21 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(texturepacks);
             if (texturepacks instanceof Array && texturepacks.length === 0) {
                 tplist.classList.add('middle-center');
-                tplist.innerHTML = '<p>There are no Texture Packs.</p><a href="addtheme.html" target="_blank" class="btn btn-primary">Add Texture Pack</a>';
+                var text = document.createTextNode("There are no Texture Packs.");
+                tplist.appendChild(text);
+                var addthemelink = document.createElement('a');
+                addthemelink.href = "addtheme.html";
+                addthemelink.classList.add('btn', 'btn-primary');
+                addthemelink.target = "_blank";
+                addthemelink.textContent = "Add Texture Pack";
+                tplist.appendChild(addthemelink);
                 return;
             }
-            tplist.innerHTML = "";
+            tplist.textContent = "";
             tplist.classList.add("list-group");
 
             //default
-            var defaulttp = genTPItem(getDefault(data),-1)
+            var defaulttp = genTPItem(getDefault(data), -1)
             if (data.currentTP === -1) {
                 defaulttp.classList.add("list-group-item-success");
             }
@@ -214,60 +225,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 tpitemlink.addEventListener('click',()=>{
                     enableTP(i);
                 });
-                tpitemlink.innerHTML = tp.name;
+                tpitemlink.textContent = tp.name;
                 tpitem.appendChild(tpitemlink);
                 tplist.appendChild(tpitem);*/
 
                 //NEW METHOD
-                var tplink = genTPItem(tp,i);
+                var tplink = genTPItem(tp, i);
                 if (data.currentTP === i) {
                     tplink.classList.add("list-group-item-success");
                 }
-                
+
                 tplist.appendChild(tplink);
             });
             setupActionButtons();
         }).catch((e) => {
             console.log(e);
-            tplist.innerHTML = "";
+            tplist.textContent = "";
             tplist.classList.add('middle-center');
 
             var msgP = document.createTextNode("Please enter Box Critters");
             tplist.appendChild(msgP);
 
             var bcBtn = document.createElement('a');
-            bcBtn.classList.add("btn","btn-primary");
+            bcBtn.classList.add("btn", "btn-primary");
             bcBtn.href = "#";
             tplist.appendChild(bcBtn);
 
             findTabWithURl('https://boxcritters.com/*')
-            .then(tab=>{
-                if(!tab) {//tab not open
-                    bcBtn.href = "https://boxcritters.com/play/index.html";
-                    bcBtn.target = "_blank";
-                    bcBtn.innerHTML = "Open Tab";
-                } else if(tab.active) {//If tab is open and being viewed
-                    //if tab open and current
-                    bcBtn.innerHTML = "Refresh Page";
-                    bcBtn.addEventListener('click',()=>{
-                        refreshPage();
-                    });
-                } else { //if tab open and not current
-                    bcBtn.innerHTML = "Switch to tab";
-                    bcBtn.addEventListener('click',()=>{
-                        browser.tabs.highlight({'tabs':tab.index},()=>{
+                .then(tab => {
+                    if (!tab) {//tab not open
+                        bcBtn.href = "https://boxcritters.com/play/index.html";
+                        bcBtn.target = "_blank";
+                        bcBtn.textContent = "Open Tab";
+                    } else if (tab.active) {//If tab is open and being viewed
+                        //if tab open and current
+                        bcBtn.textContent = "Refresh Page";
+                        bcBtn.addEventListener('click', () => {
                             refreshPage();
                         });
-                    });
-                }
+                    } else { //if tab open and not current
+                        bcBtn.textContent = "Switch to tab";
+                        bcBtn.addEventListener('click', () => {
+                            browser.tabs.highlight({ 'tabs': tab.index }, () => {
+                                refreshPage();
+                            });
+                        });
+                    }
 
-            }).catch(r =>{
-                console.log("Error finding tab:",r);
-                //If no tab open
-                bcBtn.href = "https://boxcritters.com/play/index.html";
-                bcBtn.target = "_blank";
-                bcBtn.innerHTML = "Open Tab";
-            })
+                }).catch(r => {
+                    console.log("Error finding tab:", r);
+                    //If no tab open
+                    bcBtn.href = "https://boxcritters.com/play/index.html";
+                    bcBtn.target = "_blank";
+                    bcBtn.textContent = "Open Tab";
+                })
             return;
         });
     }
@@ -277,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshbutton.addEventListener('click', () => {
         sendMessageBG("refreshtp").then(() => {
             console.log("REFRESHING...");
-            
+
             refreshPage();
         });
     });
@@ -286,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resetbutton.addEventListener('click', () => {
         sendMessageBG("reset").then(() => {
             console.log("RESETTING...");
-            
+
             refreshPage();
         });
     });

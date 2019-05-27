@@ -1,1 +1,5 @@
-Added Green Hoodie
+Removed Unused Files
+Changed redundant innerHTML to textContent
+Changed redundant innerText to textContent
+Removed extra blue Space suit
+Spashes allow markdown
