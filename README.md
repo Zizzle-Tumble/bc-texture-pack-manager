@@ -1,6 +1,15 @@
 # bc-texture-pack-manager
 # Changelog
 
+#Box Critters Texture Pack Manager
+
+Install: https://boxcritters.github.io/tools/texturepackselector/
+Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager
+
+# ChangeLog
+## 0.4.1
+Added Green Hoodie
+
 ## 0.4.0
 - Added Racoon Critter
 - Fixed Spelling Mistake
@@ -13,4 +22,4 @@
 - Texture pack Preview on install
 
 ## 1.3.0
-Added Pick Icon
+Added Pickle Icon

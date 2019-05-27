@@ -68,7 +68,7 @@
             
             {"name": "hoodie_black","label": "Black Hoodie","default": "icons/hoodie_black.png","category": "icons/body"},
             {"name": "hoodie_blue","label": "Blue Hoodie","default": "icons/hoodie_blue.png","category": "icons/body"},
-            {"name": "hoodie_green","label": "Green Hoodie","category": "icons/body"},
+            {"name": "hoodie_green","label": "Green Hoodie","default":"icons/hoodie_green.png","category": "icons/body"},
             {"name": "hoodie_pink","label": "Pink Hoodie","default": "icons/hoodie_pink.png","category": "icons/body"},
             {"name": "hoodie_purple","label": "Purple Hoodie","category": "icons/body"},
             {"name": "monk","label": "Monk Outfit","default": "icons/monk.png","category": "icons/body"},
