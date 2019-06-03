@@ -91,102 +91,111 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formats.forEach((f, fid) => {
             var formItem;
-            if (f.hidden) {
-                formItem = document.createElement("input");
-                formItem.name = f.name;
-                formItem.type = "hidden";
+            if (f.name || f.label) {
+                if (f.hidden) {
+                    formItem = document.createElement("input");
+                    formItem.name = f.name;
+                    formItem.type = "hidden";
 
-            }
-            if (!f.hidden) {
-                formItem = document.createElement('div');
-                formItem.classList.add("tp-attrib", "card");
+                }
+                if (!f.hidden) {
+                    formItem = document.createElement('div');
+                    formItem.classList.add("tp-attrib", "card");
 
-                //HEADER
-                var header = document.createElement('div');
-                header.classList.add('card-header');
-                var formItemLabel = document.createElement('span');
-                formItemLabel.textContent = f.label||f.name;
-                header.appendChild(formItemLabel);
+                    //HEADER
+                    var header = document.createElement('div');
+                    header.classList.add('card-header');
+                    var formItemLabel = document.createElement('span');
+                    formItemLabel.textContent = f.label || f.name;
+                    header.appendChild(formItemLabel);
 
-                var img;
-                var defaultimg;
-                if (f.category !== "info") {
-                    if (f.default) {
-                        img = new Image();
-                        formItem.append(img);
-                        img.classList.add('card-img');
-                        getFileURL(f.default).then((url) => {
-                            img.setAttribute('src', url);
-                            defaultimg = url;
-                            img.onload = ()=>{
-                                /*console.log(img.width/img.height)
-                                var aspect = img.width/img.height;
-                                img.width = 160*aspect;
-                                img.height = 160;*/
+                    var img;
+                    var defaultimg;
+                    if (f.category !== "info") {
+                        if (f.default) {
+                            img = new Image();
+                            formItem.append(img);
+                            img.classList.add('card-img');
+                            getFileURL(f.default).then((url) => {
+                                img.setAttribute('src', url);
+                                defaultimg = url;
+                                img.onload = () => {
+                                    /*console.log(img.width/img.height)
+                                    var aspect = img.width/img.height;
+                                    img.width = 160*aspect;
+                                    img.height = 160;*/
 
-                            };
-                        });
+                                };
+                            });
+                        }
                     }
+
+                    if (f.name) {
+                        /**
+                         * @type {HTMLInputElement|HTMLParagraphElement}
+                         */
+                        var formItemValue;
+                        formItemValue = document.createElement('input');
+
+                        var infocol = document.createElement('div');
+                        infocol.classList.add("col-12");
+
+                        var body = document.createElement('div');
+                        body.classList.add('card-body');
+                        formItemValue.name = f.name;
+                        formItemValue.classList.add("form-control", "px-2");
+                        if (img) {
+                            $(formItemValue).on('change keyup paste', (e) => {
+                                console.log(e);
+                                console.log($(e.currentTarget).closest('.tp-attrib'));
+                                let img = $(e.currentTarget).closest('.tp-attrib').find('img');
+
+                                img.attr("src", e.currentTarget.value);
+                                img.on("error", () => {
+                                    img.attr("src", defaultimg);
+                                })
+                            });
+                        }
+                        if (!f.default && f.category !== "info") {
+                            formItemValue = document.createElement('p');
+                            formItemValue.classList.add("display-4");
+                            formItemValue.textContent = "Coming Soon"
+                        }
+                        body.appendChild(formItemValue);
+                    }
+
+                    formItem.appendChild(header);
+                    if (img) formItem.appendChild(img);
+                    formItem.appendChild(body);
+
+
+                    /***************************************** *//*
+                    formItem = document.createElement('div');
+                    var formItemLabel = document.createElement('span');
+                    var formItemValue = document.createElement('input');
+    
+                    formItemLabel.textContent = f.label||f.name;
+                    formItemValue.name = f.name;
+                    formItemValue.classList.add("form-control","px-2");
+                    if(f.required){
+                        formItemValue.setAttribute("required","");
+                    }
+                    if(!f.default&&f.category!=="info") {
+                        formItemValue.setAttribute("readonly","");
+                        formItemValue.placeholder = "Coming Soon"
+                    }
+    
+                    formItem.appendChild(formItemLabel);
+                    formItem.appendChild(formItemValue);*/
+
+
+
+
                 }
-                /**
-                 * @type {HTMLInputElement|HTMLParagraphElement}
-                 */
-                var formItemValue;
-                formItemValue = document.createElement('input');
-
-                var infocol = document.createElement('div');
-                infocol.classList.add("col-12");
-
-                var body = document.createElement('div');
-                body.classList.add('card-body');
-                formItemValue.name = f.name;
-                formItemValue.classList.add("form-control","px-2");
-                if(img){
-                    $(formItemValue).on('change keyup paste', (e)=>{
-                        console.log(e);
-                        console.log($(e.currentTarget).closest('.tp-attrib'));
-                        let img = $(e.currentTarget).closest('.tp-attrib').find('img');
-                        
-                        img.attr("src",e.currentTarget.value);
-                        img.on("error",()=>{
-                            img.attr("src",defaultimg);
-                        })
-                    });
-                }
-                if(!f.default&&f.category!=="info") {
-                    formItemValue = document.createElement('p');
-                    formItemValue.classList.add("display-4");
-                    formItemValue.textContent = "Coming Soon"
-                }
-                body.appendChild(formItemValue);
-
-                formItem.appendChild(header);
-                if(img) formItem.appendChild(img);
-                formItem.appendChild(body);
-
-
-                /***************************************** *//*
-                formItem = document.createElement('div');
-                var formItemLabel = document.createElement('span');
-                var formItemValue = document.createElement('input');
-
-                formItemLabel.textContent = f.label||f.name;
-                formItemValue.name = f.name;
-                formItemValue.classList.add("form-control","px-2");
-                if(f.required){
-                    formItemValue.setAttribute("required","");
-                }
-                if(!f.default&&f.category!=="info") {
-                    formItemValue.setAttribute("readonly","");
-                    formItemValue.placeholder = "Coming Soon"
-                }
-
-                formItem.appendChild(formItemLabel);
-                formItem.appendChild(formItemValue);*/
-
-
-
-
+            } else {
+                formItem = document.createElement('p');
+                formItem.classList.add("display-4");
+                formItem.textContent = "Coming Soon"
             }
 
             if (f.category) {

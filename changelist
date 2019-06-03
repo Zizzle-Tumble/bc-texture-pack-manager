@@ -1,5 +1,21 @@
-Removed Unused Files
-Changed redundant innerHTML to textContent
-Changed redundant innerText to textContent
-Removed extra blue Space suit
-Spashes allow markdown
+- Added Black Goggles
+- Added Otter
+- Added Blue Pirate Hat
+
+- Added Mask Category
+
+- Added Engine Room
+- Added Teleporter Room
+- Added Cargo Room
+- Added Security Room
+- Added Sick Bay Room
+- Added Science Lab Room
+- Added Armory
+- Added Ship
+- Added Outpost (shop)
+- Added Dock
+- Added Volcano of Doom
+
+- Renamed duplicate Red Plaid Shirt to Blue Plaid Shirt
+
+- Deprecated 'Taven' spelling
