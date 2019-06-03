@@ -26,6 +26,7 @@
             {"name": "fox","label": "Fox","category": "critters"},
             {"name": "hamster","label": "Hamster","default": "critters/hamster.png","category": "critters"},
             {"name": "lizard","label": "Lizard","default": "critters/lizard.png","category": "critters"},
+            {"name": "otter","label": "Otter","category": "critters"},
             {"name": "racoon","label": "Racoon","category": "critters"},
             {"name": "sock_monkey","label": "Sock Monkey","category": "critters"},
             {"name": "unicorn","label": "Unicorn","category": "critters"},
@@ -46,6 +47,7 @@
             {"name": "party_green","label": "Party Hat","default": "icons/party_green.png","category": "icons/head"},
             {"name": "pickle","label": "Pickle","default":"icons/pickle.png","category": "icons/head"},
             {"name": "pirate_hat","label": "Pirate Hat","category": "icons/head"},
+            {"name": "blue_pirate_hat","label": "Blue Pirate Hat","category": "icons/head"},
             {"name": "pot","label": "Pot Helm","default": "icons/pot.png","category": "icons/head"},
             {"name": "propeller","label": "Propeller Cap","default": "icons/propeller.png","category": "icons/head"},
             {"name": "sleeping","label": "Sleeping Hat","default": "icons/sleeping.png","category": "icons/head"},
@@ -59,9 +61,11 @@
             {"name": "headphones_black","label": "Black Headphones","category": "icons/ears"},
             {"name": "headphones_white","label": "Discord Headphones","default": "icons/headphones_white.png","category": "icons/ears"},
 
+            {"category":"icons/mask"},
+
             {"name": "3d_black","label": "Black 3D Glasses","default": "icons/3d_black.png","category": "icons/eyes"},
             {"name": "3d_white","label": "White 3D Glasses","default": "icons/3d_white.png","category": "icons/eyes"},
-            {"name": "goggles_black","label": "Black Goggles","category": "icons/eyes"},
+            {"name": "goggles_black","label": "Black Goggles", "default":"icons/goggles_black.png","category": "icons/eyes"},
             {"name": "snorkel_blue","label": "Blue Snorkel","category": "icons/eyes"},
             {"name": "sunglasses_square_black","label": "Black Square Sunglasses","category": "icons/eyes"},
             {"name": "pirate_patch","label": "Pirate Patch","default": "icons/pirate_patch.png","category": "icons/eyes"},
@@ -75,7 +79,7 @@
             {"name": "pirate_capt_black","label": "Pirate Captain Jacket","default": "icons/pirate_capt_black.png","category": "icons/body"},
             {"name": "pirate_capt_red","label": "Pirate Captain Red","category": "icons/body"},
             {"name": "pirate_belt_blue","label": "Pirate Belt Blue","category": "icons/body"},
-            {"name": "plaid_blue","label": "Red Plaid Shirt","category": "icons/body"},
+            {"name": "plaid_blue","label": "Blue Plaid Shirt","category": "icons/body"},
             {"name": "plaid_red","label": "Red Plaid Shirt","default": "icons/plaid_red.png","category": "icons/body"},
             {"name": "space_black","label": "Black Space Suit","category": "icons/body"},
             {"name": "space_blue","label": "Blue Space Suit","default": "icons/space_blue.png","category": "icons/body"},
@@ -95,12 +99,23 @@
             {"name": "ux","label": "User Interface","default": "/ux/ux.png","category": "ux"},
 
 
-            {"name": "bridgeBackground","label": "Bridge Background","default": "/rooms/bridge_bg.png","category": "rooms/bridge"},
-            {"name": "bridgeProps","label": "Bridge Props","default": "/rooms/bridge_ss.png","category": "rooms/bridge"},
-            {"name": "tavenProps","default": "/rooms/tavern_ss.png","hidden": true,"category": "rooms/tavern"},
-            {"name": "tavenProps","label": "Tavern Props","default": "/rooms/tavern_ss.png","category": "rooms/tavern"},
-            {"name": "tavernBG","label": "Tavern Background","default": "/rooms/tavern_bg.png","category": "rooms/tavern"},
-            {"name": "tavernFG","label": "Tavern Foreground","default": "/rooms/tavern_fg.png","category": "rooms/tavern"}
+            {"name": "bridgeBackground","label": "Bridge Background","default": "/rooms/bridge_bg.png","category": "rooms/StarShip/bridge"},
+            {"name": "bridgeProps","label": "Bridge Props","default": "/rooms/bridge_ss.png","category": "rooms/StarShip/bridge"},
+            {"category": "rooms/StarShip/engine"},
+            {"category": "rooms/StarShip/Teleporter"},
+            {"category": "rooms/StarShip/Cargo"},
+            {"category": "rooms/StarShip/Security"},
+            {"category": "rooms/StarShip/SickBay"},
+            {"category": "rooms/StarShip/ScienceLab"},
+            {"category": "rooms/StarShip/Armory"},
+            {"category": "rooms/StarShip/Exterior"},
+
+            {"name": "tavernProps","label": "Tavern Props","default": "/rooms/tavern_ss.png","category": "rooms/PirateIsland/tavern"},
+            {"name": "tavernBG","label": "Tavern Background","default": "/rooms/tavern_bg.png","category": "rooms/PirateIsland/tavern"},
+            {"name": "tavernFG","label": "Tavern Foreground","default": "/rooms/tavern_fg.png","category": "rooms/PirateIsland/tavern"},
+            {"category": "rooms/PirateIsland/Outpost"},
+            {"category": "rooms/PirateIsland/Dock"},
+            {"category": "rooms/PirateIsland/VolcanoOfDoom"}
         ]
     ]
 }
