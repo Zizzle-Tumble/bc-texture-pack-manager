@@ -8,15 +8,38 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 1.4.x
+### 1.4.3
+- Added Black Goggles
+- Added Otter
+- Added Blue Pirate Hat
+
+- Added Mask Category
+
+- Added Engine Room
+- Added Teleporter Room
+- Added Cargo Room
+- Added Security Room
+- Added Sick Bay Room
+- Added Science Lab Room
+- Added Armory
+- Added Ship
+- Added Outpost (shop)
+- Added Dock
+- Added Volcano of Doom
+
+- Renamed duplicate Red Plaid Shirt to Blue Plaid Shirt
+
+- Deprecated 'Taven' spelling
+
 ### 1.4.2
-Removed Unused Files
-Changed redundant innerHTML to textContent
-Changed redundant innerText to textContent
-Removed extra blue Space suit
-Spashes allow markdown
+- Removed Unused Files
+- Changed redundant innerHTML to textContent
+- Changed redundant innerText to textContent
+- Removed extra blue Space suit
+- Spashes allow markdown
 
 ### 1.4.1
-Added Green Hoodie
+- Added Green Hoodie
 
 ### 1.4.0
 - Added Racoon Critter
@@ -31,7 +54,7 @@ Added Green Hoodie
 
 ## 0.3.x
 ### 1.3.0
-Added Pickle Icon
+- Added Pickle Icon
 
 ## 0.2.x
 
