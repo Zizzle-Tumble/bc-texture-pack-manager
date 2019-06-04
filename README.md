@@ -8,6 +8,13 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 1.4.x
+### 1.4.4
+- Added Red Bandanna
+- Added Orange Construction Overalls
+- Added Orange Space Suit
+- Added Blue Propeller Cap
+- Added Pink Propeller Cap
+
 ### 1.4.3
 - Added Black Goggles
 - Added Otter
