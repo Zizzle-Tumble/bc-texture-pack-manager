@@ -16,7 +16,7 @@
             {"name": "packVersion","hidden": true,"category": "info"},
             {"name": "description","label": "Description","category": "info"},
 
-            {"name": "script","hidden": true,"label": "Script"},
+            {"name": "script","hidden": true},
 
             {"name": "bridge","label": "The Bridge","default": "cards/oomm/bridge.png","category": "cards/oomm"},
             {"name": "ghost_ship","label": "Ghost Ship","default": "cards/oomm/ghost_ship.png","category": "cards/oomm"},
@@ -72,7 +72,8 @@
             {"name": "snorkel_blue","label": "Blue Snorkel","category": "icons/eyes"},
             {"name": "sunglasses_square_black","label": "Black Square Sunglasses","category": "icons/eyes"},
             {"name": "pirate_patch","label": "Pirate Patch","default": "icons/pirate_patch.png","category": "icons/eyes"},
-            
+
+            {"name": "hawaii_orange","label": "Orange Hawaiian Shirt","default":"icons/hawaii_orange.png","category":"icons/body"},
             {"name": "hoodie_black","label": "Black Hoodie","default": "icons/hoodie_black.png","category": "icons/body"},
             {"name": "hoodie_blue","label": "Blue Hoodie","default": "icons/hoodie_blue.png","category": "icons/body"},
             {"name": "hoodie_green","label": "Green Hoodie","default":"icons/hoodie_green.png","category": "icons/body"},
