@@ -7,6 +7,10 @@ Install: https://boxcritters.github.io/tools/texturepackselector/
 Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+## 1.5.x
+### 1.5.0
+- Added Orange Hawaiian Shirt
+
 ## 1.4.x
 ### 1.4.4
 - Added Red Bandanna
