@@ -8,6 +8,10 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 1.5.x
+### 1.5.2
+- Added Hand Category
+- Added Guitar Icon
+
 ### 1.5.1
 - Added White Goggles
 - Added White Hoddie
