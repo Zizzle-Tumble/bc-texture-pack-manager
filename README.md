@@ -8,6 +8,12 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 1.5.x
+### 1.5.1
+- Added White Goggles
+- Added White Hoddie
+- Added Red Life Jacket
+- Added Yellow Cap
+
 ### 1.5.0
 - Added Orange Hawaiian Shirt
 
