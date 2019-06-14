@@ -3,6 +3,7 @@ eyes_back
 ears
 ears_back
 head
+hand
 belt
 belt_back
 mask
