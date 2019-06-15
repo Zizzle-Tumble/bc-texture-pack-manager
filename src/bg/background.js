@@ -3,7 +3,10 @@ var browser = browser || chrome || msBrowser;
 var RULES = new Array();
 
 async function getFormats() {
-    return getJSON('/formats.json');
+    var formats = await getJSON('/formats.json');
+    formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
+    return formats;
+
 }
 
 function getCurrentVersionInfo() {
