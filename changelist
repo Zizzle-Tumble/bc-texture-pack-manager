@@ -1,1 +1,2 @@
-- Texture Pack Formats moved to the API Server
+- Fixed bug where texture pack format fields could not have names (if one doesn't have a name it wont break and just not go in to the texture pack data)
+- Fixed bug where texture pack name was not displaying when installing (there was a random 'L')
