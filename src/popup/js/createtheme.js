@@ -130,18 +130,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
+                    var body = document.createElement('div');
+                    body.classList.add('card-body');
+                    var formItemValue;
                     if (f.name) {
                         /**
                          * @type {HTMLInputElement|HTMLParagraphElement}
                          */
-                        var formItemValue;
                         formItemValue = document.createElement('input');
 
                         var infocol = document.createElement('div');
                         infocol.classList.add("col-12");
-
-                        var body = document.createElement('div');
-                        body.classList.add('card-body');
                         formItemValue.name = f.name;
                         formItemValue.classList.add("form-control", "px-2");
                         if (img) {
@@ -156,13 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 })
                             });
                         }
-                        if (!f.default && f.category !== "info") {
-                            formItemValue = document.createElement('p');
-                            formItemValue.classList.add("display-4");
-                            formItemValue.textContent = "Coming Soon"
-                        }
-                        body.appendChild(formItemValue);
                     }
+                    if (!f.default && f.category !== "info") {
+                        formItemValue = document.createElement('p');
+                        formItemValue.classList.add("display-4");
+                        formItemValue.textContent = "Coming Soon"
+                    }
+                    body.appendChild(formItemValue);
 
                     formItem.appendChild(header);
                     if (img) formItem.appendChild(img);
@@ -200,10 +199,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (f.category) {
                 var category = f.category.split("/");
+                lastCategory.length = category.length;
+                currentCategoryGroups.length = category.length;
                 for (let i = 0; i < category.length; i++) {
                     if (lastCategory[i] !== category[i]) {
-                        lastCategory.length = i + 1;
-                        currentCategoryGroups.length = i + 1
 
                         lastCategory[i] = category[i];
                         currentCategoryGroups[i] = new Category(category[i], fid == 0);
