@@ -8,6 +8,10 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 2.0.x
+### 2.0.1
+- Fixed bug where texture pack format fields could not have names (if one doesn't have a name it wont break and just not go in to the texture pack data)
+- Fixed bug where texture pack name was not displaying when installing (there was a random 'L')
+
 ### 2.0.0
 - Texture Pack Formats moved to the API Server
 
