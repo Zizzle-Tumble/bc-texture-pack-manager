@@ -52,8 +52,10 @@ async function getFileURL(url) {
 
 }
 
-function getFormats() {
-    return getJSON('/formats.json');
+async function getFormats() {
+    var formats = await getJSON('/formats.json');
+    formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
+    return formats;
 
 }
 
