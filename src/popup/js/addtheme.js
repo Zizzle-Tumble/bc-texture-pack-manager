@@ -43,7 +43,7 @@ function tpListing(tp ,i) {
     //title
     var title = document.createElement('h5');
     title.classList.add("mb-1");
-    title.textContentL = tp.name;
+    title.textContent = tp.name;
     header.appendChild(title);
 
     if(tp.packVersion) {
