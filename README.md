@@ -7,6 +7,10 @@ Install: https://boxcritters.github.io/tools/texturepackselector/
 Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+## 2.0.x
+### 2.0.0
+- Texture Pack Formats moved to the API Server
+
 ## 1.5.x
 ### 1.5.2
 - Added Hand Category
