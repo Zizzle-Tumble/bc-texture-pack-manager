@@ -1,6 +1,7 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
     var tplist = document.querySelector("div#tplist");
+    var ctplist = document.querySelector("div#ctplist");
     var refreshbutton = document.querySelector('#btn-refresh');
     var resetbutton = document.querySelector('#btn-reset');
 
@@ -40,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tp.name = "BoxCritters";
         tp.author = "RocketSnail";
         tp.date = new Date("5 Jan 2019");
-        tp.readonly = true;
 
         var des = [
             //Description by Eribetra
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tp.description = des[Math.floor(Math.random() * des.length)];
         tp.version = 1;
+        tp.readonly = true;
         return tp;
     }
 
@@ -82,13 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function genTPItem(tp, i) {
         //div.tp-item
         var tpitem = document.createElement('div');
+        tpitem.id = i;
         var tpitemclasses = "list-group-item tp-item btn-group"
             .split(" ");
         tpitem.classList.add(...tpitemclasses);
         //a.tp-link
-        var tplink = document.createElement("a");
+        var tplink;
+        if(!tp.readonly) {
+            tplink = document.createElement("a");
+            tplink.href = "#";
+        } else {
+            tplink = document.createElement("div");
+        }
         tplink.classList.add("tp-link");
-        tplink.href = "#";
         //header
         var header = document.createElement('div');
         var headerclasses = "d-flex w-100 justify-content-between"
@@ -118,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tp.new) {
             var tpUpdate = document.createElement('span');
             tpUpdate.classList.add("badge", "badge-primary", "badge-pill");
-            tpUpdate.textContent = "New";
+            tpUpdate.textContent = "Updated";
             title.prepend(tpUpdate);
         }
 
@@ -165,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         tpitem.appendChild(btn);*/
 
-        if (!tp.readonly) {
+        if (i !== -1) {
             // delete button
             btn = document.createElement('a');
             btn.href = '#';
@@ -179,12 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 deleteTP(i);
             });
             tpitem.appendChild(btn);
-        }
 
-        tplink.addEventListener('click', () => {
-            enableTP(i);
-            refreshPage();
-        });
+            tplink.addEventListener('click', () => {
+                enableTP(i);
+                refreshPage();
+            });
+        }
 
 
 
@@ -208,15 +215,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 tplist.appendChild(addthemelink);
                 return;
             }
-            tplist.textContent = "";
-            tplist.classList.add("list-group");
+            ctplist.textContent = "";
+            tplist.innerHTML = '<div class="card-header"><span>Available Texture Packs</span></div>';
+            //tplist.classList.add("list-group");
+
+            data.currentTP.forEach((i) => {
+                var tp = texturepacks[i];
+
+
+                var tplink = genTPItem(tp, i);
+                tplink.classList.add("list-group-item-success");
+
+                ctplist.appendChild(tplink);
+
+
+            });
 
             //default
-            var defaulttp = genTPItem(getDefault(data), -1)
-            if (data.currentTP === -1) {
-                defaulttp.classList.add("list-group-item-success");
-            }
-            tplist.appendChild(defaulttp);
+            var defaulttp = genTPItem(getDefault(data),-1)
+            defaulttp.classList.add("list-group-item-success");
+            ctplist.appendChild(defaulttp);
+
+            
 
             texturepacks.forEach((tp, i) => {
                 /*var tpitem = document.createElement('li');
@@ -230,10 +250,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 tplist.appendChild(tpitem);*/
 
                 //NEW METHOD
-                var tplink = genTPItem(tp, i);
-                if (data.currentTP === i) {
-                    tplink.classList.add("list-group-item-success");
+                if (data.currentTP.includes(i)) {
+                    return
                 }
+                var tplink = genTPItem(tp, i);
 
                 tplist.appendChild(tplink);
             });
