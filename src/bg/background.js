@@ -27,7 +27,7 @@ async function getDefaultTP() {
         return obj
     }, {})
     var v = await getCurrentVersionInfo();
-    defaultTP.script = `/scripts/client${v.version}.min.js`
+    defaultTP.script = `//scripts/client${v.version}.min.js`
     return defaultTP
 }
 
@@ -71,6 +71,16 @@ async function loadImage(img) {
 
     return (await getJSON(url)).url
 }
+async function loadFile(file) {
+    if (file.startsWith('https://boxcritters.com')) {
+        return file;
+    }
+    var api = "https://bc-mod-api.herokuapp.com/cors/file/";
+    var url = api + file;
+
+    return url;
+}
+
 
 function clone(obj) {
     if (null == obj || "object" != typeof obj) return obj;
@@ -83,30 +93,22 @@ function clone(obj) {
 
 async function genrules() {
     //Get Default texture pack
+    var verInfo = await getCurrentVersionInfo();
     var defaultTP = await getDefaultTP();
-    var bc = "https://boxcritters.com/media";
-    var bcv = (await getCurrentVersionInfo()).assetsFolder;
-
-    if (DATA === undefined ) {
-        return "no data was found";
-    }
-
-    //get current texture pack
-    if (DATA.currentTP < 0) {
-        RULES = [];
-        return "no texture pack was selected";
-    }
-    var currentTP = DATA.texturePacks[DATA.currentTP] || {};
-    currentTP.new = false;
-    console.log("current tp", DATA.currentTP);
+    var bc = "https://boxcritters.com";
+    var bcMedia = "https://boxcritters.com/media";
+    var bcVersionFolder = verInfo.assetsFolder;
 
     var keys = Object.keys(defaultTP);
-    keys.map(function (key) {
-        if (!defaultTP[key].startsWith("http")) {
-            if(defaultTP[key].startsWith("/")) {
+    keys.map(function (key) {        
+        if (!defaultTP[key].startsWith("http://")) {
+            if(defaultTP[key].startsWith("//")) {
+                defaultTP[key] = defaultTP[key].replace(/\/\//g,"/");
                 defaultTP[key] = bc + defaultTP[key];
+            } else if(defaultTP[key].startsWith("/")) {
+                defaultTP[key] = bcMedia + defaultTP[key];
             } else {
-                defaultTP[key] = bcv + defaultTP[key];
+                defaultTP[key] = bcVersionFolder + defaultTP[key];
             }
         }
     });
@@ -116,22 +118,46 @@ async function genrules() {
     if (keys.length == 0) {
         throw "texture pack has no attributes";
     }
-    //console.log("keys",keys);
-    RULES = keys.map((key) => {
-        var rule = {};
-        //console.log("key",key);
 
+    if (DATA === undefined ) {
+        return "no data was found";
+    }
+    RULES = [];
 
-        rule.from = defaultTP[key];
-        rule.to = currentTP[key] || defaultTP[key];
-        //console.log("rule",rule);
-        return rule;
-    });
+    //get current texture pacK
+    if (DATA.currentTP.length < 1) {
+        return "no texture pack was selected";
+    }
+    DATA.currentTP.forEach(ctp=>{
+        var currentTP = DATA.texturePacks[ctp] || {};
+        currentTP.new = false;
+        console.log("current tp", ctp);
 
-    RULES = RULES.filter(r => r.to !== r.from);
+        var tpRules = keys.map((key) => {
+            var rule = {};
+            //console.log("key",key);
+    
+    
+            rule.from = defaultTP[key];
+            rule.to = currentTP[key] || defaultTP[key];
+            //console.log("rule",rule);
+            return rule;
+        });        
+
+        tpRules = tpRules.filter(r => 
+            r.to !== r.from &&
+            !RULES.map(rule=>rule.from).includes(r.from)
+        );
+
+        RULES.push(...tpRules);
+
+    })
+
     RULES = RULES.map(async r => {
         if (r.from.endsWith(".png")) {
             r.to = await loadImage(r.to);
+        } else {
+            r.to = await loadFile(r.to);
         }
         return r;
     });
@@ -148,7 +174,7 @@ function redirect(request) {
     //console.log("rules",rules);
 
     var rule = RULES.find((rule) => {
-        //console.log("DOES ==",rule.from," ???");
+        console.log("DOES ",request.url," == ",rule.from," ???");
         return request.url == rule.from
             && request.requestId !== lastRequestId;
     });

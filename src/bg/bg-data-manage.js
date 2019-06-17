@@ -60,6 +60,13 @@ async function load() {
     if (RESETDATA.bc !== DATA.bc) {
         DATA.bc = RESETDATA.bc;
     }
+    if(!Array.isArray(DATA.currentTP)) {
+        var currentTP = DATA.currentTP;
+        DATA.currentTP = [];
+        if(DATA.currentTP !== -1) {
+            DATA.currentTP.unshift(currentTP);
+        }
+    }
     var proms = DATA.texturePacks.map(async tp => {
         if (tp.new === undefined) {
             tp.new = true;
@@ -119,7 +126,11 @@ MSG_LISTENER.addListener("getdata", (content, sendResponse) => {
     sendResponse(DATA);
 });
 MSG_LISTENER.addListener("settp", (content, sendResponse) => {
-    DATA.currentTP = content.id;
+    if(DATA.currentTP.includes(content.id)) {
+        DATA.currentTP.splice( DATA.currentTP.indexOf(content.id), 1 );
+    } else {
+        DATA.currentTP.unshift(content.id);
+    }
     save().then(() => {
         genrules().then(() => {
             sendResponse("Texture Pack successfuly set.");
