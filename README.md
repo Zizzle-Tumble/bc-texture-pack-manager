@@ -7,6 +7,11 @@ Install: https://boxcritters.github.io/tools/texturepackselector/
 Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+## 2.1x
+### 2.1.0
+- Scripts can now be replaced
+- Multiple Texture Packs can be applied at once.
+
 ## 2.0.x
 ### 2.0.1
 - Fixed bug where texture pack format fields could not have names (if one doesn't have a name it wont break and just not go in to the texture pack data)
