@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tpitem.classList.add(...tpitemclasses);
         //a.tp-link
         var tplink;
-        if(!tp.readonly) {
+        if(i !== -1) {
             tplink = document.createElement("a");
             tplink.href = "#";
         } else {

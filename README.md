@@ -8,6 +8,8 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 2.1x
+### 2.1.1
+
 ### 2.1.0
 - Scripts can now be replaced
 - Multiple Texture Packs can be applied at once.
