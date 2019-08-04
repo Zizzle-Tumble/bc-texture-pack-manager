@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             img = new Image();
                             formItem.append(img);
                             img.classList.add('card-img');
-                            getFileURL(f.default).then((url) => {
+                            getFileURL(f).then((url) => {
                                 img.setAttribute('src', url);
                                 defaultimg = url;
                                 img.onload = () => {

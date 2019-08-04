@@ -9,25 +9,26 @@ async function getFormats() {
 
 }
 
+
+function getSites() {
+    return getJSON('https://bc-mod-api.herokuapp.com/sites');
+}
+
 function getCurrentVersionInfo() {
     return getJSON('https://bc-mod-api.herokuapp.com/');
 }
 
-async function getCurrentAssetsFolder() {
-    return (await getCurrentVersionInfo()).assetsFolder;
-}
-
 async function getDefaultTP() {
     var formats = await getFormats();
+    var versionInfo = await getCurrentVersionInfo();
+    var sites = await getSites();
     var defaultTP = formats.texturePack[formats.texturePack.length - 1].reduce((obj, tp) => {
-        if (!tp.default) {
-            return obj;
+        var tpurl = getTextureURL(tp,sites,versionInfo);
+        if(tpurl && tpurl != "") {
+            obj[tp.name] = tpurl;
         }
-        obj[tp.name] = tp.default;
         return obj
     }, {})
-    var v = await getCurrentVersionInfo();
-    defaultTP.script = `//scripts/client${v.version}.min.js`
     return defaultTP
 }
 

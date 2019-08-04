@@ -41,13 +41,6 @@ function isEquivalent(a, b) {
     return true;
 }
 
-function getAsserFolderVersion(assetsFolder) {
-    var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
-    var version = assetsFolder.replace(regex, "");
-    return version;
-}
-
-
 function save() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.set({ 'bctpm': DATA }, resolve);
