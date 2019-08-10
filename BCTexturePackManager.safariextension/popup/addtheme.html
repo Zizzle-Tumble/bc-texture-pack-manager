@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="popup.css"> -->
 </head>
 
 <body>
@@ -22,27 +23,27 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="https://boxcritters.github.io/mods">Mods </a>
                 </li>
-                
+
                 <li class="nav-item active">
                     <a class="nav-link" href="https://boxcritters.github.io/texturepacks">Texture Packs </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="https://boxcritters.github.io/tools">Tools </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="https://boxcritters.github.io/api-docs">API </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="https://discord.gg/D2ZpRUW">Discord </a>
                 </li>
-                
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search">
@@ -53,27 +54,40 @@
     <p id="error" class="alert alert-danger">Error text</p>
     <p id="success" class="alert alert-success">Success text</p>
     <div class="container">
-        <h1>Create Texture Pack</h1>
-        <p>Anything missing? <a href="https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager" target="_blank">Let Us Know</a></p>
-        <form id="createtpform">
-        </form>
+        <h1>Install Texture Pack</h1>
+        <p>Please ask for a code from a texture pack author or the <a target="_blank"
+                href="https://boxcritters.github.io">BoxCritters Modding Community</a> or from <a target="_blank"
+                href="https://discord.gg/awZNvc">
+                their discord</a>.</p>
         <form id="addtpform">
             <div class="form-group">
                 <label for="tpdata">Texture Pack Data</label>
-                <textarea id="tpdata" class="form-control" readonly rows="10"></textarea>
+                <textarea id="tpdata" class="form-control" rows="5"></textarea>
             </div>
+            <button id="addtheme" class="btn btn-primary">Install</button>
         </form>
+        <div class="my-5">
+            <div class="card-header">Texture Pack Information</div>
+            <div class="card-body">
+                <div id="preview">No Info to show</div>
+            <!-- </div>
+        </div>
+        <div class="my-5">
+            <div class="card-header">Texture Pack Gallery</div>
+            <div class="card-body"> -->
+                <div id="gallery"></div>
+            </div>
+        </div>
     </div>
+
     <footer id="version-display"></footer>
 
 
-    <script src="js/jquery-3.4.1.slim.min.js""></script>
-    <script src="js/popper.min.js"> </script> <script src="js/bootstrap.min.js"></script>
-    <script src="../getTextureURL.js"></script>
+    <script src="js/jquery-3.4.1.slim.min.js"></script>
+    <script src="js/popper.min.js"> </script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/util.js"></script>
-    <script src="js/category.js"></script>
     <script src="js/addtheme.js"></script>
-    <script src="js/createtheme.js"></script>
 </body>
 
 </html>

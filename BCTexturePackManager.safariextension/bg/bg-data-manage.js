@@ -41,19 +41,17 @@ function isEquivalent(a, b) {
     return true;
 }
 
-function updateBadge() {
-    if(DATA.currentTP.length>0){
-        browser.browserAction.setBadgeText({ text: DATA.currentTP.length.toString() });
-    } else {
-        browser.browserAction.setBadgeText({ text: "" });
-    }
+function getAsserFolderVersion(assetsFolder) {
+    var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
+    var version = assetsFolder.replace(regex, "");
+    return version;
 }
+
 
 function save() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.set({ 'bctpm': DATA }, resolve);
     });
-    updateBadge();
 }
 
 async function load() {
@@ -89,7 +87,6 @@ async function load() {
     });
 
     DATA.texturePacks = await Promise.all(proms);
-    updateBadge();
     return DATA;
 }
 
@@ -118,7 +115,7 @@ MSG_LISTENER.addListener("addtp", (content, sendResponse) => {
     content.new = true;
     var id = DATA.texturePacks.push(content) - 1;
     save().then(() => {
-        updateBadge();
+        browser.browserAction.setBadgeText({ text: data.texturePacks.length });
         sendResponse("Texture Pack successfuly added.");
     });
 });
@@ -139,7 +136,6 @@ MSG_LISTENER.addListener("settp", (content, sendResponse) => {
             sendResponse("Texture Pack successfuly set.");
         });
     });
-    updateBadge()
 });
 MSG_LISTENER.addListener("deletetp", (content, sendResponse) => {
     if (DATA.currentTP === content.id) {

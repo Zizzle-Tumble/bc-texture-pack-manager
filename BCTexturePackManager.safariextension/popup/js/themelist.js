@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tpitem.classList.add(...tpitemclasses);
         //a.tp-link
         var tplink;
-        if(i !== -1) {
+        if(!tp.readonly) {
             tplink = document.createElement("a");
             tplink.href = "#";
         } else {
@@ -202,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function refreshList() {
         sendMessageBG("getdata").then((data) => {
             var texturepacks = data.texturePacks || [];
-            console.log(data);
             console.log(texturepacks);
             if (texturepacks instanceof Array && texturepacks.length === 0) {
                 tplist.classList.add('middle-center');
@@ -222,12 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             data.currentTP.forEach((i) => {
                 var tp = texturepacks[i];
-                if(!tp) {
-                    enableTP(i);
-                    return;
-                }
 
-                debugger;
+
                 var tplink = genTPItem(tp, i);
                 tplink.classList.add("list-group-item-success");
 
@@ -268,15 +263,42 @@ document.addEventListener('DOMContentLoaded', () => {
             tplist.textContent = "";
             tplist.classList.add('middle-center');
 
-            var msgP = document.createTextNode("An Error has occored.");
+            var msgP = document.createTextNode("Please enter Box Critters");
             tplist.appendChild(msgP);
-            var link = document.createElement("a");
-            link.text = "Send Feedback";
-            link.href = "https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager";
-            tplist.appendChild(link);
-            var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
-            tplist.appendChild(info);
 
+            var bcBtn = document.createElement('a');
+            bcBtn.classList.add("btn", "btn-primary");
+            bcBtn.href = "#";
+            tplist.appendChild(bcBtn);
+
+            findTabWithURl('https://boxcritters.com/*')
+                .then(tab => {
+                    if (!tab) {//tab not open
+                        bcBtn.href = "https://boxcritters.com/play/index.html";
+                        bcBtn.target = "_blank";
+                        bcBtn.textContent = "Open Tab";
+                    } else if (tab.active) {//If tab is open and being viewed
+                        //if tab open and current
+                        bcBtn.textContent = "Refresh Page";
+                        bcBtn.addEventListener('click', () => {
+                            refreshPage();
+                        });
+                    } else { //if tab open and not current
+                        bcBtn.textContent = "Switch to tab";
+                        bcBtn.addEventListener('click', () => {
+                            browser.tabs.highlight({ 'tabs': tab.index }, () => {
+                                refreshPage();
+                            });
+                        });
+                    }
+
+                }).catch(r => {
+                    console.log("Error finding tab:", r);
+                    //If no tab open
+                    bcBtn.href = "https://boxcritters.com/play/index.html";
+                    bcBtn.target = "_blank";
+                    bcBtn.textContent = "Open Tab";
+                })
             return;
         });
     }

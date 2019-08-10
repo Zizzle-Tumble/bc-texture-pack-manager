@@ -7,6 +7,12 @@ Install: https://boxcritters.github.io/tools/texturepackselector/
 Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+## 2.2.x
+### 2.2.0
+- Texture Packs (should) work again
+- Removing texture pack doesn't break anything
+- An error message actually shows when an error occurs listing the texture packs instead of confusing people by telling them to open box critters even when it is already open.
+
 ## 2.1x
 ### 2.1.1
 
