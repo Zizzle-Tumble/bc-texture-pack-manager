@@ -9,25 +9,26 @@ async function getFormats() {
 
 }
 
+
+function getSites() {
+    return getJSON('https://bc-mod-api.herokuapp.com/sites');
+}
+
 function getCurrentVersionInfo() {
     return getJSON('https://bc-mod-api.herokuapp.com/');
 }
 
-async function getCurrentAssetsFolder() {
-    return (await getCurrentVersionInfo()).assetsFolder;
-}
-
 async function getDefaultTP() {
     var formats = await getFormats();
+    var versionInfo = await getCurrentVersionInfo();
+    var sites = await getSites();
     var defaultTP = formats.texturePack[formats.texturePack.length - 1].reduce((obj, tp) => {
-        if (!tp.default) {
-            return obj;
+        var tpurl = getTextureURL(tp,sites,versionInfo);
+        if(tpurl && tpurl != "") {
+            obj[tp.name] = tpurl;
         }
-        obj[tp.name] = tp.default;
         return obj
     }, {})
-    var v = await getCurrentVersionInfo();
-    defaultTP.script = `//scripts/client${v.version}.min.js`
     return defaultTP
 }
 
@@ -95,23 +96,9 @@ async function genrules() {
     //Get Default texture pack
     var verInfo = await getCurrentVersionInfo();
     var defaultTP = await getDefaultTP();
-    var bc = "https://boxcritters.com";
-    var bcMedia = "https://boxcritters.com/media";
     var bcVersionFolder = verInfo.assetsFolder;
 
     var keys = Object.keys(defaultTP);
-    keys.map(function (key) {        
-        if (!defaultTP[key].startsWith("http://")) {
-            if(defaultTP[key].startsWith("//")) {
-                defaultTP[key] = defaultTP[key].replace(/\/\//g,"/");
-                defaultTP[key] = bc + defaultTP[key];
-            } else if(defaultTP[key].startsWith("/")) {
-                defaultTP[key] = bcMedia + defaultTP[key];
-            } else {
-                defaultTP[key] = bcVersionFolder + defaultTP[key];
-            }
-        }
-    });
 
     //get texture pack attributes
     keys = Object.keys(defaultTP);
@@ -151,9 +138,11 @@ async function genrules() {
 
         RULES.push(...tpRules);
 
-    })
+    });
 
-    RULES = RULES.map(async r => {
+    var rulesProm = []
+
+    rulesProm = RULES.map(async r => {
         if (r.from.endsWith(".png")) {
             r.to = await loadImage(r.to);
         } else {
@@ -161,7 +150,7 @@ async function genrules() {
         }
         return r;
     });
-    RULES = await Promise.all(RULES);
+    RULES = await Promise.all(rulesProm);
     console.log("rules", RULES);
 }
 load().then(()=>{
@@ -219,7 +208,7 @@ browser.webRequest.onBeforeRequest.addListener(
         return redirect(details);
     },
     {
-        urls: ["https://boxcritters.com/*"],
+        urls: ["https://boxcritters.com/*","https://critterball.herokuapp.com/*"],
         //types: ["image"]
     },
     ["blocking"]

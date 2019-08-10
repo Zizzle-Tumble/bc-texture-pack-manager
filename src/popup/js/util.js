@@ -29,26 +29,28 @@ function getJSON(url) {
     });
 }
 
+function getSites() {
+    return getJSON('https://bc-mod-api.herokuapp.com/sites');
+}
+
 function getCurrentVersionInfo() {
     return getJSON('https://bc-mod-api.herokuapp.com/');
 }
 
-async function getCurrentAssetsFolder() {
-    return (await getCurrentVersionInfo()).assetsFolder;
-}
+async function getFileURL(texture) {
+    var versionInfo = await getCurrentVersionInfo();
+    var sites = await getSites();
 
-async function getFileURL(url) {
-    var bc = "https://boxcritters.com/media";
-    var bcv = await getCurrentAssetsFolder();
+    return getTextureURL(texture,sites,versionInfo)
 
-    if (!url.startsWith("http")) {
+    /*if (!url.startsWith("http")) {
         if(url.startsWith("/")) {
             url = bc + url;
         } else {
             url = bcv + url;
         }
     }
-    return url;
+    return url;*/
 
 }
 

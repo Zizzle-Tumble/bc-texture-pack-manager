@@ -112,11 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     var img;
                     var defaultimg;
                     if (f.category !== "info") {
-                        if (f.default) {
                             img = new Image();
                             formItem.append(img);
                             img.classList.add('card-img');
-                            getFileURL(f.default).then((url) => {
+                            getFileURL(f).then((url) => {
                                 img.setAttribute('src', url);
                                 defaultimg = url;
                                 img.onload = () => {
@@ -127,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 };
                             });
-                        }
                     }
 
                     var body = document.createElement('div');
@@ -155,11 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 })
                             });
                         }
-                    }
-                    if (!f.default && f.category !== "info") {
-                        formItemValue = document.createElement('p');
-                        formItemValue.classList.add("display-4");
-                        formItemValue.textContent = "Coming Soon"
                     }
                     body.appendChild(formItemValue);
 
