@@ -1,2 +1,3 @@
-- Scripts can now be replaced
-- Multiple Texture Packs can be applied at once.
+- Texture Packs (should) work again
+- Removing texturepack doesnt break anything
+- error message actually shows ehn an error occors listing the texture packs instead of confusing people by telling them to open box critters even when it is already open.
