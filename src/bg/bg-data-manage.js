@@ -108,7 +108,7 @@ MSG_LISTENER.addListener("addtp", (content, sendResponse) => {
     content.new = true;
     var id = DATA.texturePacks.push(content) - 1;
     save().then(() => {
-        browser.browserAction.setBadgeText({ text: data.texturePacks.length });
+        browser.browserAction.setBadgeText({ text: DATA.texturePacks.length });
         sendResponse("Texture Pack successfuly added.");
     });
 });

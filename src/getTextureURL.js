@@ -1,22 +1,26 @@
 
 /**
  * 
- * @param {{name:string,label:string,required:boolean,hidden:boolean,site:string,type:string,category:string,default:string}} texture 
+ * @param {{name:string,label:string,required:boolean,hidden:boolean,site:string,type:string,category:string,filename:string}} texture 
  * @param {object} sites 
  */
 //TODO: create Texture url generation
 function getTextureURL(texture, sites,versionInfo) {
-    debugger;
     var site = sites.find(s=>s.name==texture.site);
     if(!site) return;
     var catList = texture.category ? texture.category.split("/"):[""];
     var subType = catList[0];
     var dirset =  site[texture.type];
+    var filename = texture.filename || texture.name + ".png";
+    filename = filename.replace("{CLIENTVER}",versionInfo.clientVersion);
+    filename = filename.replace("{ITEMVER}",versionInfo.itemsVersion);
     var dir = "";
     if(typeof dirset == "object" && subType) {
         dir = dirset[subType];
     } else {
         dir = dirset;
     }
-    return site.url + dir + texture.name + ".png";
+    var textureurl = site.url + dir + filename;
+    console.debug(texture.name + " => " + textureurl);
+    return textureurl;
 }

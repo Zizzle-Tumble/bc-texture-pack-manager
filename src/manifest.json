@@ -39,6 +39,7 @@
         {
             "matches": [
                 "https://boxcritters.com/*",
+                "https://critterball.herokuapp.com/*",
                 "https://boxcritters.github.io/*"
             ],
             "js": [
@@ -52,7 +53,8 @@
         "storage",
         "tabs",
         "activeTab",
-        "https://boxcritters.com/*"
+        "https://boxcritters.com/*",
+        "https://critterball.herokuapp.com/*"
     ],
     "options_ui": {
         "page": "popup/options.html"
