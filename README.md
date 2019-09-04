@@ -8,6 +8,9 @@ Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-
 
 # ChangeLog
 ## 2.2.x
+### 2.2.1
+- Fixed Create Texture Pack Page
+
 ### 2.2.0
 - Texture Packs (should) work again
 - Removing texture pack doesn't break anything

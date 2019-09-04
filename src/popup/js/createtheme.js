@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 })
                             });
                         }
+                        body.appendChild(formItemValue);
                     }
-                    body.appendChild(formItemValue);
 
                     formItem.appendChild(header);
                     if (img) formItem.appendChild(img);
