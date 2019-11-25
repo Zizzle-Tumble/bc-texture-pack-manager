@@ -15,7 +15,7 @@ function getSites() {
 }
 
 function getCurrentVersionInfo() {
-    return getJSON('https://bc-mod-api.herokuapp.com/');
+    return getJSON('https://bc-mod-api.herokuapp.com/versions/latest');
 }
 
 async function getDefaultTP() {
