@@ -13,7 +13,7 @@ function getTextureURL(texture, sites,versionInfo) {
     var dirset =  site[texture.type];
     var filename = texture.filename || texture.name + ".png";
     filename = filename.replace("{CLIENTVER}",versionInfo.name);
-    filename = filename.replace("{ITEMVER}",versionInfo.name);
+    filename = filename.replace("{ITEMVER}",versionInfo.items);
     var dir = "";
     if(typeof dirset == "object" && subType) {
         dir = dirset[subType];
