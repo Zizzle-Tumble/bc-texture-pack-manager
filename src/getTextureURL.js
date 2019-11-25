@@ -12,8 +12,8 @@ function getTextureURL(texture, sites,versionInfo) {
     var subType = catList[0];
     var dirset =  site[texture.type];
     var filename = texture.filename || texture.name + ".png";
-    filename = filename.replace("{CLIENTVER}",versionInfo.clientVersion);
-    filename = filename.replace("{ITEMVER}",versionInfo.itemsVersion);
+    filename = filename.replace("{CLIENTVER}",versionInfo.name);
+    filename = filename.replace("{ITEMVER}",versionInfo.name);
     var dir = "";
     if(typeof dirset == "object" && subType) {
         dir = dirset[subType];
