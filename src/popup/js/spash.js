@@ -1,17 +1,19 @@
 //@ts-check
 var splashes = [
-    "Please suggest us a new name",
-    "Made by hackers for hackers.      You know who you are",
-    "You opened this menu, thanks",
-    "👨‍🔧Thank you so much for pl.. *using* my extention",
-    "We want Experiment 4!",
-    "RocketSnail is... A SNAIL!",
-    "Beaver or Hamster? This is the real question",
-    "Sub to BC Bulletin",
-    "Retro Critters is avaible if you want the Experiment 1 back",
+    "Please suggest us a new name!",
+    "Made by hackers for hackers. You know who you are.",
+    "You opened this menu, thanks bro.",
+    "👨‍🔧Thank you so much for playin.. *using* my extention.",
+    "We want Experiment 5!",
+    "Did you know? RocketSnail is... A SNAIL!",
+    "Beaver or Hamster? This is the real question...",
+    "Sub to Box Crittters Bulletin!",
     "/rocketsnail is the game creator!",
     "Join BC modding Community!",
-    "Want to create or download BC mods? Join the BC Modding Community"
+    "Want to create or download BC texture packs? Join the BC Modding Community",
+	"Random Splash!",
+	"Which one do you prefer? Raccoon or Fox?",
+	"This splash won't appear in the TPM menu."
 ];
 
 function parseMd(md){
@@ -73,5 +75,5 @@ function parseMd(md){
 
 document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('splash').innerHTML = 
-parseMd(splashes[Math.floor(Math.random() * splashes.length)]);
+parseMd(splashes[Math.floor(Math.random() * (splashes.length-1))]);
 });

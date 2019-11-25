@@ -46,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
             //Description by Eribetra
             "The default, vanilla texture pack.",
             //Description by Blackout03
-            "Wanna go retro? Use this pack!"
+            "Wanna go retro? Use this pack!",
+			//(new) Description by flines
+			"This is the classical look of Box Critters"
         ]
 
         tp.description = des[Math.floor(Math.random() * des.length)];
