@@ -208,7 +208,7 @@ browser.webRequest.onBeforeRequest.addListener(
         return redirect(details);
     },
     {
-        urls: ["https://boxcritters.com/*","https://critterball.herokuapp.com/*"],
+        urls: ["https://boxcritters.com/*","https://base.boxcritters.com/*","https://critterball.herokuapp.com/*"],
         //types: ["image"]
     },
     ["blocking"]
