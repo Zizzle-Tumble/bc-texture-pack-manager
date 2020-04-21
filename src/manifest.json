@@ -38,10 +38,10 @@
         },
         {
             "matches": [
-                "https://boxcritters.com/*",
-                "https://base.boxcritters.com/*",
+                "https://*.boxcritters.com/*",
                 "https://critterball.herokuapp.com/*",
-                "https://boxcritters.github.io/*"
+				"https://*.boxcrittersmods.ga/*",
+				"https://bc-mod-api.herokuapp.com/*"
             ],
             "js": [
                 "content.js"
@@ -54,9 +54,10 @@
         "storage",
         "tabs",
         "activeTab",
-        "https://boxcritters.com/*",
-		"https://base.boxcritters.com/*",
-        "https://critterball.herokuapp.com/*"
+        "https://critterball.herokuapp.com/*",
+		"https://*.boxcritters.com/*",
+		"https://*.boxcrittersmods.ga/*",
+		"https://bc-mod-api.herokuapp.com/*"
     ],
     "options_ui": {
         "page": "popup/options.html"

@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tplist.appendChild(msgP);
             var link = document.createElement("a");
             link.text = "Send Feedback";
-            link.href = "https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager";
+            link.href = "https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager";
             tplist.appendChild(link);
             var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
             tplist.appendChild(info);

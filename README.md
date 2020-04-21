@@ -3,8 +3,8 @@
 
 #Box Critters Texture Pack Manager
 
-Install: https://boxcritters.github.io/tools/texturepackselector/
-Send Feedback: https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager
+Install: https://boxcrittersmods.ga/tools/texturepackselector/
+Send Feedback: https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
 ## 2.2.x
