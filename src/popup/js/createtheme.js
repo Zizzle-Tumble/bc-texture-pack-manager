@@ -23,7 +23,7 @@ function normaliseFileName(text) {
 function getFormData(removeEmpty = false) {
     var formData = new FormData(createtpform);
     var data = {};
-    formData.forEach(function (value, key) {
+    formData.forEach(function(value, key) {
         if ((value && value !== "") || !removeEmpty) data[key] = value;
     });
     data.date = Date.now();
@@ -37,16 +37,16 @@ function createTP() {
      */
     var textarea = document.querySelector('textarea#tpdata');
     var data = getFormData(true)
-    // @ts-ignore
+        // @ts-ignore
     textarea.value = encode(data);
     return false;
 }
 
 function createTPJSON() {
     var dataurl = "data:text/json;charset=utf-8,"
-    /**
-     * @type {HTMLTextAreaElement}
-     */
+        /**
+         * @type {HTMLTextAreaElement}
+         */
     var textarea = document.querySelector('textarea#tpdata');
     var data = getFormData();
     var url = dataurl + encodeURIComponent(JSON.stringify(data, 0, 2));
@@ -112,20 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     var img;
                     var defaultimg;
                     if (f.category !== "info") {
-                            img = new Image();
-                            formItem.append(img);
-                            img.classList.add('card-img');
-                            getFileURL(f).then((url) => {
-                                img.setAttribute('src', url);
-                                defaultimg = url;
-                                img.onload = () => {
-                                    /*console.log(img.width/img.height)
-                                    var aspect = img.width/img.height;
-                                    img.width = 160*aspect;
-                                    img.height = 160;*/
+                        img = new Image();
+                        formItem.append(img);
+                        img.classList.add('card-img');
+                        getFileURL(f).then((url) => {
+                            img.setAttribute('src', url);
+                            defaultimg = url;
+                            img.onload = () => {
+                                /*console.log(img.width/img.height)
+                                var aspect = img.width/img.height;
+                                img.width = 160*aspect;
+                                img.height = 160;*/
 
-                                };
-                            });
+                            };
+                        });
                     }
 
                     var body = document.createElement('div');
@@ -161,24 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     formItem.appendChild(body);
 
 
-                    /***************************************** *//*
-                    formItem = document.createElement('div');
-                    var formItemLabel = document.createElement('span');
-                    var formItemValue = document.createElement('input');
-    
-                    formItemLabel.textContent = f.label||f.name;
-                    formItemValue.name = f.name;
-                    formItemValue.classList.add("form-control","px-2");
-                    if(f.required){
-                        formItemValue.setAttribute("required","");
-                    }
-                    if(!f.default&&f.category!=="info") {
-                        formItemValue.setAttribute("readonly","");
-                        formItemValue.placeholder = "Coming Soon"
-                    }
-    
-                    formItem.appendChild(formItemLabel);
-                    formItem.appendChild(formItemValue);*/
+                    /***************************************** */
+                    /*
+                                        formItem = document.createElement('div');
+                                        var formItemLabel = document.createElement('span');
+                                        var formItemValue = document.createElement('input');
+                        
+                                        formItemLabel.textContent = f.label||f.name;
+                                        formItemValue.name = f.name;
+                                        formItemValue.classList.add("form-control","px-2");
+                                        if(f.required){
+                                            formItemValue.setAttribute("required","");
+                                        }
+                                        if(!f.default&&f.category!=="info") {
+                                            formItemValue.setAttribute("readonly","");
+                                            formItemValue.placeholder = "Coming Soon"
+                                        }
+                        
+                                        formItem.appendChild(formItemLabel);
+                                        formItem.appendChild(formItemValue);*/
 
 
 
@@ -201,8 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentCategoryGroups[i] = new Category(category[i], fid == 0);
                         if (i == 0) {
                             createtpform.appendChild(currentCategoryGroups[i].getElement());
-                        }
-                        else {
+                        } else {
                             currentCategoryGroups[i - 1].appendChild(currentCategoryGroups[i]);
                         }
                         /*var categoryHeading = document.createElement('h'+(i+1));

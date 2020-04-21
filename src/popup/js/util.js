@@ -1,6 +1,7 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
 var CONTENT_CONNECTED = false;
+var DEFAULT;
 
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
@@ -35,6 +36,12 @@ function getSites() {
 
 function getCurrentVersionInfo() {
     return getJSON('https://bc-mod-api.herokuapp.com/');
+}
+
+
+async function getDefaultTP() {
+	if(!DEFAULT) DEFAULT = await getJSON('https://bc-mod-api.herokuapp.com/textures');
+	return DEFAULT;
 }
 
 async function getFileURL(texture) {

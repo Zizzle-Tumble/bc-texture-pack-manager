@@ -1,13 +1,14 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
 var RULES = new Array();
+var DEFAULT;
 
-async function getFormats() {
-    var formats = await getJSON('/formats.json');
-    formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
-    return formats;
+// async function getFormats() {
+//     var formats = await getJSON('/formats.json');
+//     formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
+//     return formats;
 
-}
+// }
 
 
 function getSites() {
@@ -19,17 +20,8 @@ function getCurrentVersionInfo() {
 }
 
 async function getDefaultTP() {
-    var formats = await getFormats();
-    var versionInfo = await getCurrentVersionInfo();
-    var sites = await getSites();
-    var defaultTP = formats.texturePack[formats.texturePack.length - 1].reduce((obj, tp) => {
-        var tpurl = getTextureURL(tp,sites,versionInfo);
-        if(tpurl && tpurl != "") {
-            obj[tp.name] = tpurl;
-        }
-        return obj
-    }, {})
-    return defaultTP
+	if(!DEFAULT) DEFAULT = await getJSON('https://bc-mod-api.herokuapp.com/textures');
+	return DEFAULT;
 }
 
 function sendMessage(type, content) {

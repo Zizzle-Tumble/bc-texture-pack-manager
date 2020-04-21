@@ -36,11 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    function getDefault(data) {
-        let tp = {};
-        tp.name = "BoxCritters";
-        tp.author = "RocketSnail";
-        tp.date = new Date("5 Jan 2019");
+    async function getDefault(data) {
+        let tp = await getDefaultTP();
 
         var des = [
             //Description by Eribetra
@@ -52,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
 
         tp.description = des[Math.floor(Math.random() * des.length)];
-        tp.version = 1;
         tp.readonly = true;
         return tp;
     }
@@ -201,71 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //List Texture Packs
-    function refreshList() {
-        sendMessageBG("getdata").then((data) => {
-            var texturepacks = data.texturePacks || [];
-            console.log(data);
-            console.log(texturepacks);
-            if (texturepacks instanceof Array && texturepacks.length === 0) {
-                tplist.classList.add('middle-center');
-                var text = document.createTextNode("There are no Texture Packs.");
-                tplist.appendChild(text);
-                var addthemelink = document.createElement('a');
-                addthemelink.href = "addtheme.html";
-                addthemelink.classList.add('btn', 'btn-primary');
-                addthemelink.target = "_blank";
-                addthemelink.textContent = "Add Texture Pack";
-                tplist.appendChild(addthemelink);
-                return;
-            }
-            ctplist.textContent = "";
-            tplist.innerHTML = '<div class="card-header"><span>Available Texture Packs</span></div>';
-            //tplist.classList.add("list-group");
-
-            data.currentTP.forEach((i) => {
-                var tp = texturepacks[i];
-                if(!tp) {
-                    enableTP(i);
-                    return;
-                }
-
-                debugger;
-                var tplink = genTPItem(tp, i);
-                tplink.classList.add("list-group-item-success");
-
-                ctplist.appendChild(tplink);
-
-
-            });
-
-            //default
-            var defaulttp = genTPItem(getDefault(data),-1)
-            defaulttp.classList.add("list-group-item-success");
-            ctplist.appendChild(defaulttp);
-
-            
-
-            texturepacks.forEach((tp, i) => {
-                /*var tpitem = document.createElement('li');
-                var tpitemlink = document.createElement('a');
-                tpitemlink.href = "#";
-                tpitemlink.addEventListener('click',()=>{
-                    enableTP(i);
-                });
-                tpitemlink.textContent = tp.name;
-                tpitem.appendChild(tpitemlink);
-                tplist.appendChild(tpitem);*/
-
-                //NEW METHOD
-                if (data.currentTP.includes(i)) {
-                    return
-                }
-                var tplink = genTPItem(tp, i);
-
-                tplist.appendChild(tplink);
-            });
-            setupActionButtons();
-        }).catch((e) => {
+    async function refreshList() {
+		var data = await sendMessageBG("getdata")
+		if(!data) {
             console.log(e);
             tplist.textContent = "";
             tplist.classList.add('middle-center');
@@ -274,13 +208,66 @@ document.addEventListener('DOMContentLoaded', () => {
             tplist.appendChild(msgP);
             var link = document.createElement("a");
             link.text = "Send Feedback";
-            link.href = "https://boxcritters.github.io/feedback/send?repo=bc-texture-pack-manager";
+            link.href = "https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager";
             tplist.appendChild(link);
             var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
             tplist.appendChild(info);
 
             return;
+        };
+        var texturepacks = data.texturePacks || [];
+        console.log(data);
+        console.log(texturepacks);
+        if (texturepacks instanceof Array && texturepacks.length === 0) {
+            tplist.classList.add('middle-center');
+            var text = document.createTextNode("There are no Texture Packs.");
+            tplist.appendChild(text);
+            var addthemelink = document.createElement('a');
+            addthemelink.href = "addtheme.html";
+            addthemelink.classList.add('btn', 'btn-primary');
+            addthemelink.target = "_blank";
+            addthemelink.textContent = "Add Texture Pack";
+            tplist.appendChild(addthemelink);
+            return;
+        }
+        ctplist.textContent = "";
+        tplist.innerHTML = '<div class="card-header"><span>Available Texture Packs</span></div>';
+        //tplist.classList.add("list-group");
+
+        data.currentTP.forEach((i) => {
+            var tp = texturepacks[i];
+            if(!tp) {
+                enableTP(i);
+                return;
+            }
+
+            debugger;
+            var tplink = genTPItem(tp, i);
+            tplink.classList.add("list-group-item-success");
+
+            ctplist.appendChild(tplink);
+
+
         });
+
+		//default
+		var defaulttp = genTPItem(await getDefault(data),-1)
+		defaulttp.classList.add("list-group-item-success");
+		ctplist.appendChild(defaulttp);
+
+        
+
+        texturepacks.forEach((tp, i) => {
+
+            //NEW METHOD
+            if (data.currentTP.includes(i)) {
+                return
+            }
+            var tplink = genTPItem(tp, i);
+
+            tplist.appendChild(tplink);
+        });
+        setupActionButtons();	
     }
     refreshList();
 
