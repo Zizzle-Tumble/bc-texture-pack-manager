@@ -1,5 +1,8 @@
 //@ts-check
-console.log("CONTENT.JS");
+console.info("-----------------------------------");
+console.info("[BOX CRITTERS TEXTURE PACK MANAGER]");
+console.info("A chrome extention created by\nTumbleGamer");
+console.info("-----------------------------------");
 
 var browser = browser || chrome || msBrowser;
 

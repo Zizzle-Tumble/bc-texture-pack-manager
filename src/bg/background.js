@@ -2,12 +2,12 @@
 var browser = browser || chrome || msBrowser;
 var RULES = new Array();
 
-async function getFormats() {
-    var formats = await getJSON('/formats.json');
-    formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
-    return formats;
+// async function getFormats() {
+//     var formats = await getJSON('/formats.json');
+//     formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
+//     return formats;
 
-}
+// }
 
 
 function getSites() {
@@ -19,6 +19,7 @@ function getCurrentVersionInfo() {
 }
 
 async function getDefaultTP() {
+    return getJSON('https://bc-mod-api.herokuapp.com/textures');
     var formats = await getFormats();
     var versionInfo = await getCurrentVersionInfo();
     var sites = await getSites();
