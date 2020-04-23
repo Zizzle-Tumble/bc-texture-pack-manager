@@ -12,20 +12,6 @@ addtpfrom.addEventListener('submit', noRedirectForm);
 var preview = document.getElementById('preview');
 var gallery = document.getElementById('gallery');
 
-
-async function isValidFormatting(type, obj) {
-    var keys = Object.keys(obj);
-    if (!keys.includes("version")) {
-        return false;
-    }
-    var formats = await getFormats()
-    // throw JSON.stringify(formats, undefined, 2);
-    formats = formats[type][obj.version];
-    var valid = formats.every(i => keys.indexOf(i.name) > -1 || !i.required);
-    return valid;
-
-}
-
 function tpListing(tp ,i) {
     //div.tp-item
     var tpitem = document.createElement('div');
@@ -147,22 +133,17 @@ async function AddTP(data) {
     console.log("addtp");
     data = decode(data);
     debugger
-    var valid = await isValidFormatting("texturePack", data);
     var exists = await sendMessageBG("tpexists", data.name);
     if (exists) {
         console.log("exists");
 
         throw "Texture pack exists";
         return;
-    } else if (valid) {
+    } else {
         console.log("valid");
 
         return await sendMessageBG("addtp", data);
         //return;
-    }
-    else {
-        console.log("invalid");
-        throw "Invalid Texture Pack Format";
     }
 }
 
