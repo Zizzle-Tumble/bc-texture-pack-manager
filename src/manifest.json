@@ -1,23 +1,23 @@
 {
     "manifest_version": 2,
     "name": "Box Critters Texture Pack Manager",
-	"description": "A great extension that lets you easily switch between, add and create new themes to use on Box Critters!",
+    "description": "A great extension that lets you easily switch between, add and create new themes to use on Box Critters!",
     "version_name": "3.0.0",
     "version": "3.0.0.161",
     "author": "TumbleGamer",
     "icons": {
         "16": "logo-16.png",
         "32": "logo-32.png",
-        "64": "logo-64.png",
         "48": "logo-48.png",
+        "64": "logo-64.png",
         "128": "logo-128.png"
     },
     "browser_action": {
         "default_icon": {
             "16": "logo-16.png",
             "32": "logo-32.png",
-            "64": "logo-64.png",
             "48": "logo-48.png",
+            "64": "logo-64.png",
             "128": "logo-128.png"
         },
         "default_popup": "popup/popup.html",
@@ -40,8 +40,8 @@
             "matches": [
                 "https://*.boxcritters.com/*",
                 "https://critterball.herokuapp.com/*",
-				"https://*.boxcrittersmods.ga/*",
-				"https://bc-mod-api.herokuapp.com/*"
+                "https://*.boxcrittersmods.ga/*",
+                "https://bc-mod-api.herokuapp.com/*"
             ],
             "js": [
                 "content.js"
@@ -55,11 +55,13 @@
         "tabs",
         "activeTab",
         "https://critterball.herokuapp.com/*",
-		"https://*.boxcritters.com/*",
-		"https://*.boxcrittersmods.ga/*",
-		"https://bc-mod-api.herokuapp.com/*"
+        "https://*.boxcritters.com/*",
+        "https://*.boxcrittersmods.ga/*",
+        "https://bc-mod-api.herokuapp.com/*"
     ],
-    "options_ui": {
-        "page": "popup/options.html"
+    "options_page": "popup/options.html",
+    "-ms-preload": {
+        "backgroundScript": "backgroundScriptsAPIBridge.js",
+        "contentScript": "contentScriptsAPIBridge.js"
     }
 }
