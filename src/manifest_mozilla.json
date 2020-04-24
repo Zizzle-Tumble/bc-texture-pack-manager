@@ -2,7 +2,11 @@
     "manifest_version": 2,
     "name": "Box Critters Texture Pack Manager",
 	"description": "A great extension that lets you easily switch between, add and create new themes to use on Box Critters!",
+<<<<<<< HEAD
     "version": "3.0.1.161",
+=======
+    "version": "3.0.0.160",
+>>>>>>> a8f4b5a... build and release
     "author": "TumbleGamer",
     "icons": {
         "16": "logo-16.png",
