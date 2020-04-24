@@ -59,5 +59,9 @@
         "https://*.boxcrittersmods.ga/*",
         "https://bc-mod-api.herokuapp.com/*"
     ],
-    "options_page": "popup/options.html"
+    "options_page": "popup/options.html",
+    "-ms-preload": {
+        "backgroundScript": "backgroundScriptsAPIBridge.js",
+        "contentScript": "contentScriptsAPIBridge.js"
+    }
 }
