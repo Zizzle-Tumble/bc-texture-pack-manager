@@ -128,6 +128,7 @@ MSG_LISTENER.addListener("gettp", (content, sendResponse) => {
 MSG_LISTENER.addListener("getdata", (content, sendResponse) => {
     sendResponse(DATA);
 });
+
 MSG_LISTENER.addListener("settp", (content, sendResponse) => {
     if(DATA.currentTP.includes(content.id)) {
         DATA.currentTP.splice( DATA.currentTP.indexOf(content.id), 1 );

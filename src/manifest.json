@@ -58,6 +58,10 @@
         "https://*.boxcritters.com/*",
         "https://*.boxcrittersmods.ga/*",
         "https://bc-mod-api.herokuapp.com/*"
-    ],
-    "options_page": "popup/options.html"
+	],
+	
+	"options_ui": {
+		"page": "popup/options.html",
+		"open_in_tab": true
+	  }
 }

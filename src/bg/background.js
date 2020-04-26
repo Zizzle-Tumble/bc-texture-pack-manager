@@ -36,6 +36,9 @@ function sendMessage(type, content) {
 }
 
 
+MSG_LISTENER.addListener("getrules", (content, sendResponse) => {
+    sendResponse(RULES);
+});
 
 
 function saverules() {
@@ -106,13 +109,19 @@ async function genrules() {
     //get current texture pacK
     if (DATA.currentTP.length < 1) {
         return "no texture pack was selected";
-    }
+	}
     DATA.currentTP.forEach(ctp=>{
-        var currentTP = DATA.texturePacks[ctp] || {};
-        currentTP.new = false;
+		var currentTP = DATA.texturePacks[ctp] || {};
+		currentTP.new = false;
+		currentTP = Object.assign({},currentTP);
+		
+		["name","author","date","description","version","packVersion","new","updateURL"].forEach(k=>{
+			delete currentTP[k];
+		})
         console.log("current tp", ctp);
 
         var tpRules = keys.map((key) => {
+			
             var rule = {};
             //console.log("key",key);
     
@@ -200,7 +209,7 @@ browser.webRequest.onBeforeRequest.addListener(
         return redirect(details);
     },
     {
-        urls: ["https://boxcritters.com/*","https://base.boxcritters.com/*","https://critterball.herokuapp.com/*"],
+		urls: ["https://*.boxcritters.com/*","https://critterball.herokuapp.com/*"],
         //types: ["image"]
     },
     ["blocking"]
