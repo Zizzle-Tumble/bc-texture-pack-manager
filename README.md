@@ -7,6 +7,9 @@ Install: https://boxcrittersmods.ga/tools/texturepackselector/
 Send Feedback: https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+### 3.0.3
+- Change to new texture api
+- Easier ability to change api server url
 ### 3.0.2
 - Texture packs now work with media.boxcritters.com
 
