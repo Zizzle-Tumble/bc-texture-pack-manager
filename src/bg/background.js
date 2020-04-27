@@ -3,6 +3,8 @@ var browser = browser || chrome || msBrowser;
 var RULES = new Array();
 var DEFAULT;
 
+var api = "http://bc-mod-api.herokuapp.com";
+
 // async function getFormats() {
 //     var formats = await getJSON('/formats.json');
 //     formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
@@ -12,15 +14,15 @@ var DEFAULT;
 
 
 function getSites() {
-    return getJSON('https://bc-mod-api.herokuapp.com/sites');
+    return getJSON(api + '/sites');
 }
 
 function getCurrentVersionInfo() {
-    return getJSON('https://bc-mod-api.herokuapp.com/versions/latest');
+    return getJSON(api + '/versions/latest');
 }
 
 async function getDefaultTP() {
-	if(!DEFAULT) DEFAULT = await getJSON('https://bc-mod-api.herokuapp.com/textures');
+	if(!DEFAULT) DEFAULT = await getJSON(api+'/textures/BoxCritters.bctp.json');
 	return DEFAULT;
 }
 
