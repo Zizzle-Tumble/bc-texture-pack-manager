@@ -3,7 +3,7 @@ var browser = browser || chrome || msBrowser;
 var CONTENT_CONNECTED = false;
 var DEFAULT;
 
-var api = "https://bc-mod-api.herokuapp.com"
+var api = "https://bc-mod-api.herokuapp.com";
 
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
