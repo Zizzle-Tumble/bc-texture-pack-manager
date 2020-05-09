@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //List Shaders
     async function refreshList() {	
 	}
-	sendMessageBG("setTab",0);
+	sendMessageBG("setTab",1);
 
     refreshList();
 
