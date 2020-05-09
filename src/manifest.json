@@ -30,7 +30,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://*.githubusercontent.com/*/*.bctp.json"
+                "https://*.githubusercontent.com/*/*.bctp.json",
+                "https://cdn.boxcrittersmods.ga/*/*.bctp.json"
             ],
             "js": [
                 "oneclick-detect.js"
