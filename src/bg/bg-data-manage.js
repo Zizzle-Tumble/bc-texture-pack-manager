@@ -42,8 +42,8 @@ function isEquivalent(a, b) {
 }
 
 function updateBadge() {
-    if(DATA.currentTP.length>0){
-        browser.browserAction.setBadgeText({ text: DATA.currentTP.length.toString() });
+    if(DATA.currentTP.length>0||DATA.currentShader.length>0){
+        browser.browserAction.setBadgeText({ text: (DATA.currentTP.length+DATA.currentShader.length).toString() });
     } else {
         browser.browserAction.setBadgeText({ text: "" });
     }
@@ -88,7 +88,23 @@ async function load() {
         return tp;
     });
 
-    DATA.texturePacks = await Promise.all(proms);
+	DATA.texturePacks = await Promise.all(proms);
+	
+	proms = DATA.shaders.map(async shader=>{
+		if(shader.new===undefined) {
+			shader.new = true;
+			return shader;
+		}
+		if(shader.updateURL) {
+			var newShader = await getJSON(shader.updateURL);
+			newShader.new = true;
+			newShader.updateURL = shader.updateURL;
+			return newShader;
+		}
+		return shader;
+	});
+	DATA.shaders = await Promise.all(proms);
+
     updateBadge();
     return DATA;
 }
