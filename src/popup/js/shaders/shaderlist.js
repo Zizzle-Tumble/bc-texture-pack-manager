@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteShader(id) {
-        sendMessageBG("deletetshader, { id }).then(msg => {
+        sendMessageBG("deletetshader", { id }).then(msg => {
             sendMessageBG('refreshshaders', id).then(() => {
                 refreshPage();
             });
