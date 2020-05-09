@@ -2,6 +2,7 @@
 var browser = browser || chrome || msBrowser;
 var TP_RULES = new Array();
 var DEFAULT_TP;
+var POPUP_TAB = 0;
 
 var api = "https://api.boxcrittersmods.ga";
 
@@ -42,6 +43,12 @@ MSG_LISTENER.addListener("getrules", (content, sendResponse) => {
     sendResponse(TP_RULES);
 });
 
+MSG_LISTENER.addListener("getTab", (content, sendResponse) => {
+    sendResponse(POPUP_TAB);
+});
+MSG_LISTENER.addListener("setTab", (content, sendResponse) => {
+    POPUP_TAB = content;
+});
 
 function saverules() {
     return new Promise((resolve, reject) => {

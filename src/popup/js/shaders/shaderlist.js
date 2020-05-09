@@ -1,7 +1,7 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
-    var tplist = document.querySelector("div#tplist");
-    var ctplist = document.querySelector("div#ctplist");
+    var shaderlist = document.querySelector("div#shaderlist");
+    var ctplist = document.querySelector("div#cshaderlist");
     var refreshbutton = document.querySelector('#btn-refresh');
     var resetbutton = document.querySelector('#btn-reset');
 
@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function enableTP(id) {
+    function enableShader(id) {
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
-        sendMessageBG("settp", { id }).then(msg => {
-            sendMessageBG('refreshrules', id).then(() => {
+        sendMessageBG("setshader", { id }).then(msg => {
+            sendMessageBG('refreshshaders', id).then(() => {
                 refreshPage();
             });
             successmessage.style.display = "block";
@@ -27,30 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function deleteTP(id) {
-        sendMessageBG("deletetp", { id }).then(msg => {
-            sendMessageBG('refreshrules', id).then(() => {
+    function deleteShader(id) {
+        sendMessageBG("deletetshader, { id }).then(msg => {
+            sendMessageBG('refreshshaders', id).then(() => {
                 refreshPage();
             });
         });
 
-    }
-
-    async function getDefault(data) {
-        let tp = await getDefaultTP();
-
-        var des = [
-            //Description by Eribetra
-            "The default, vanilla texture pack.",
-            //Description by Blackout03
-            "Wanna go retro? Use this pack!",
-			//(new) Description by flines
-			"This is the classical look of Box Critters"
-        ]
-
-        tp.description = des[Math.floor(Math.random() * des.length)];
-        tp.readonly = true;
-        return tp;
     }
 
     function setupActionButtons() {
@@ -78,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
     */
 
-    function genTPItem(tp, i) {
+    function genShaderItem(tp, i) {
         //div.tp-item
         var tpitem = document.createElement('div');
         tpitem.id = i;
@@ -196,78 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return tpitem;
     }
 
-    //List Texture Packs
-    async function refreshList() {
-		var data = await sendMessageBG("getdata")
-		if(!data) {
-            console.log(e);
-            tplist.textContent = "";
-            tplist.classList.add('middle-center');
-
-            var msgP = document.createTextNode("An Error has occored.");
-            tplist.appendChild(msgP);
-            var link = document.createElement("a");
-            link.text = "Send Feedback";
-            link.href = "https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager";
-            tplist.appendChild(link);
-            var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
-            tplist.appendChild(info);
-
-            return;
-        };
-        var texturepacks = data.texturePacks || [];
-        console.log(data);
-        console.log(texturepacks);
-        if (texturepacks instanceof Array && texturepacks.length === 0) {
-            tplist.classList.add('middle-center');
-            var text = document.createTextNode("There are no Texture Packs.");
-            tplist.appendChild(text);
-            var addthemelink = document.createElement('a');
-            addthemelink.href = "addtheme.html";
-            addthemelink.classList.add('btn', 'btn-success');
-            addthemelink.target = "_blank";
-            addthemelink.textContent = "Add Texture Pack";
-            tplist.appendChild(addthemelink);
-            return;
-        }
-        ctplist.textContent = "";
-        tplist.innerHTML = '<div class="card-header"><span>Available Texture Packs</span></div>';
-        //tplist.classList.add("list-group");
-
-        data.currentTP.forEach((i) => {
-            var tp = texturepacks[i];
-            if(!tp) {
-                enableTP(i);
-                return;
-            }
-
-            debugger;
-            var tplink = genTPItem(tp, i);
-            tplink.classList.add("list-group-item-success");
-
-            ctplist.appendChild(tplink);
-
-
-        });
-
-		//default
-		var defaulttp = genTPItem(await getDefault(data),-1)
-		defaulttp.classList.add("list-group-item-success");
-		ctplist.appendChild(defaulttp);
-
-        
-
-        texturepacks.forEach((tp, i) => {
-
-            //NEW METHOD
-            if (data.currentTP.includes(i)) {
-                return
-            }
-            var tplink = genTPItem(tp, i);
-
-            tplist.appendChild(tplink);
-        });
-        setupActionButtons();	
+    //List Shaders
+    async function refreshList() {	
 	}
 	sendMessageBG("setTab",0);
 
@@ -275,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //refresh
     refreshbutton.addEventListener('click', () => {
-        sendMessageBG("refreshtp").then(() => {
+        sendMessageBG("refreshshader").then(() => {
             console.log("REFRESHING...");
 
             refreshPage();
