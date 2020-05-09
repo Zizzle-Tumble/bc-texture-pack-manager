@@ -3,7 +3,7 @@
     "name": "Box Critters Texture Pack Manager",
     "description": "A great extension that lets you easily switch between, add and create new themes to use on Box Critters!",
     "version_name": "3.0.3",
-    "version": "3.0.3.165",
+    "version": "3.0.3.167",
     "author": "TumbleGamer",
     "icons": {
         "16": "logo-16.png",
@@ -40,8 +40,7 @@
             "matches": [
                 "https://*.boxcritters.com/*",
                 "https://critterball.herokuapp.com/*",
-                "https://*.boxcrittersmods.ga/*",
-                "https://bc-mod-api.herokuapp.com/*"
+                "https://*.boxcrittersmods.ga/*"
             ],
             "js": [
                 "content.js"
@@ -56,8 +55,7 @@
         "activeTab",
         "https://critterball.herokuapp.com/*",
         "https://*.boxcritters.com/*",
-        "https://*.boxcrittersmods.ga/*",
-        "https://bc-mod-api.herokuapp.com/*"
+        "https://*.boxcrittersmods.ga/*"
 	],
 	
 	"options_ui": {
