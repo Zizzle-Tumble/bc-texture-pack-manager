@@ -3,7 +3,7 @@ var browser = browser || chrome || msBrowser;
 var RULES = new Array();
 var DEFAULT;
 
-var api = "https://bc-mod-api.herokuapp.com";
+var api = "https://api.boxcrittersmods.ga";
 
 // async function getFormats() {
 //     var formats = await getJSON('/formats.json');
