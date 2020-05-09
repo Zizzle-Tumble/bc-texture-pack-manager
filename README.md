@@ -1,7 +1,7 @@
 # bc-texture-pack-manager
-[![GitHub release](https://img.shields.io/github/release/boxcritters/bc-texture-pack-manager.js.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager.js/releases/)
-[![GitHub commits](https://img.shields.io/github/commits-since/boxcritters/bc-texture-pack-manager.js/v1.0.0.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager.js/commit/)
-[![GitHub license](https://img.shields.io/github/license/boxcritters/bc-texture-pack-manager.js.svg)](https://github.com/boxcritters/bc-texture-pack-manager.js/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/boxcritters/bc-texture-pack-manager.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager/releases/)
+[![GitHub commits](https://img.shields.io/github/commits-since/boxcritters/bc-texture-pack-manager/latest.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager/commit/)
+[![GitHub license](https://img.shields.io/github/license/boxcritters/bc-texture-pack-manager.svg)](https://github.com/boxcritters/bc-texture-pack-manager/blob/master/LICENSE)
 
 # Changelog
 
