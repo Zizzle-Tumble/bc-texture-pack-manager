@@ -7,5 +7,8 @@
 				case 1:
 					window.location.href = "shaderlist.html";
 					break;
+				case 2:
+					window.location.href = "options.html";
+					break;
 			}
 		})
