@@ -44,14 +44,6 @@
             ],
             "js": [
                 "content.js"
-            ],
-            "matches": [
-                "https://*.boxcritters.com/*"
-            ],
-            "js": [
-				"preUS.js",
-				"bc-shaders/bc-shaders.user.js",
-                "shaderload.js"
             ]
         }
     ],
