@@ -4,12 +4,24 @@ console.info("[BOX CRITTERS TEXTURE PACK MANAGER]");
 console.info("A chrome extention created by\nTumbleGamer");
 console.info("-----------------------------------");
 
+
+
 var browser = browser || chrome || msBrowser;
 
 function getAsserFolderVersion(assetsFolder) {
     var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
     var version = assetsFolder.replace(regex, "");
     return version;
+}
+
+function runInPage(f) {
+	var script = document.createElement("script");
+	script.id = "tpm_runInPage";
+	var scriptText = "(" + f.toString() + ")();" + `
+	$('#tpm_runInPage').remove();
+	`;
+	script.appendChild(document.createTextNode(scriptText));
+	(document.body||document.head||document.documentElement).appendChild(script);
 }
 
 function refreshRedirects() {
@@ -25,7 +37,17 @@ browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) 
             break;
         case "ping":
             sendResponse(true);
-            break;
+			break;
+		case "loadShader":
+			runInPage(function() {
+				loadShader(content);
+			});
+			break;
+		case "clearShaders":
+			runInPage(function() {
+				clearShaders();
+			});
+			break;
         default:
             sendResponse();
             break;
