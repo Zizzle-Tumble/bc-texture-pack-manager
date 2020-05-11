@@ -17,12 +17,19 @@ function getAsserFolderVersion(assetsFolder) {
 function runInPage(f) {
 	var script = document.createElement("script");
 	script.id = "tpm_runInPage";
-	var scriptText = "(" + f.toString() + ")();" + `
+	var scriptText = "(" + f.toString() + `)(function TPM_sendMessage(type, content={}) {
+		console.log("[TPM] Sending message:", { type, content });
+	
+		return new Promise((resolve, reject) => {
+			chrome.runtime.sendMessage(${browser.runtime.id},{ type, content },resolve);
+		});
+	});
 	$('#tpm_runInPage').remove();
 	`;
 	script.appendChild(document.createTextNode(scriptText));
 	(document.body||document.head||document.documentElement).appendChild(script);
 }
+
 
 function refreshRedirects() {
     return new Promise((resolve,reject)=>{
