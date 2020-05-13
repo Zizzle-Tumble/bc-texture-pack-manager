@@ -1,15 +1,10 @@
 var RESET_ON_RELOAD = false;
 var DATA = {
     currentTP: [],
-    texturePacks: []
+	texturePacks: [],
+	currentShader:[],
+	shaders:[]
 }
-
-
-function initDefaultTP() {
-
-}
-
-initDefaultTP();
 
 
 

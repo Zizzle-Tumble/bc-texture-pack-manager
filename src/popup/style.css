@@ -93,3 +93,9 @@ footer {
 	background: rgba(96,167,220,.8);
   z-index: 99;
 }
+
+.nav-item > .fas {
+font-size: 2em;
+padding-bottom: 3px;
+display: block;
+}

@@ -1,4 +1,2 @@
-- Texture Packs (should) work again
-- Removing texturepack doesn't break anything
-- error message actually shows when an error occors listing the texture packs instead of confusing people by telling them to open box critters even when it is already open.
-- Fixed Create Texture Pack Page
+- Shader Support
+- added support for BCMC CDN

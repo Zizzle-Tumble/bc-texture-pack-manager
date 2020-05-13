@@ -9,11 +9,38 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup.css">
 <style>
 
 </style>
 </head>
-<body>
+<body><div class="dropzone" id="dropzone"></div>
+    <div id="nav" class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+			<footer id="version-display"></footer>
+            <div class="bg-dark p-4">
+                <h5 class="text-white h4">Advanced Options</h5>
+                <a href="http://feedback.boxcrittersmods.ga/send?repo=bc-texture-pack-manager"
+                    class="btn btn-secondary" target="_blank" rel=”noopener noreferrer”>Send Feedback</a>
+            </div>
+        </div>
+        <nav class="navbar navbar-success bg-success text-light">
+            <button class="btn btn-success" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i></i>
+            </button>
+            <center><span class="navbar-brand">BC Options Manager</span></center>
+<form></form>
+
+        </nav>
+    </div>
+    <p id="error" class="alert alert-danger">Something is clearly wrong...</p>
+    <p id="success" class="alert alert-success">Sucess!</p>
+    <footer id="splash"></footer>
+    <div id="page">
 	<p>Options Page: Coming Soon</p>
 	<div class="container">
 		<div class="form-group">
@@ -25,13 +52,18 @@
 			<textarea name="rules" class="form-control" id="rules" cols="30" rows="10" readonly></textarea>
 		</div>
 	</div>
-	<footer id="version-display"></footer>
+</div>
+  <nav class="nav fixed-bottom nav-fill navbar-success">
+	<a class="nav-item nav-link btn-success " href="themelist.html"><i class="fas fa-paint-brush"></i>Texture Packs</a>
+	<a class="nav-item nav-link btn-success" href="shaderlist.html"><i class="fas fa-eye"></i>Shaders</a>
+	<a class="nav-item nav-link btn-success active" href="options.html"><i class="fas fa-cog"></i>Options</a>
+  </nav>
 
 
-    <script src="js/jquery-3.4.1.slim.min.js""></script>
-    <script src="js/popper.min.js"> </script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/util.js"></script>
+<script src="js/jquery-3.4.1.slim.min.js""></script>
+<script src="js/popper.min.js"> </script> <script src="js/bootstrap.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/spash.js"></script>
     <script src="js/options.js"></script>
 </body>
 </html>

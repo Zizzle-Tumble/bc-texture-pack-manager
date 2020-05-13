@@ -3,6 +3,8 @@ var browser = browser || chrome || msBrowser;
 var CONTENT_CONNECTED = false;
 var DEFAULT;
 
+var api = "https://api.boxcrittersmods.ga";
+
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
         obj[p.split('=')[0]] = p.split('=')[1];
@@ -31,16 +33,16 @@ function getJSON(url) {
 }
 
 function getSites() {
-    return getJSON('https://bc-mod-api.herokuapp.com/sites');
+    return getJSON(api+'/sites');
 }
 
 function getCurrentVersionInfo() {
-    return getJSON('https://bc-mod-api.herokuapp.com/');
+    return getJSON(api);
 }
 
 
 async function getDefaultTP() {
-	if(!DEFAULT) DEFAULT = await getJSON('https://bc-mod-api.herokuapp.com/textures');
+	if(!DEFAULT) DEFAULT = await getJSON(api+'/textures/BoxCritters.bctp.json');
 	return DEFAULT;
 }
 
@@ -63,7 +65,7 @@ async function getFileURL(texture) {
 
 async function getFormats() {
     var formats = await getJSON('/formats.json');
-    formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
+    formats.texturePack.push(await getJSON(api+'/textures/'));
     return formats;
 
 }

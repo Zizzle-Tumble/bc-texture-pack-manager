@@ -1,7 +1,10 @@
 //@ts-check
 var browser = browser || chrome || msBrowser;
-var RULES = new Array();
-var DEFAULT;
+var TP_RULES = new Array();
+var DEFAULT_TP;
+var POPUP_TAB = 0;
+
+var api = "https://api.boxcrittersmods.ga";
 
 // async function getFormats() {
 //     var formats = await getJSON('/formats.json');
@@ -12,16 +15,16 @@ var DEFAULT;
 
 
 function getSites() {
-    return getJSON('https://bc-mod-api.herokuapp.com/sites');
+    return getJSON(api + '/sites');
 }
 
 function getCurrentVersionInfo() {
-    return getJSON('https://bc-mod-api.herokuapp.com/versions/latest');
+    return getJSON(api + '/versions/latest');
 }
 
 async function getDefaultTP() {
-	if(!DEFAULT) DEFAULT = await getJSON('https://bc-mod-api.herokuapp.com/textures');
-	return DEFAULT;
+	if(!DEFAULT_TP) DEFAULT_TP = await getJSON(api+'/textures/BoxCritters.bctp.json');
+	return DEFAULT_TP;
 }
 
 function sendMessage(type, content) {
@@ -37,9 +40,15 @@ function sendMessage(type, content) {
 
 
 MSG_LISTENER.addListener("getrules", (content, sendResponse) => {
-    sendResponse(RULES);
+    sendResponse(TP_RULES);
 });
 
+MSG_LISTENER.addListener("getTab", (content, sendResponse) => {
+    sendResponse(POPUP_TAB);
+});
+MSG_LISTENER.addListener("setTab", (content, sendResponse) => {
+    POPUP_TAB = content;
+});
 
 function saverules() {
     return new Promise((resolve, reject) => {
@@ -52,7 +61,7 @@ function saverules() {
 function loadrules() {
     return new Promise((resolve, reject) => {
         browser.storage.sync.get(["bctpmRules"], (storage) => {
-            RULES = storage.bctpmRules || [];
+            TP_RULES = storage.bctpmRules || [];
             resolve(storage.bctpmRules);
         });
     });
@@ -104,7 +113,7 @@ async function genrules() {
     if (DATA === undefined ) {
         return "no data was found";
     }
-    RULES = [];
+    TP_RULES = [];
 
     //get current texture pacK
     if (DATA.currentTP.length < 1) {
@@ -134,16 +143,16 @@ async function genrules() {
 
         tpRules = tpRules.filter(r => 
             r.to !== r.from &&
-            !RULES.map(rule=>rule.from).includes(r.from)
+            !TP_RULES.map(rule=>rule.from).includes(r.from)
         );
 
-        RULES.push(...tpRules);
+        TP_RULES.push(...tpRules);
 
     });
 
     var rulesProm = []
 
-    rulesProm = RULES.map(async r => {
+    rulesProm = TP_RULES.map(async r => {
         if (r.from.endsWith(".png")) {
             r.to = await loadImage(r.to);
         } else {
@@ -151,8 +160,8 @@ async function genrules() {
         }
         return r;
     });
-    RULES = await Promise.all(rulesProm);
-    console.log("rules", RULES);
+    TP_RULES = await Promise.all(rulesProm);
+    console.log("rules", TP_RULES);
 }
 load().then(()=>{
     genrules().catch(console.error);
@@ -163,7 +172,7 @@ function redirect(request) {
     //console.log("\n\n")
     //console.log("rules",rules);
 
-    var rule = RULES.find((rule) => {
+    var rule = TP_RULES.find((rule) => {
         console.log("DOES ",request.url," == ",rule.from," ???");
         return request.url == rule.from
             && request.requestId !== lastRequestId;

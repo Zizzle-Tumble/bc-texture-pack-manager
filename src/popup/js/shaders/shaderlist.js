@@ -1,7 +1,7 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
-    var tplist = document.querySelector("div#tplist");
-    var ctplist = document.querySelector("div#ctplist");
+    var shaderlist = document.querySelector("div#shaderlist");
+    var cshaderlist = document.querySelector("div#cshaderlist");
     var refreshbutton = document.querySelector('#btn-refresh');
     var resetbutton = document.querySelector('#btn-reset');
 
@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function enableTP(id) {
+    function enableShader(id) {
         var errormessage = document.getElementById('error');
         var successmessage = document.getElementById('success');
-        sendMessageBG("settp", { id }).then(msg => {
-            sendMessageBG('refreshrules', id).then(() => {
+        sendMessageBG("setshader", { id }).then(msg => {
+            sendMessageBG('refreshshaders', id).then(() => {
                 refreshPage();
             });
             successmessage.style.display = "block";
@@ -27,30 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function deleteTP(id) {
-        sendMessageBG("deletetp", { id }).then(msg => {
-            sendMessageBG('refreshrules', id).then(() => {
+    function deleteShader(id) {
+        sendMessageBG("deleteshader", { id }).then(msg => {
+            sendMessageBG('refreshshaders', id).then(() => {
                 refreshPage();
             });
         });
 
-    }
-
-    async function getDefault(data) {
-        let tp = await getDefaultTP();
-
-        var des = [
-            //Description by Eribetra
-            "The default, vanilla texture pack.",
-            //Description by Blackout03
-            "Wanna go retro? Use this pack!",
-			//(new) Description by flines
-			"This is the classical look of Box Critters"
-        ]
-
-        tp.description = des[Math.floor(Math.random() * des.length)];
-        tp.readonly = true;
-        return tp;
     }
 
     function setupActionButtons() {
@@ -72,28 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
         <small>Donec id elit non mi porta.</small>
         <span class="pull-right button-group">
-        <a href="/admin/userA" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+        <a href="/admin/userA" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
         </span>
     </a>
     */
 
-    function genTPItem(tp, i) {
+    function genShaderItem(shader, i) {
         //div.tp-item
-        var tpitem = document.createElement('div');
-        tpitem.id = i;
+        var shaderitem = document.createElement('div');
+        shaderitem.id = i;
         var tpitemclasses = "list-group-item tp-item btn-group"
             .split(" ");
-        tpitem.classList.add(...tpitemclasses);
+        shaderitem.classList.add(...tpitemclasses);
         //a.tp-link
-        var tplink;
+        var shaderlink;
         if(i !== -1) {
-            tplink = document.createElement("a");
-            tplink.href = "#";
+            shaderlink = document.createElement("a");
+            shaderlink.href = "#";
         } else {
-            tplink = document.createElement("div");
+            shaderlink = document.createElement("div");
         }
-        tplink.classList.add("tp-link");
+        shaderlink.classList.add("tp-link");
         //header
         var header = document.createElement('div');
         var headerclasses = "d-flex w-100 justify-content-between"
@@ -102,58 +85,58 @@ document.addEventListener('DOMContentLoaded', () => {
         //title
         var title = document.createElement('h5');
         title.classList.add("mb-1");
-        title.textContent = tp.name;
+        title.textContent = shader.name;
         header.appendChild(title);
 
-        if (tp.packVersion) {
+		if (shader.shaderVersion) {
             //was innerText
             title.textContent += " ";
         }
-        if (tp.new) {
+        if (shader.new) {
             //was innerText
             title.textContent = " " + title.textContent;
         }
 
-        if (tp.packVersion) {
-            var tpVersion = document.createElement('small');
-            tpVersion.classList.add("text-muted");
-            tpVersion.textContent = "[" + tp.packVersion + "]";
-            title.appendChild(tpVersion);
+		if (shader.shaderVersion) {
+            var sVersion = document.createElement('small');
+            sVersion.classList.add("text-muted");
+			sVersion.textContent = "[" + shader.shaderVersion + "]";
+            title.appendChild(sVersion);
         }
-        if (tp.new) {
+        if (shader.new) {
             var tpUpdate = document.createElement('span');
-            tpUpdate.classList.add("badge", "badge-primary", "badge-pill");
+            tpUpdate.classList.add("badge", "badge-success", "badge-pill");
             tpUpdate.textContent = "Updated";
             title.prepend(tpUpdate);
         }
 
         //date created
-        if (tp.date) {
+        if (shader.date) {
             var date = document.createElement('small');
             date.classList.add("text-muted");
-            date.textContent = "Created " + dateToString(tp.date);
+            date.textContent = "Created " + dateToString(shader.date);
             header.appendChild(date);
         }
 
-        tplink.appendChild(header);
+        shaderlink.appendChild(header);
 
         //description
-        if (tp.description) {
+        if (shader.description) {
             var description = document.createElement('p');
             description.classList.add("mb-1");
-            description.textContent = tp.description;
-            tplink.appendChild(description);
+            description.textContent = shader.description;
+            shaderlink.appendChild(description);
         }
 
         //author
-        if (tp.author) {
+        if (shader.author) {
             var author = document.createElement('small');
             author.classList.add("text-muted");
-            author.textContent = "created by " + tp.author;
-            tplink.appendChild(author);
+            author.textContent = "created by " + shader.author;
+            shaderlink.appendChild(author);
         }
 
-        tpitem.appendChild(tplink);
+        shaderitem.appendChild(shaderlink);
 
         //button group
         var btn;
@@ -161,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // edit button
         /*btn = document.createElement('a');
         btn.href = "#";
-        btnClasses = 'btn btn-primary'
+        btnClasses = 'btn btn-success'
         .split(" ");
         btn.classList.add(...btnClasses);
         btn.textContent = '<i class="fas fa-info"></i>';
@@ -181,104 +164,92 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.classList.add('fas', 'fa-trash-alt');
             btn.appendChild(icon);
             btn.addEventListener('click', () => {
-                deleteTP(i);
+				deleteShader(i);
             });
-            tpitem.appendChild(btn);
+            shaderitem.appendChild(btn);
 
-            tplink.addEventListener('click', () => {
-                enableTP(i);
+            shaderlink.addEventListener('click', () => {
+                enableShader(i);
                 refreshPage();
             });
         }
 
 
 
-        return tpitem;
+        return shaderitem;
     }
 
-    //List Texture Packs
-    async function refreshList() {
+    //List Shaders
+    async function refreshList() {	
 		var data = await sendMessageBG("getdata")
 		if(!data) {
             console.log(e);
-            tplist.textContent = "";
-            tplist.classList.add('middle-center');
+            shaderlist.textContent = "";
+            shaderlist.classList.add('middle-center');
 
             var msgP = document.createTextNode("An Error has occored.");
-            tplist.appendChild(msgP);
+            shaderlist.appendChild(msgP);
             var link = document.createElement("a");
             link.text = "Send Feedback";
             link.href = "https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager";
-            tplist.appendChild(link);
+            shaderlist.appendChild(link);
             var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
-            tplist.appendChild(info);
+            shaderlist.appendChild(info);
 
             return;
         };
-        var texturepacks = data.texturePacks || [];
+        var shaders = data.shaders || [];
         console.log(data);
-        console.log(texturepacks);
-        if (texturepacks instanceof Array && texturepacks.length === 0) {
-            tplist.classList.add('middle-center');
-            var text = document.createTextNode("There are no Texture Packs.");
-            tplist.appendChild(text);
-            var addthemelink = document.createElement('a');
-            addthemelink.href = "addtheme.html";
-            addthemelink.classList.add('btn', 'btn-primary');
-            addthemelink.target = "_blank";
-            addthemelink.textContent = "Add Texture Pack";
-            tplist.appendChild(addthemelink);
+        console.log(shaders);
+        if (shaders instanceof Array && shaders.length === 0) {
+            shaderlist.classList.add('middle-center');
+            var text = document.createTextNode("There are no Shaders.");
+            shaderlist.appendChild(text);
+            var addshaderlink = document.createElement('a');
+            addshaderlink.href = "addshader.html";
+            addshaderlink.classList.add('btn', 'btn-success');
+            addshaderlink.target = "_blank";
+            addshaderlink.textContent = "Add Shader";
+            shaderlist.appendChild(addshaderlink);
             return;
         }
-        ctplist.textContent = "";
-        tplist.innerHTML = '<div class="card-header"><span>Available Texture Packs</span></div>';
-        //tplist.classList.add("list-group");
+        cshaderlist.textContent = "";
+        shaderlist.innerHTML = '<div class="card-header"><span>Available Shaders</span></div>';
+        shaderlist.classList.add("list-group");
 
-        data.currentTP.forEach((i) => {
-            var tp = texturepacks[i];
+        data.currentShader.forEach((i) => {
+            var tp = shaders[i];
             if(!tp) {
                 enableTP(i);
                 return;
             }
 
             debugger;
-            var tplink = genTPItem(tp, i);
+            var tplink = genShaderItem(tp, i);
             tplink.classList.add("list-group-item-success");
 
-            ctplist.appendChild(tplink);
+            cshaderlist.appendChild(tplink);
 
 
         });
-
-		//default
-		var defaulttp = genTPItem(await getDefault(data),-1)
-		defaulttp.classList.add("list-group-item-success");
-		ctplist.appendChild(defaulttp);
 
         
 
-        texturepacks.forEach((tp, i) => {
+        shaders.forEach((tp, i) => {
 
             //NEW METHOD
-            if (data.currentTP.includes(i)) {
+            if (data.currentShader.includes(i)) {
                 return
             }
-            var tplink = genTPItem(tp, i);
+            var tplink = genShaderItem(tp, i);
 
-            tplist.appendChild(tplink);
+            shaderlist.appendChild(tplink);
         });
         setupActionButtons();	
-    }
+	}
+	sendMessageBG("setTab",1);
+
     refreshList();
-
-    //refresh
-    refreshbutton.addEventListener('click', () => {
-        sendMessageBG("refreshtp").then(() => {
-            console.log("REFRESHING...");
-
-            refreshPage();
-        });
-    });
 
     //reset
     resetbutton.addEventListener('click', () => {
