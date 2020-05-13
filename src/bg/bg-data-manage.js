@@ -119,6 +119,8 @@ if (RESET_ON_RELOAD) {
     reset();
 }
 load();
+DATA.shaders = DATA.shaders||[];
+DATA.currentShader = DATA.currentShader||[];
 
 
 MSG_LISTENER.addListener("refreshtp",(content,sendResponse)=>{
@@ -172,6 +174,49 @@ MSG_LISTENER.addListener("deletetp", (content, sendResponse) => {
 MSG_LISTENER.addListener("tpexists", (content, sendResponse) => {
     sendResponse(DATA.texturePacks.map(tp => tp.name).includes(content));
 });
+
+
+MSG_LISTENER.addListener("addshader", (content, sendResponse) => {
+    content.new = true;
+    var id = DATA.shaders.push(content) - 1;
+    save().then(() => {
+        updateBadge(shader);
+        sendResponse("Shader successfuly added.");
+    });
+});
+MSG_LISTENER.addListener("getshader", (content, sendResponse) => {
+    sendResponse(DATA.shaders);
+});
+
+MSG_LISTENER.addListener("setshader", (content, sendResponse) => {
+    if(DATA.currentShader.includes(content.id)) {
+        DATA.currentShader.splice( DATA.currentShader.indexOf(content.id), 1 );
+    } else {
+        DATA.currentShader.unshift(content.id);
+    }
+    save().then(() => {
+        genrules().then(() => {
+            sendResponse("Shader successfuly set.");
+        });
+    });
+    updateBadge()
+});
+MSG_LISTENER.addListener("deleteshader", (content, sendResponse) => {
+    if (DATA.currentShader === content.id) {
+        DATA.currentShader = -1;
+    }
+    DATA.shaders.splice(content.id, 1);
+    save().then(() => {
+        genrules().then(() => {
+            sendResponse("Shader successfuly deleted.");
+        });
+    });
+});
+MSG_LISTENER.addListener("shaderexists", (content, sendResponse) => {
+    sendResponse(DATA.shaders.map(shader => shader.name).includes(content));
+});
+
+
 MSG_LISTENER.addListener("reset", (content, sendResponse) => {
     reset().then(() => {
         genrules().then(() => {

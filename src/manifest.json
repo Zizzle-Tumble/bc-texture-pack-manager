@@ -27,6 +27,9 @@
         "page": "bg/background.html",
         "persistent": true
     },
+	"externally_connectable": {
+	  "matches": ["https://*.boxcritters.com/*"]
+	},
     "content_scripts": [
         {
             "matches": [

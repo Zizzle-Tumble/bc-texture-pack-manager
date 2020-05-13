@@ -8,6 +8,12 @@ console.info("-----------------------------------");
 
 var browser = browser || chrome || msBrowser;
 
+function sendMessageBG(type, content) {
+    return new Promise((resolve, reject) => {
+        browser.runtime.sendMessage({ type, content }, resolve);
+    })
+}
+
 function getAsserFolderVersion(assetsFolder) {
     var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
     var version = assetsFolder.replace(regex, "");
@@ -17,11 +23,33 @@ function getAsserFolderVersion(assetsFolder) {
 function runInPage(f) {
 	var script = document.createElement("script");
 	script.id = "tpm_runInPage";
-	var scriptText = "(" + f.toString() + ")();" + `
+	var scriptText ="window.addEventListener('load', ()=>{(" + f.toString() + `)(function TPM_sendMessage(type, content={}) {
+		console.log("[TPM] Sending message:", { type, content });
+	
+		return new Promise((resolve, reject) => {
+			chrome.runtime.sendMessage(${browser.runtime.id},{ type, content },resolve);
+		});
+	});
 	$('#tpm_runInPage').remove();
-	`;
+});`;
 	script.appendChild(document.createTextNode(scriptText));
 	(document.body||document.head||document.documentElement).appendChild(script);
+}
+
+function loadShader(shader) {
+	runInPage(`(function(shader){
+	return function() {
+		console.log("[TPM] Loading Shader",shader.name,"...");
+		loadShader(shader);
+	}
+})(${JSON.stringify(shader)})`);
+}
+
+function clearShaders(){
+	runInPage(function() {
+		clearShaders();
+	});
+
 }
 
 function refreshRedirects() {
@@ -30,6 +58,16 @@ function refreshRedirects() {
     });
 }
 
+async function refreshShaders() {
+	var data = await sendMessageBG("getdata");
+	console.log("[TPM]",data);
+	data.currentShader.forEach(i => {
+		data.shaders[i].
+		loadShader(data.shaders[i]);
+	});
+}
+refreshShaders();
+
 browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
     switch (type) {
         case "refreshpage":
@@ -37,16 +75,6 @@ browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) 
             break;
         case "ping":
             sendResponse(true);
-			break;
-		case "loadShader":
-			runInPage(function() {
-				loadShader(content);
-			});
-			break;
-		case "clearShaders":
-			runInPage(function() {
-				clearShaders();
-			});
 			break;
         default:
             sendResponse();
