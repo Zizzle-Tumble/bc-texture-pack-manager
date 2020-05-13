@@ -1,12 +1,16 @@
-# bc-texture-pack-manager
-# Changelog
-
-#Box Critters Texture Pack Manager
+# Box Critters Texture Pack Manager
+[![GitHub release](https://img.shields.io/github/release/boxcritters/bc-texture-pack-manager.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager/releases/)
+[![GitHub commits](https://img.shields.io/github/commits-since/boxcritters/bc-texture-pack-manager/v2.0.0.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager/commit/)
+[![GitHub license](https://img.shields.io/github/license/boxcritters/bc-texture-pack-manager.svg)](https://github.com/boxcritters/bc-texture-pack-manager/blob/master/LICENSE)
 
 Install: https://boxcrittersmods.ga/tools/texturepackselector/
 Send Feedback: https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+### 3.1.0
+- Shader Support
+- added support for BCMC CDN
+## 3.1.x
 ### 3.0.3
 - Change to new texture api
 - Easier ability to change api server url

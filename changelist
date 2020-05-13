@@ -1,2 +1,2 @@
-- Change to new texture api
-- Easier ability to change api server url
+- Shader Support
+- added support for BCMC CDN
