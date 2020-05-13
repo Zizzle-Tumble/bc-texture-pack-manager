@@ -7,6 +7,10 @@ Install: https://boxcrittersmods.ga/tools/texturepackselector/
 Send Feedback: https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
+### 3.1.0
+- Shader Support
+- added support for BCMC CDN
+## 3.1.x
 ### 3.0.3
 - Change to new texture api
 - Easier ability to change api server url
