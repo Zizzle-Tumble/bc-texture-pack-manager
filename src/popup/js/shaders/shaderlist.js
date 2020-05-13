@@ -1,7 +1,7 @@
 //@ts-check
 document.addEventListener('DOMContentLoaded', () => {
     var shaderlist = document.querySelector("div#shaderlist");
-    var ctplist = document.querySelector("div#cshaderlist");
+    var cshaderlist = document.querySelector("div#cshaderlist");
     var refreshbutton = document.querySelector('#btn-refresh');
     var resetbutton = document.querySelector('#btn-reset');
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteShader(id) {
-        sendMessageBG("deletetshader", { id }).then(msg => {
+        sendMessageBG("deleteshader", { id }).then(msg => {
             sendMessageBG('refreshshaders', id).then(() => {
                 refreshPage();
             });
@@ -61,22 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
     */
 
-    function genShaderItem(tp, i) {
+    function genShaderItem(shader, i) {
         //div.tp-item
-        var tpitem = document.createElement('div');
-        tpitem.id = i;
+        var shaderitem = document.createElement('div');
+        shaderitem.id = i;
         var tpitemclasses = "list-group-item tp-item btn-group"
             .split(" ");
-        tpitem.classList.add(...tpitemclasses);
+        shaderitem.classList.add(...tpitemclasses);
         //a.tp-link
-        var tplink;
+        var shaderlink;
         if(i !== -1) {
-            tplink = document.createElement("a");
-            tplink.href = "#";
+            shaderlink = document.createElement("a");
+            shaderlink.href = "#";
         } else {
-            tplink = document.createElement("div");
+            shaderlink = document.createElement("div");
         }
-        tplink.classList.add("tp-link");
+        shaderlink.classList.add("tp-link");
         //header
         var header = document.createElement('div');
         var headerclasses = "d-flex w-100 justify-content-between"
@@ -85,25 +85,25 @@ document.addEventListener('DOMContentLoaded', () => {
         //title
         var title = document.createElement('h5');
         title.classList.add("mb-1");
-        title.textContent = tp.name;
+        title.textContent = shader.name;
         header.appendChild(title);
 
-        if (tp.packVersion) {
+		if (shader.shaderVersion) {
             //was innerText
             title.textContent += " ";
         }
-        if (tp.new) {
+        if (shader.new) {
             //was innerText
             title.textContent = " " + title.textContent;
         }
 
-        if (tp.packVersion) {
-            var tpVersion = document.createElement('small');
-            tpVersion.classList.add("text-muted");
-            tpVersion.textContent = "[" + tp.packVersion + "]";
-            title.appendChild(tpVersion);
+		if (shader.shaderVersion) {
+            var sVersion = document.createElement('small');
+            sVersion.classList.add("text-muted");
+			sVersion.textContent = "[" + shader.shaderVersion + "]";
+            title.appendChild(sVersion);
         }
-        if (tp.new) {
+        if (shader.new) {
             var tpUpdate = document.createElement('span');
             tpUpdate.classList.add("badge", "badge-success", "badge-pill");
             tpUpdate.textContent = "Updated";
@@ -111,32 +111,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         //date created
-        if (tp.date) {
+        if (shader.date) {
             var date = document.createElement('small');
             date.classList.add("text-muted");
-            date.textContent = "Created " + dateToString(tp.date);
+            date.textContent = "Created " + dateToString(shader.date);
             header.appendChild(date);
         }
 
-        tplink.appendChild(header);
+        shaderlink.appendChild(header);
 
         //description
-        if (tp.description) {
+        if (shader.description) {
             var description = document.createElement('p');
             description.classList.add("mb-1");
-            description.textContent = tp.description;
-            tplink.appendChild(description);
+            description.textContent = shader.description;
+            shaderlink.appendChild(description);
         }
 
         //author
-        if (tp.author) {
+        if (shader.author) {
             var author = document.createElement('small');
             author.classList.add("text-muted");
-            author.textContent = "created by " + tp.author;
-            tplink.appendChild(author);
+            author.textContent = "created by " + shader.author;
+            shaderlink.appendChild(author);
         }
 
-        tpitem.appendChild(tplink);
+        shaderitem.appendChild(shaderlink);
 
         //button group
         var btn;
@@ -164,36 +164,92 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.classList.add('fas', 'fa-trash-alt');
             btn.appendChild(icon);
             btn.addEventListener('click', () => {
-                deleteTP(i);
+				deleteShader(i);
             });
-            tpitem.appendChild(btn);
+            shaderitem.appendChild(btn);
 
-            tplink.addEventListener('click', () => {
-                enableTP(i);
+            shaderlink.addEventListener('click', () => {
+                enableShader(i);
                 refreshPage();
             });
         }
 
 
 
-        return tpitem;
+        return shaderitem;
     }
 
     //List Shaders
     async function refreshList() {	
+		var data = await sendMessageBG("getdata")
+		if(!data) {
+            console.log(e);
+            shaderlist.textContent = "";
+            shaderlist.classList.add('middle-center');
+
+            var msgP = document.createTextNode("An Error has occored.");
+            shaderlist.appendChild(msgP);
+            var link = document.createElement("a");
+            link.text = "Send Feedback";
+            link.href = "https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager";
+            shaderlist.appendChild(link);
+            var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
+            shaderlist.appendChild(info);
+
+            return;
+        };
+        var shaders = data.shaders || [];
+        console.log(data);
+        console.log(shaders);
+        if (shaders instanceof Array && shaders.length === 0) {
+            shaderlist.classList.add('middle-center');
+            var text = document.createTextNode("There are no Shaders.");
+            shaderlist.appendChild(text);
+            var addshaderlink = document.createElement('a');
+            addshaderlink.href = "addshader.html";
+            addshaderlink.classList.add('btn', 'btn-success');
+            addshaderlink.target = "_blank";
+            addshaderlink.textContent = "Add Shader";
+            shaderlist.appendChild(addshaderlink);
+            return;
+        }
+        cshaderlist.textContent = "";
+        shaderlist.innerHTML = '<div class="card-header"><span>Available Shaders</span></div>';
+        shaderlist.classList.add("list-group");
+
+        data.currentShader.forEach((i) => {
+            var tp = shaders[i];
+            if(!tp) {
+                enableTP(i);
+                return;
+            }
+
+            debugger;
+            var tplink = genShaderItem(tp, i);
+            tplink.classList.add("list-group-item-success");
+
+            cshaderlist.appendChild(tplink);
+
+
+        });
+
+        
+
+        shaders.forEach((tp, i) => {
+
+            //NEW METHOD
+            if (data.currentShader.includes(i)) {
+                return
+            }
+            var tplink = genShaderItem(tp, i);
+
+            shaderlist.appendChild(tplink);
+        });
+        setupActionButtons();	
 	}
 	sendMessageBG("setTab",1);
 
     refreshList();
-
-    //refresh
-    refreshbutton.addEventListener('click', () => {
-        sendMessageBG("refreshshader").then(() => {
-            console.log("REFRESHING...");
-
-            refreshPage();
-        });
-    });
 
     //reset
     resetbutton.addEventListener('click', () => {
