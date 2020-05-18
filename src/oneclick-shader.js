@@ -12,14 +12,14 @@ function sendMessageBG(type, content) {
     })
 }
 
-console.log("FOUND THEME FILE");
+console.log("FOUND SHADER FILE");
 
-var tpdata = JSON.parse(document.body.innerText);
-tpdata.updateURL = document.URL;
-console.log(tpdata);
-var tpencoded = btoa(JSON.stringify(cleanEmpty(tpdata)));
+var shaderdata = JSON.parse(document.body.innerText);
+shaderdata.updateURL = document.URL;
+console.log(shaderdata);
+var shaderencoded = btoa(JSON.stringify(cleanEmpty(shaderdata)));
 
-var newURL = browser.extension.getURL('popup/addtheme.html') + "?data=" + tpencoded;
+var newURL = browser.extension.getURL('popup/addshader.html') + "?data=" + shaderencoded;
 console.log(newURL);
 
 //window.location.href = newURL;
