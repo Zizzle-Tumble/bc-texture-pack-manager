@@ -62,7 +62,6 @@ async function refreshShaders() {
 	var data = await sendMessageBG("getdata");
 	console.log("[TPM]",data);
 	data.currentShader.forEach(i => {
-		data.shaders[i].
 		loadShader(data.shaders[i]);
 	});
 }
