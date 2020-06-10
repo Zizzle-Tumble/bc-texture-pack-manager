@@ -61,7 +61,7 @@ function refreshRedirects() {
 async function refreshShaders() {
 	var data = await sendMessageBG("getdata");
 	console.log("[TPM]",data);
-	data.currentShader.forEach(i => {
+	data.currentShader && data.currentShader.forEach(i => {
 		loadShader(data.shaders[i]);
 	});
 }
