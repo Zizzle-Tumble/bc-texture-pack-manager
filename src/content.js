@@ -1,10 +1,10 @@
 //@ts-check
-console.info("-----------------------------------");
-console.info("[BOX CRITTERS TEXTURE PACK MANAGER]");
-console.info("A chrome extention created by\nTumbleGamer");
-console.info("-----------------------------------");
-
-
+console.info(
+`-----------------------------------
+[BOX CRITTERS TEXTURE PACK MANAGER]
+A chrome extention created by TumbleGamer
+-----------------------------------`
+);
 
 var browser = browser || chrome || msBrowser;
 
