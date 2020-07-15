@@ -60,7 +60,7 @@ function refreshRedirects() {
 async function refreshShaders() {
 	var data = await sendMessageBG("getdata");
 	console.log("[TPM]", data);
-	data.currentShader.forEach(i => {
+	data.currentShader && data.currentShader.forEach(i => {
 		loadShader(data.shaders[i]);
 	});
 }
@@ -70,9 +70,6 @@ browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) 
 	switch (type) {
 		case "refreshpage":
 			browser.tabs.reload();
-			break;
-		case "ping":
-			sendResponse(true);
 			break;
 		default:
 			sendResponse();
