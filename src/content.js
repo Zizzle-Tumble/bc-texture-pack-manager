@@ -9,21 +9,21 @@ console.info("-----------------------------------");
 var browser = browser || chrome || msBrowser;
 
 function sendMessageBG(type, content) {
-    return new Promise((resolve, reject) => {
-        browser.runtime.sendMessage({ type, content }, resolve);
-    })
+	return new Promise((resolve, reject) => {
+		browser.runtime.sendMessage({ type, content }, resolve);
+	});
 }
 
 function getAsserFolderVersion(assetsFolder) {
-    var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
-    var version = assetsFolder.replace(regex, "");
-    return version;
+	var regex = "(https:\/\/boxcritters.com\/media\/)|(-[^]*)";
+	var version = assetsFolder.replace(regex, "");
+	return version;
 }
 
 function runInPage(f) {
 	var script = document.createElement("script");
 	script.id = "tpm_runInPage";
-	var scriptText ="window.addEventListener('load', ()=>{(" + f.toString() + `)(function TPM_sendMessage(type, content={}) {
+	var scriptText = "window.addEventListener('load', ()=>{(" + f.toString() + `)(function TPM_sendMessage(type, content={}) {
 		console.log("[TPM] Sending message:", { type, content });
 	
 		return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ function runInPage(f) {
 	$('#tpm_runInPage').remove();
 });`;
 	script.appendChild(document.createTextNode(scriptText));
-	(document.body||document.head||document.documentElement).appendChild(script);
+	(document.body || document.head || document.documentElement).appendChild(script);
 }
 
 function loadShader(shader) {
@@ -45,22 +45,21 @@ function loadShader(shader) {
 })(${JSON.stringify(shader)})`);
 }
 
-function clearShaders(){
-	runInPage(function() {
+function clearShaders() {
+	runInPage(function () {
 		clearShaders();
 	});
-
 }
 
 function refreshRedirects() {
-    return new Promise((resolve,reject)=>{
-        browser.runtime.sendMessage({ type: "refreshtp", content: data.currentTP }, resolve);
-    });
+	return new Promise((resolve, reject) => {
+		browser.runtime.sendMessage({ type: "refreshtp", content: data.currentTP }, resolve);
+	});
 }
 
 async function refreshShaders() {
 	var data = await sendMessageBG("getdata");
-	console.log("[TPM]",data);
+	console.log("[TPM]", data);
 	data.currentShader.forEach(i => {
 		loadShader(data.shaders[i]);
 	});
@@ -68,15 +67,15 @@ async function refreshShaders() {
 refreshShaders();
 
 browser.runtime.onMessage.addListener(({ type, content }, sender, sendResponse) => {
-    switch (type) {
-        case "refreshpage":
-            browser.tabs.reload();
-            break;
-        case "ping":
-            sendResponse(true);
+	switch (type) {
+		case "refreshpage":
+			browser.tabs.reload();
 			break;
-        default:
-            sendResponse();
-            break;
-    }
+		case "ping":
+			sendResponse(true);
+			break;
+		default:
+			sendResponse();
+			break;
+	}
 });
