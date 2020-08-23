@@ -23,7 +23,7 @@ function getAsserFolderVersion(assetsFolder) {
 function runInPage(f) {
 	var script = document.createElement("script");
 	script.id = "tpm_runInPage";
-	var scriptText = "window.addEventListener('load', ()=>{(" + f.toString() + `)(function TPM_sendMessage(type, content={}) {
+	var scriptText = `window.addEventListener('load', ()=>{(${f.toString()})(function TPM_sendMessage(type, content={}) {
 		console.log("[TPM] Sending message:", { type, content });
 	
 		return new Promise((resolve, reject) => {
