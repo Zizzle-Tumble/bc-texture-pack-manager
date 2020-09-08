@@ -2,14 +2,14 @@
 var browser = browser || chrome || msBrowser;
 
 function cleanEmpty(obj) {
-    Object.keys(obj).forEach(key => obj[key] === undefined||obj[key] === "" ? delete obj[key] : '');
-    return obj;
+	Object.keys(obj).forEach(key => obj[key] === undefined || obj[key] === "" ? delete obj[key] : '');
+	return obj;
 }
 
 function sendMessageBG(type, content) {
-    return new Promise((resolve, reject) => {
-        browser.runtime.sendMessage({ type, content }, resolve);
-    })
+	return new Promise((resolve, reject) => {
+		browser.runtime.sendMessage({ type, content }, resolve);
+	});
 }
 
 console.log("FOUND THEME FILE");
@@ -23,4 +23,4 @@ var newURL = browser.extension.getURL('popup/addtheme.html') + "?data=" + shader
 console.log(newURL);
 
 //window.location.href = newURL;
-sendMessageBG("createtab",{ url: newURL});
+sendMessageBG("createtab", { url: newURL });
