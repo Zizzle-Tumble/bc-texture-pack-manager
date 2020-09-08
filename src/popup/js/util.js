@@ -3,7 +3,7 @@ var browser = browser || chrome || msBrowser;
 var CONTENT_CONNECTED = false;
 var DEFAULT;
 
-var api = "https://api.boxcrittersmods.ga";
+var API = "https://api.boxcrittersmods.ga";
 
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{
@@ -32,17 +32,9 @@ function getJSON(url) {
     });
 }
 
-function getSites() {
-    return getJSON(api+'/sites');
-}
-
-function getCurrentVersionInfo() {
-    return getJSON(api);
-}
-
 
 async function getDefaultTP() {
-	if(!DEFAULT) DEFAULT = await getJSON(api+'/textures/BoxCritters.bctp.json');
+	if(!DEFAULT) DEFAULT = await getJSON(API+'/textures/BoxCritters.bctp.json');
 	return DEFAULT;
 }
 
@@ -52,20 +44,11 @@ async function getFileURL(texture) {
 
     return getTextureURL(texture,sites,versionInfo)
 
-    /*if (!url.startsWith("http")) {
-        if(url.startsWith("/")) {
-            url = bc + url;
-        } else {
-            url = bcv + url;
-        }
-    }
-    return url;*/
-
 }
 
 async function getFormats() {
     var formats = await getJSON('/formats.json');
-    formats.texturePack.push(await getJSON(api+'/textures/'));
+    formats.texturePack.push(await getJSON(API+'/textures/'));
     return formats;
 
 }

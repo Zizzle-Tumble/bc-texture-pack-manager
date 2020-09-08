@@ -4,26 +4,18 @@ var TP_RULES = new Array();
 var DEFAULT_TP;
 var POPUP_TAB = 0;
 
-var api = "https://api.boxcrittersmods.ga";
+var API = "https://api.boxcrittersmods.ga";
 
 // async function getFormats() {
 //     var formats = await getJSON('/formats.json');
-//     formats.texturePack.push(await getJSON('https://bc-mod-api.herokuapp.com/texture-data/'));
+//     formats.texturePack.push(await getJSON(API+'/textures'));
 //     return formats;
 
 // }
 
 
-function getSites() {
-    return getJSON(api + '/sites');
-}
-
-function getCurrentVersionInfo() {
-    return getJSON(api + '/versions/latest');
-}
-
 async function getDefaultTP() {
-	if(!DEFAULT_TP) DEFAULT_TP = await getJSON(api+'/textures/BoxCritters.bctp.json');
+	if(!DEFAULT_TP) DEFAULT_TP = await getJSON(API+'/textures/BoxCritters.bctp.json');
 	return DEFAULT_TP;
 }
 
@@ -71,8 +63,8 @@ async function loadImage(img) {
     if (img.startsWith('https://boxcritters.com')) {
         return img;
     }
-    var api = "https://bc-mod-api.herokuapp.com/cors/data/";
-    var url = api + img;
+    var CORS = API + "/cors/data/";
+    var url = CORS + img;
 
     return (await getJSON(url)).url
 }
@@ -80,8 +72,8 @@ async function loadFile(file) {
     if (file.startsWith('https://boxcritters.com')) {
         return file;
     }
-    var api = "https://bc-mod-api.herokuapp.com/cors/file/";
-    var url = api + file;
+    var CORS = API+"/cors/file/";
+    var url = CORS + file;
 
     return url;
 }
