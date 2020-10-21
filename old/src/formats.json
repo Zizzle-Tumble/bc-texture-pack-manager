@@ -1,0 +1,132 @@
+{
+	"texturePack": [
+		[
+			{ "name": "name", "required": true, "label": "Name" },
+			{ "name": "description", "label": "Description" },
+			{ "name": "hamster", "label": "Hamster", "default": "critters/hamster.png" },
+			{ "name": "snail", "label": "Snail", "default": "critters/snail.png" },
+			{ "name": "items", "label": "Items", "default": "items/items.png" },
+			{ "name": "tavernProps", "label": "Tavern Props", "default": "/rooms/tavern_ss.png" }
+		],
+		[
+			{ "name": "name", "required": true, "label": "Name", "category": "info" },
+			{ "name": "author", "required": true, "label": "Author", "category": "info" },
+			{ "name": "readonly", "hidden": true, "category": "info" },
+			{ "name": "date", "hidden": true, "label": "Date", "category": "info" },
+			{ "name": "packVersion", "hidden": true, "category": "info" },
+			{ "name": "description", "label": "Description", "category": "info" },
+
+			{ "name": "script", "hidden": true },
+
+			{ "name": "bridge", "label": "The Bridge", "default": "cards/oomm/bridge.png", "category": "cards/oomm" },
+			{ "name": "ghost_ship", "label": "Ghost Ship", "default": "cards/oomm/ghost_ship.png", "category": "cards/oomm" },
+
+
+			{ "name": "beaver", "label": "Beaver", "default": "critters/beaver.png", "category": "critters" },
+			{ "name": "fox", "label": "Fox", "category": "critters" },
+			{ "name": "hamster", "label": "Hamster", "default": "critters/hamster.png", "category": "critters" },
+			{ "name": "lizard", "label": "Lizard", "default": "critters/lizard.png", "category": "critters" },
+			{ "name": "otter", "label": "Otter", "category": "critters" },
+			{ "name": "racoon", "label": "Racoon", "category": "critters" },
+			{ "name": "sock_monkey", "label": "Sock Monkey", "category": "critters" },
+			{ "name": "unicorn", "label": "Unicorn", "category": "critters" },
+
+			{ "name": "snail", "label": "Rocket Snail", "default": "critters/snail.png", "category": "critters/mascots" },
+
+
+			{ "name": "3d_black", "label": "Black 3D Glasses", "default": "icons/3d_black.png", "category": "icons/eyes" },
+			{ "name": "3d_white", "label": "White 3D Glasses", "default": "icons/3d_white.png", "category": "icons/eyes" },
+			{ "name": "goggles_black", "label": "Black Goggles", "default": "icons/goggles_black.png", "category": "icons/eyes" },
+			{ "name": "goggles_white", "label": "White Goggles", "category": "icons/eyes" },
+			{ "name": "snorkel_blue", "label": "Blue Snorkel", "category": "icons/eyes" },
+			{ "name": "sunglasses_square_black", "label": "Black Square Sunglasses", "category": "icons/eyes" },
+			{ "name": "pirate_patch", "label": "Pirate Patch", "default": "icons/pirate_patch.png", "category": "icons/eyes" },
+
+			{ "name": "headphones_black", "label": "Black Headphones", "category": "icons/ears" },
+			{ "name": "headphones_white", "label": "Discord Headphones", "default": "icons/headphones_white.png", "category": "icons/ears" },
+
+			{ "name": "ballcap_black", "label": "Black Baseball Cap", "default": "icons/ballcap_black.png", "category": "icons/head" },
+			{ "name": "ballcap_blue", "label": "Blue Baseball Cap", "default": "icons/ballcap_blue.png", "category": "icons/head" },
+			{ "name": "ballcap_green", "label": "Green Baseball Cap", "default": "icons/ballcap_green.png", "category": "icons/head" },
+			{ "name": "ballcap_yellow", "label": "Yellow Baseball Cap", "category": "icons/head" },
+			{ "name": "bandana_red", "label": "Red Bandana", "category": "icons/head" },
+			{ "name": "bunny_blue", "label": "Blue Bunny Ears", "default": "icons/bunny_blue.png", "category": "icons/head" },
+			{ "name": "bunny_pink", "label": "Pink Bunny Ears", "default": "icons/bunny_pink.png", "category": "icons/head" },
+			{ "name": "bunny_white", "label": "White Bunny Ears", "default": "icons/bunny_white.png", "category": "icons/head" },
+			{ "name": "easteregg_a", "label": "Easter Egg A", "default": "icons/easteregg_a.png", "category": "icons/head" },
+			{ "name": "easteregg_b", "label": "Easter Egg B", "default": "icons/easteregg_b.png", "category": "icons/head" },
+			{ "name": "easteregg_c", "label": "Easter Egg C", "default": "icons/easteregg_c.png", "category": "icons/head" },
+			{ "name": "paperhat", "label": "Paper Hat", "default": "icons/paperhat.png", "category": "icons/head" },
+			{ "name": "party_green", "label": "Party Hat", "default": "icons/party_green.png", "category": "icons/head" },
+			{ "name": "pickle", "label": "Pickle", "default": "icons/pickle.png", "category": "icons/head" },
+			{ "name": "pirate_hat", "label": "Pirate Hat", "category": "icons/head" },
+			{ "name": "pirate_hat_blue", "label": "Blue Pirate Hat", "category": "icons/head" },
+			{ "name": "pot", "label": "Pot Helm", "default": "icons/pot.png", "category": "icons/head" },
+			{ "name": "propeller", "label": "Propeller Cap", "default": "icons/propeller.png", "category": "icons/head" },
+			{ "name": "propeller_blue", "label": "Blue Propeller Cap", "category": "icons/head" },
+			{ "name": "propeller_pink", "label": "Pink Propeller Cap", "category": "icons/head" },
+			{ "name": "sleeping", "label": "Sleeping Hat", "default": "icons/sleeping.png", "category": "icons/head" },
+			{ "name": "space_helmet_white", "label": "White Space Helmet", "category": "icons/head" },
+			{ "name": "toque_blue", "label": "Blue Toque", "default": "icons/toque_blue.png", "category": "icons/head" },
+			{ "name": "toque_pink", "label": "Pink Toque", "default": "icons/toque_pink.png", "category": "icons/head" },
+			{ "name": "toque_purple", "label": "Purple Toque", "default": "icons/toque_purple.png", "category": "icons/head" },
+			{ "name": "toque_white", "label": "White Toque", "default": "icons/toque_white.png", "category": "icons/head" },
+			{ "name": "viking", "label": "Viking Helmet", "default": "icons/viking.png", "category": "icons/head" },
+
+			{ "name": "guitar_blue", "label": "Blue Guitar", "category": "icons/hand" },
+
+			{ "name": "float_yellow", "label": "Yellow Duck Floatie", "default": "icons/float_yellow.png", "category": "icons/belt" },
+
+			{ "category": "icons/mask" },
+
+			{ "name": "hawaii_orange", "label": "Orange Hawaiian Shirt", "default": "icons/hawaii_orange.png", "category": "icons/body" },
+			{ "name": "hoodie_black", "label": "Black Hoodie", "default": "icons/hoodie_black.png", "category": "icons/body" },
+			{ "name": "hoodie_blue", "label": "Blue Hoodie", "default": "icons/hoodie_blue.png", "category": "icons/body" },
+			{ "name": "hoodie_green", "label": "Green Hoodie", "default": "icons/hoodie_green.png", "category": "icons/body" },
+			{ "name": "hoodie_pink", "label": "Pink Hoodie", "default": "icons/hoodie_pink.png", "category": "icons/body" },
+			{ "name": "hoodie_purple", "label": "Purple Hoodie", "category": "icons/body" },
+			{ "name": "hoodie_white", "label": "White Hoodie", "category": "icons/body" },
+			{ "name": "monk", "label": "Monk Outfit", "default": "icons/monk.png", "category": "icons/body" },
+			{ "name": "overalls_orange", "label": "Orange Construction Overalls", "category": "icons/body" },
+			{ "name": "lifejacket_red", "label": "Red Life Jacket", "category": "icons/body" },
+			{ "name": "pirate_capt_black", "label": "Pirate Captain Jacket", "default": "icons/pirate_capt_black.png", "category": "icons/body" },
+			{ "name": "pirate_capt_red", "label": "Pirate Captain Red", "category": "icons/body" },
+			{ "name": "pirate_belt_blue", "label": "Pirate Belt Blue", "category": "icons/body" },
+			{ "name": "plaid_blue", "label": "Blue Plaid Shirt", "category": "icons/body" },
+			{ "name": "plaid_red", "label": "Red Plaid Shirt", "default": "icons/plaid_red.png", "category": "icons/body" },
+			{ "name": "space_black", "label": "Black Space Suit", "category": "icons/body" },
+			{ "name": "space_blue", "label": "Blue Space Suit", "default": "icons/space_blue.png", "category": "icons/body" },
+			{ "name": "space_orange", "label": "Orange Space Suit", "category": "icons/body" },
+			{ "name": "space_red", "label": "Red Space Suit", "default": "icons/space_red.png", "category": "icons/body" },
+			{ "name": "space_suit_white", "label": "White Space Suit", "category": "icons/body" },
+			{ "name": "tshirt_white", "label": "White T-shirt", "default": "icons/tshirt_white.png", "category": "icons/body" },
+			{ "name": "green_backpack", "label": "Green Backpack", "category": "icons/pack" },
+			{ "name": "space_pack_white", "label": "White Spacepack", "category": "icons/pack" },
+
+
+			{ "name": "items", "label": "Items", "default": "items/items.png", "category": "items" },
+
+
+			{ "name": "ux", "label": "User Interface", "default": "/ux/ux.png", "category": "ux" },
+
+
+			{ "name": "bridgeBackground", "label": "Bridge Background", "default": "/rooms/bridge_bg.png", "category": "rooms/StarShip/bridge" },
+			{ "name": "bridgeProps", "label": "Bridge Props", "default": "/rooms/bridge_ss.png", "category": "rooms/StarShip/bridge" },
+			{ "category": "rooms/StarShip/engine" },
+			{ "category": "rooms/StarShip/Teleporter" },
+			{ "category": "rooms/StarShip/Cargo" },
+			{ "category": "rooms/StarShip/Security" },
+			{ "category": "rooms/StarShip/SickBay" },
+			{ "category": "rooms/StarShip/ScienceLab" },
+			{ "category": "rooms/StarShip/Armory" },
+			{ "category": "rooms/StarShip/Exterior" },
+
+			{ "name": "tavernProps", "label": "Tavern Props", "default": "/rooms/tavern_ss.png", "category": "rooms/PirateIsland/tavern" },
+			{ "name": "tavernBG", "label": "Tavern Background", "default": "/rooms/tavern_bg.png", "category": "rooms/PirateIsland/tavern" },
+			{ "name": "tavernFG", "label": "Tavern Foreground", "default": "/rooms/tavern_fg.png", "category": "rooms/PirateIsland/tavern" },
+			{ "category": "rooms/PirateIsland/Outpost" },
+			{ "category": "rooms/PirateIsland/Dock" },
+			{ "category": "rooms/PirateIsland/VolcanoOfDoom" }
+		]
+	]
+}
