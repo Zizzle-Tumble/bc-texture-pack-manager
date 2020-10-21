@@ -1,3 +1,0 @@
-[submodule "src/bc-shaders"]
-	path = src/bc-shaders
-	url = https://github.com/boxcritters/bc-shaders
