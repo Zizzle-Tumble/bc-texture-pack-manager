@@ -15,7 +15,7 @@
 // @require      https://github.com/SArpnt/EventHandler/raw/master/script.js
 // @require      https://github.com/SArpnt/cardboard/raw/master/script.user.js
 // @require      https://github.com/tumble1999/mod-utils/raw/master/mod-utils.js
-// @require      https://github.com/tumble1999/popper/raw/master/popper.js
+// @require      https://github.com/tumble1999/modial/raw/master/modial.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
