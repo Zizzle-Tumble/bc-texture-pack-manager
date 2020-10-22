@@ -4,7 +4,7 @@
 // @version      3.2.0.202
 // @description  A great extension that lets you easily switch between, add and create new themes to use on Box Critters!
 // @author       TumbleGamer, Zizzle
-// @logo         https://raw.githubusercontent.com/boxcrittersmods/bc-texture-pack-manager/master/logo.png
+// @icon         https://raw.githubusercontent.com/boxcrittersmods/bc-texture-pack-manager/master/logo.png
 // @match        https://boxcritters.com/play/
 // @match        https://boxcritters.com/play/?*
 // @match        https://boxcritters.com/play/#*
