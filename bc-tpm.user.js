@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         Box Critters Texture Pack Manager
-// @namespace    http://boxcrittersmods.ga/
+// @namespace    https://boxcrittersmods.ga/authors/tumblegamer/
+// @supportURL   http://discord.gg/D2ZpRUW
 // @version      3.2.0.202
 // @description  A great extension that lets you easily switch between, add and create new themes to use on Box Critters!
 // @author       TumbleGamer, Zizzle
