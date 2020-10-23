@@ -6,17 +6,19 @@
 // @description  A great extension that lets you easily switch between, add and create new themes to use on Box Critters!
 // @author       TumbleGamer, Zizzle
 // @icon         https://raw.githubusercontent.com/boxcrittersmods/bc-texture-pack-manager/master/logo.png
+// @require      https://github.com/SArpnt/joinFunction/raw/master/script.js
+// @require      https://github.com/SArpnt/EventHandler/raw/master/script.js
+// @require      https://github.com/SArpnt/cardboard/raw/master/script.user.js
+// @require      https://github.com/tumble1999/mod-utils/raw/master/mod-utils.js
+// @require      https://github.com/tumble1999/modial/raw/master/modial.js
+// @require      https://github.com/SArpnt/ctrl-panel/raw/master/script.user.js
+// @require      https://github.com/tumble1999/critterguration/raw/master/critterguration.user.js
 // @match        https://boxcritters.com/play/
 // @match        https://boxcritters.com/play/?*
 // @match        https://boxcritters.com/play/#*
 // @match        https://boxcritters.com/play/index.html
 // @match        https://boxcritters.com/play/index.html?*
 // @match        https://boxcritters.com/play/index.html#*
-// @require      https://github.com/SArpnt/joinFunction/raw/master/script.js
-// @require      https://github.com/SArpnt/EventHandler/raw/master/script.js
-// @require      https://github.com/SArpnt/cardboard/raw/master/script.user.js
-// @require      https://github.com/tumble1999/mod-utils/raw/master/mod-utils.js
-// @require      https://github.com/tumble1999/modial/raw/master/modial.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
