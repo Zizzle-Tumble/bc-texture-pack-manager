@@ -78,17 +78,6 @@
 		return current;
 	}
 
-
-
-	/*function objMap(o, cb = (t, v, k, o) => { t[k] = v; }, t = o, h = []) {
-		for (let k in o) {
-			let tmp = o[k];
-			if (typeof o[k] == "object") tmp = objMap(tmp, cb, t[k] || {}, [...h, k]);
-			cb(t, tmp, k, o, h);
-		}
-		return t;
-	}*/
-
 	function objMap(target, cb = (target, value, key, keyHistory, source) => target, source = target, keyHistory = []) {
 		for (let key in source) {
 			let value = source[key];
@@ -124,24 +113,31 @@
 			world[key] = value;
 		}, world);*/
 	}
-	cardboard.on("worldCreated", world => {
-		BCTPM.log("World Created");
-		BCTPM.world = world;
-	});
-	cardboard.on("login", () => {
-		Object.assign(defaultTP, {
-			name: "Box Critters",
-			author: "RocketSnail",
-			date: new Date(1564832528955),
-			description: "This is the classical look of Box Critters"
+
+	if (typeof cardboard !== undefined) {
+		cardboard.on("worldCreated", world => {
+			BCTPM.log("World Created");
+			BCTPM.world = world;
 		});
-		registerThing("item");
-		registerThing("room");
-		registerThing("critter");
+		cardboard.on("login", () => {
+			Object.assign(defaultTP, {
+				name: "Box Critters",
+				author: "RocketSnail",
+				date: new Date(1564832528955),
+				description: "This is the classical look of Box Critters"
+			});
+			registerThing("item");
+			registerThing("room");
+			registerThing("critter");
 
 
-		//defaultTP = Object.assign({}, BCTPM.world);
-	});
+			//defaultTP = Object.assign({}, BCTPM.world);
+		});
+	}
+	if (typeof Critterguration !== undefined) {
+		var settings = Critterguration.registerSettingsMenu(BCTPM);
+		settings.innerText = "Coming soon";
+	}
 
 	window.BCTPM = BCTPM;
 })();
