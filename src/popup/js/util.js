@@ -3,7 +3,7 @@ var browser = browser || chrome || msBrowser;
 var CONTENT_CONNECTED = false;
 var DEFAULT;
 
-var API = "https://api.boxcrittersmods.ga";
+var API = "https://api.bcmc.ga";
 
 function getURLParams() {
 	return window.location.search.replace('?','').split('&').reduce((obj,p)=>{

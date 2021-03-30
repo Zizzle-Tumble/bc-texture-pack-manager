@@ -50,7 +50,7 @@
 			"matches": [
 				"https://*.boxcritters.com/*",
 				"https://critterball.herokuapp.com/*",
-				"https://*.boxcrittersmods.ga/*"
+				"https://*.bcmc.ga/*"
 			],
 			"js": [
 				"content.js"
@@ -65,7 +65,7 @@
 		"activeTab",
 		"https://critterball.herokuapp.com/*",
 		"https://*.boxcritters.com/*",
-		"https://*.boxcrittersmods.ga/*"
+		"https://*.bcmc.ga/*"
 	],
 
 	"options_ui": {

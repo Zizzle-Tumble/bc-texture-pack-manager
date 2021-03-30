@@ -3,8 +3,8 @@
 [![GitHub commits](https://img.shields.io/github/commits-since/boxcritters/bc-texture-pack-manager/v2.0.0.svg)](https://GitHub.com/boxcritters/bc-texture-pack-manager/commit/)
 [![GitHub license](https://img.shields.io/github/license/boxcritters/bc-texture-pack-manager.svg)](https://github.com/boxcritters/bc-texture-pack-manager/blob/master/LICENSE)
 
-Install: https://boxcrittersmods.ga/tools/texturepackselector/
-Send Feedback: https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager
+Install: https://bcmc.ga/tools/texturepackselector/
+Send Feedback: https://bcmc.ga/feedback/send?repo=bc-texture-pack-manager
 
 # ChangeLog
 ## 3.2.x

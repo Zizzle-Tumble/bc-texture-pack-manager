@@ -4,7 +4,7 @@ var TP_RULES = new Array();
 var DEFAULT_TP;
 var POPUP_TAB = 0;
 
-var API = "https://api.boxcrittersmods.ga";
+var API = "https://api.bcmc.ga";
 
 // async function getFormats() {
 //     var formats = await getJSON('/formats.json');

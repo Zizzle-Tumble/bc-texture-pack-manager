@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shaderlist.appendChild(msgP);
             var link = document.createElement("a");
             link.text = "Send Feedback";
-            link.href = "https://boxcrittersmods.ga/feedback/send?repo=bc-texture-pack-manager";
+            link.href = "https://bcmc.ga/feedback/send?repo=bc-texture-pack-manager";
             shaderlist.appendChild(link);
             var info = $(`<textarea cols="50" style="overflow-y:scroll;" readonly>${e.stack}${e.name}${e.message}</textarea>`)[0];
             shaderlist.appendChild(info);
